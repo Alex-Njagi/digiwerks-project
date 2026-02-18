@@ -1,5 +1,6 @@
 class Project
   belongs_to :user
+  has_many :project_stages
 
   include Mongoid::Document
   include Mongoid::Timestamps

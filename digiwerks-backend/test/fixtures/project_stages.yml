@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stage_name: 
+  stage_order: 
+  description: MyString
+  project: one
+
+two:
+  stage_name: 
+  stage_order: 
+  description: MyString
+  project: two
