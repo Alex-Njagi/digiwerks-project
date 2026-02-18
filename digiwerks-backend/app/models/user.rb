@@ -1,6 +1,8 @@
 class User
   has_secure_password
 
+  has_many :projects
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
