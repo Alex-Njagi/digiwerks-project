@@ -1,6 +1,8 @@
 class Project
   belongs_to :user
-  has_many :project_stages
+
+  has_many :project_stages, dependent: :destroy
+  has_many :assets, dependent: :destroy
 
   include Mongoid::Document
   include Mongoid::Timestamps

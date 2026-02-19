@@ -1,7 +1,11 @@
 class User
   has_secure_password
 
-  has_many :projects
+  has_many :projects, dependent: :destroy
+  has_many :project_stages, dependent: :destroy
+  has_many :assets, dependent: :destroy
+  has_many :asset_versions, dependent: :destroy
+
 
   include Mongoid::Document
   include Mongoid::Timestamps
