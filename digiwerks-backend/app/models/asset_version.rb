@@ -9,4 +9,6 @@ class AssetVersion
 
   belongs_to :user
   belongs_to :asset
+
+  has_many :feedbacks, dependent: :destroy
 end
