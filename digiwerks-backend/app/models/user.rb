@@ -5,6 +5,7 @@ class User
   has_many :project_stages, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :asset_versions, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
 
 
   include Mongoid::Document
