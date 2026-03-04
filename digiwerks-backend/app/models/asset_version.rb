@@ -7,7 +7,7 @@ class AssetVersion
   field :file_url, type: String
   field :change_notes, type: String
 
-  belongs_to :user
+  belongs_to :artist
   belongs_to :asset
 
   has_many :feedbacks, dependent: :destroy

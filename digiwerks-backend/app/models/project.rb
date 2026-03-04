@@ -4,11 +4,11 @@ class Project
   include Mongoid::Timestamps
   
   # Relationships with other models
-  belongs_to :user
+  belongs_to :artist
   has_many :project_stages, dependent: :destroy
 
   # Project model field definition
-  field :user_id, type: BSON::ObjectId
+  field :artist_id, type: BSON::ObjectId
   field :title, type: String
   field :description, type: String
   field :status, type: String, default: "In-Progress"
