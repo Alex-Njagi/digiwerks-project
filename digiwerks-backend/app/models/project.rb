@@ -2,6 +2,8 @@ class Project
   # Ensure timestamps are automatically created for model records
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  before_validation { self.end_date = nil if end_date.blank? }
   
   # Relationships with other models
   belongs_to :artist
@@ -13,7 +15,7 @@ class Project
   field :description, type: String
   field :status, type: String, default: "In-Progress"
   field :start_date, type: Date
-  field :end_date, type: Date
+  field :end_date, type: Date, default: "empty"
 
   # Virtual prefixed ID
   def public_id
