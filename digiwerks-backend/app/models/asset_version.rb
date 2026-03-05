@@ -1,0 +1,14 @@
+class AssetVersion
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :asset_id, type: BSON::ObjectId
+  field :version_number, type: Integer
+  field :file_url, type: String
+  field :change_notes, type: String
+
+  # belongs_to :artist
+  belongs_to :asset
+
+  has_many :feedbacks, dependent: :destroy
+end
