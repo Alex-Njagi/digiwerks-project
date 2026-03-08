@@ -12,6 +12,25 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :artists
+  # resources :artists do
+  #   resources :projects, only: [:index, :create]
+  # end
+
+  resources :artists do
+    resources :projects, shallow: true
+  end
+
+  resources :projects do
+    resources :project_stages, shallow: true
+  end
+
+  resources :project_stages do
+    resources :assets, shallow: true
+  end
+
+  resources :assets do
+    resources :asset_versions, shallow: true
+  end
+  
   resources :admins
 end
