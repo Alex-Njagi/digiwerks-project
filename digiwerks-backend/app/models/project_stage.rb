@@ -3,7 +3,7 @@ class ProjectStage
   include Mongoid::Timestamps
 
   # field :user_id, type: BSON::ObjectId
-  field :project_id, type: BSON::ObjectId
+  # field :project_id, type: BSON::ObjectId
   field :stage_name, type: String
   field :stage_order, type: Integer
   field :description, type: String
