@@ -1,11 +1,16 @@
 class ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_artist, only: [:index, :create]
+    before_action :set_artist, only: [:owned_projects, :create]
     before_action :set_project, only: [:show, :update, :destroy]
 
     def index
-        projects = @artist.projects
-        render json: projects
+        projects = Project.all
+        render json: projects, include: :project_stages
+    end
+    
+    def owned_projects
+        owned_projects = @artist.projects
+        render json: owned_projects
     end
 
     def show
