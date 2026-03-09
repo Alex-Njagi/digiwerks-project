@@ -25,10 +25,10 @@ Rails.application.routes.draw do
   end
 
   resources :project_stages do
-    resources :assets, shallow: true
+    resources :assets, path: "project_assets", shallow: true
   end
 
-  resources :assets do
+  resources :assets, path: "project_assets" do
     resources :asset_versions, shallow: true
   end
   

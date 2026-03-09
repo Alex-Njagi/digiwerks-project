@@ -4,9 +4,6 @@ class Artist < User
 
   # Relationships with other models
   has_many :projects, dependent: :destroy
-  has_many :project_stages, dependent: :destroy
-  has_many :assets, dependent: :destroy
-  # has_many :asset_versions, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
 
   field :username, type: String
