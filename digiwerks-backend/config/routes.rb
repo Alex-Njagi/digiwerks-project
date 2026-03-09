@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :assets, path: "project_assets" do
     resources :asset_versions, shallow: true
+    resources :asset_tags, only: [:index, :create, :destroy]
   end
 
   resources :asset_versions do
@@ -37,4 +38,6 @@ Rails.application.routes.draw do
   end
   
   resources :admins
+
+  resources :tags, only: [:index, :show]
 end

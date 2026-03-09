@@ -9,7 +9,7 @@ class AssetsController < ApplicationController
   end
 
   def show
-    render json: @asset, include: :asset_versions
+    render json: @asset, include: [:asset_versions, :asset_tags]
   end
 
   def create
