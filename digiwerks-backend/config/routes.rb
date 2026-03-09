@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   resources :assets, path: "project_assets" do
     resources :asset_versions, shallow: true
   end
+
+  resources :asset_versions do
+    resources :feedbacks, shallow: true
+  end
   
   resources :admins
 end
