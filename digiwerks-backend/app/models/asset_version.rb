@@ -4,7 +4,7 @@ class AssetVersion
 
   # field :asset_id, type: BSON::ObjectId
   field :version_number, type: Integer
-  field :file_url, type: String
+  field :file_url, type: String, default: "https://example.com/default-profile.png"
   field :change_notes, type: String
 
   # belongs_to :artist

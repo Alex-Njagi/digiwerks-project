@@ -40,4 +40,15 @@ Rails.application.routes.draw do
   resources :admins
 
   resources :tags, only: [:index, :show]
+
+  post "/artist_login", to: "sessions#artist_login"
+  post "/admin_login", to: "sessions#admin_login"
+  delete "/logout", to: "sessions#logout"
+
+  get "/artists/:artist_id/owned_projects", to: "projects#owned_projects"
+  
+  get "/admin/view_accounts", to: "artists#view_accounts"
+  get "/admin/moderate_projects", to: "projects#moderation_dashboard"
+
+  get "/whoami", to: "sessions#whoami"
 end

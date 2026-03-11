@@ -1,8 +1,15 @@
 class ArtistsController < UsersController
-    def index
+    before_action :require_account_manager!, only: [:view_accounts]
+
+    def view_accounts
         artists = Artist.all
         render json: artists
     end
+
+    # def index
+    #     artists = Artist.all
+    #     render json: artists
+    # end
 
     def create
         artist = Artist.new(artist_params)

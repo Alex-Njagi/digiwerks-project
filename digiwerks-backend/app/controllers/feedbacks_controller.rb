@@ -46,7 +46,7 @@ class FeedbacksController < ApplicationController
     end
 
     def set_artist
-        @artist = Artist.find(params[:artist_id])
+        @artist = current_artist
     end
 
     def set_feedback

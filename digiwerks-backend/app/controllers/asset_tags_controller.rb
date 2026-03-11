@@ -17,7 +17,7 @@ class AssetTagsController < ApplicationController
         )
 
         if asset_tag.save
-            render json: asset_tag, status: :created
+            render json: asset_tag.as_json(include: { tag: { only: [:id, :tag_name] }}), status: :created
         else
             render json: { errors: asset_tag.errors }, status: :unprocessable_entity
         end

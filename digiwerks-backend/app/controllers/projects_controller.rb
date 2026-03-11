@@ -2,6 +2,12 @@ class ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_artist, only: [:owned_projects, :create]
     before_action :set_project, only: [:show, :update, :destroy]
+    before_action :require_content_moderator!, only: [:moderation_dashboard]
+
+    def moderation_dashboard
+        projects = Project.all
+        render json: projects
+    end
 
     def index
         projects = Project.all
@@ -10,7 +16,7 @@ class ProjectsController < ApplicationController
     
     def owned_projects
         owned_projects = @artist.projects
-        render json: owned_projects
+        render json: owned_projects, include: :project_stages
     end
 
     def show
@@ -44,7 +50,7 @@ class ProjectsController < ApplicationController
     private
 
     def set_artist
-        @artist = Artist.find(params[:artist_id])
+        @artist = current_artist
     end
 
     def set_project

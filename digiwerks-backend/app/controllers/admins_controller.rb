@@ -1,4 +1,7 @@
 class AdminsController < UsersController
+    before_action :authenticate_admin!
+    skip_before_action :authenticate_artist!
+    
     def index
         admins = Admin.all
         render json: admins
