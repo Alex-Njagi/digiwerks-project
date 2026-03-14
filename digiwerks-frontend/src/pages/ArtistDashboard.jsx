@@ -4,15 +4,20 @@ import ArtistStats from "../components/ArtistStats";
 import ProjectGrid from "../components/ProjectGrid";
 
 export default function ArtistDashboard() {
-  return (
+    const projects = [
+        { id: 1, title: "Concept Art", thumbnail: "https://placehold.co/400x400" },
+        { id: 2, title: "Character Sheet", thumbnail: "https://placehold.co/400x400" },
+        { id: 3, title: "Environment Study", thumbnail: "https://placehold.co/400x400" }
+    ];
+    return (
     <Box p={6}>
-      <ArtistProfileCard />
-      <ArtistStats
+        <ArtistProfileCard />
+        <ArtistStats
         projects={5}
         assets={10}
         versions={15}
-      />
-      <ProjectGrid />
+        />
+        <ProjectGrid projects={projects} />
     </Box>
-  );
+    );
 }

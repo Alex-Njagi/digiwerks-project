@@ -1,7 +1,7 @@
 import { Box, Heading, Divider, SimpleGrid } from "@chakra-ui/react";
 import ProjectCard from "./ProjectCard";
 
-function ProjectGrid() {
+function ProjectGrid({ projects = [] }) {
   return (
     <Box mt={10} maxW="900px" mx="auto">
 
@@ -13,16 +13,14 @@ function ProjectGrid() {
       <Divider mb={6} borderColor="brand.blue" />
 
       {/* Responsive Grid */}
-      <SimpleGrid
-        minChildWidth="250px"
-        spacing={6}
-      >
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+      <SimpleGrid minChildWidth="250px" spacing={6}>
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            title={project.title}
+            thumbnail={project.thumbnail}
+          />
+        ))}
       </SimpleGrid>
 
     </Box>

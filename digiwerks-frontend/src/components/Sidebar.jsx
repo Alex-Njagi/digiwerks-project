@@ -30,7 +30,7 @@ function Sidebar({ isOpen, onClose }) {
         <DrawerBody>
           <VStack align="stretch" spacing={4} mt={4}>
 
-            <Button variant="ghost" onClick={() => go("/browse")}>
+            <Button variant="ghost" onClick={() => go("/browse_projects")}>
               Browse
             </Button>
 
@@ -38,7 +38,7 @@ function Sidebar({ isOpen, onClose }) {
               Create
             </Button>
 
-            <Button variant="ghost" onClick={() => go("/dashboard")}>
+            <Button variant="ghost" onClick={() => go("/artist_dashboard")}>
               Profile
             </Button>
 

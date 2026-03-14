@@ -5,6 +5,7 @@ import LoginArtist from './pages/LoginArtist';
 import './App.css'
 import Layout from './components/Layout';
 import ArtistDashboard from './pages/ArtistDashboard';
+import BrowseProjects from './pages/BrowseProjects';
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
       <Routes>
         <Route path="/signup_artist" element={<SignupArtist />} />
         <Route path="/login_artist" element={<LoginArtist />} />
-        <Route path="/dashboard" element={<ArtistDashboard />} />
+        <Route path="/artist_dashboard" element={<ArtistDashboard />} />
+        <Route path="/browse_projects" element={<BrowseProjects />} />
       </Routes>
     </Layout>    
   );
