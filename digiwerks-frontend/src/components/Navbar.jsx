@@ -1,42 +1,56 @@
-import { Flex, Box, Button, Icon } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
+import {
+  Flex,
+  Box,
+  IconButton,
+  useDisclosure
+} from "@chakra-ui/react";
 
-export default function Navbar({ isLoggedIn = false }) {
+import { HamburgerIcon } from "@chakra-ui/icons";
+import Sidebar from "./Sidebar";
+
+function Navbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Flex
-      bg="brand.pink"
-      w="100%"
-      p={5}
-      align="center"
-      justify="space-between"
-      position="sticky"
-      top="0"
-      zIndex="1000"
-      borderColor="white"
-    >
-      <Box />
-
-      {/* Logo placeholder */}
-      <Box
-        position="absolute"
-        left="50%"
-        transform="translateX(-50%)"
-        fontWeight="bold"
-        color="white"
+    <>
+      <Flex
+        bg="brand.pink"
+        w="100%"
+        p={4}
+        align="center"
+        justify="space-between"
+        position="sticky"
+        top="0"
+        zIndex="1000"
       >
-        DigiWerks
-      </Box>
+        {/* Hamburger */}
+        <IconButton
+          icon={<HamburgerIcon />}
+          variant="ghost"
+          color="brand.pastelPink"
+          fontSize="24px"
+          onClick={onOpen}
+        />
 
-      <Flex align="center" gap={3}>
-        {isLoggedIn && (
-          <>
-            <Icon as={FaUserCircle} boxSize={6} color="white" />
-            <Button size="sm" bg="white">
-              Logout
-            </Button>
-          </>
-        )}
+        {/* Centered Logo */}
+        <Box
+          position="absolute"
+          left="50%"
+          transform="translateX(-50%)"
+          fontWeight="bold"
+          color="white"
+          fontSize="lg"
+        >
+          DigiWerks
+        </Box>
+
+        {/* Spacer to balance layout */}
+        <Box w="40px" />
       </Flex>
-    </Flex>
+
+      <Sidebar isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
+
+export default Navbar;
