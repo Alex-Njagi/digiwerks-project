@@ -10,5 +10,5 @@ class Admin < User
   validates :name, presence: true
 
   # Role restriction
-  validates :admin_role, inclusion: { in: %w[Content-Moderation Account-Management] }
+  validates :admin_role, inclusion: { in: %w[content_moderation account_management] }
 end

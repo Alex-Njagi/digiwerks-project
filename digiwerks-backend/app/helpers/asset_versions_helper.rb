@@ -1,0 +1,2 @@
+module AssetVersionsHelper
+end

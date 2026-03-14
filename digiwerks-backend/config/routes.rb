@@ -11,4 +11,44 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # resources :artists do
+  #   resources :projects, only: [:index, :create]
+  # end
+
+  resources :artists do
+    resources :projects, shallow: true
+  end
+
+  resources :projects do
+    resources :project_stages, shallow: true
+  end
+
+  resources :project_stages do
+    resources :assets, path: "project_assets", shallow: true
+  end
+
+  resources :assets, path: "project_assets" do
+    resources :asset_versions, shallow: true
+    resources :asset_tags, only: [:index, :create, :destroy]
+  end
+
+  resources :asset_versions do
+    resources :feedbacks, shallow: true
+  end
+  
+  resources :admins
+
+  resources :tags, only: [:index, :show]
+
+  post "/artist_login", to: "sessions#artist_login"
+  post "/admin_login", to: "sessions#admin_login"
+  delete "/logout", to: "sessions#logout"
+
+  get "/artists/:artist_id/owned_projects", to: "projects#owned_projects"
+  
+  get "/admin/view_accounts", to: "artists#view_accounts"
+  get "/admin/moderate_projects", to: "projects#moderation_dashboard"
+
+  get "/whoami", to: "sessions#whoami"
 end

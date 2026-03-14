@@ -10,7 +10,7 @@ class Project
   has_many :project_stages, dependent: :destroy
 
   # Project model field definition
-  field :artist_id, type: BSON::ObjectId
+  # field :artist_id, type: BSON::ObjectId
   field :title, type: String
   field :description, type: String
   field :status, type: String, default: "In-Progress"
