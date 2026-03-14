@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupArtist from './pages/SignupArtist';
 import LoginArtist from './pages/LoginArtist';
 import './App.css'
-import Layout from './components/ui/Layout';
+import Layout from './components/Layout';
+import ArtistDashboard from './pages/ArtistDashboard';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/signup_artist" element={<SignupArtist />} />
         <Route path="/login_artist" element={<LoginArtist />} />
+        <Route path="/dashboard" element={<ArtistDashboard />} />
       </Routes>
     </Layout>    
   );

@@ -36,7 +36,7 @@ function LoginArtist() {
                 bg="brandPink"
                 color="white"
                 _hover={{ bg: "brandBlue" }}
-                onClick={() => navigate("/signup_artist")}
+                onClick={() => navigate("/dashboard")}
               >
                 Login
               </Button>

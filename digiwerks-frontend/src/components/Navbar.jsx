@@ -1,10 +1,10 @@
 import { Flex, Box, Button, Icon } from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
 
-function Navbar({ isLoggedIn = false }) {
+export default function Navbar({ isLoggedIn = false }) {
   return (
     <Flex
-      bg="brandPink"
+      bg="brand.pink"
       w="100%"
       p={5}
       align="center"
@@ -40,5 +40,3 @@ function Navbar({ isLoggedIn = false }) {
     </Flex>
   );
 }
-
-export default Navbar;
