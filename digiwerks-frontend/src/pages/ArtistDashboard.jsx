@@ -12,11 +12,7 @@ export default function ArtistDashboard() {
     return (
     <Box p={6}>
         <ArtistProfileCard />
-        <ArtistStats
-        projects={5}
-        assets={10}
-        versions={15}
-        />
+        <ArtistStats />
         <ProjectGrid projects={projects} />
     </Box>
     );

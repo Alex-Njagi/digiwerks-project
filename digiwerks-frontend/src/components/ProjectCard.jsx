@@ -1,6 +1,9 @@
 import { Box, Image, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectCard({title = "Project Title",thumbnail = "https://placehold.co/400x400"}) {
+  const navigate = useNavigate();
+  
   return (
     <Box
       borderRadius="lg"
@@ -16,6 +19,7 @@ export default function ProjectCard({title = "Project Title",thumbnail = "https:
         borderColor: "brand.blue",
         boxShadow: "lg"
       }}
+      onClick={() => navigate("/project_workspace")}
     >
 
       <Image
