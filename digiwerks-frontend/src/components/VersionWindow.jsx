@@ -13,6 +13,7 @@ import {
   Heading,
   Button
 } from "@chakra-ui/react";
+import FeedbackCard from "./FeedbackCard";
 
 export default function VersionWindow ({ isOpen, onClose, version }) {
   console.log(version);
@@ -60,7 +61,7 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                   </Text>
                 </Box>
 
-                <Divider />
+                <Divider borderColor="brand.pink"/>
 
                 {/* Description */}
                 <Box>
@@ -72,37 +73,10 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                   </Text>
                 </Box>
 
-                <Divider />
+                <Divider borderColor="brand.blue"/>
 
-                {/* Feedback Card */}
-                <Box
-                  p={4}
-                  bg="gray.50"
-                  borderRadius="md"
-                >
-                  <Text fontWeight="semibold" mb={2}>
-                    Feedback
-                  </Text>
-                  <Text fontSize="sm" color="gray.600">
-                    Existing feedback entries will appear here.
-                  </Text>
-                </Box>
 
-                <Divider />
-
-                {/* Submit Feedback */}
-                <Box
-                  p={4}
-                  bg="brand.pastelPink"
-                  borderRadius="md"
-                >
-                  <Text fontWeight="semibold" mb={2}>
-                    Submit Feedback
-                  </Text>
-                  <Button size="sm" colorScheme="pink">
-                    Add Comment
-                  </Button>
-                </Box>
+                <FeedbackCard feedbacks = {version.feedbacks}/>
 
               </VStack>
             </Flex>

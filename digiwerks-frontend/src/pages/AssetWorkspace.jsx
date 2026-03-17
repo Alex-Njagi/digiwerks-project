@@ -18,7 +18,13 @@ export default function AssetWorkspace() {
     }
 
     const versions = [
-        { version_number: 1, change_notes: "Sample notes", file_url: "https://placehold.co/400x400"},
+        { version_number: 1, change_notes: "Sample notes", file_url: "https://placehold.co/400x400",
+            feedbacks: [
+                {id: 1, author: "Artist name", body: "Feedback body"},
+                {id: 2, author: "Artist name", body: "Feedback body"},
+                {id: 3, author: "Artist name", body: "Feedback body"}
+            ]
+        },
         { version_number: 2, change_notes: "Sample notes", file_url: "https://placehold.co/400x400"},
         { version_number: 3, change_notes: "Sample notes", file_url: "https://placehold.co/400x400"},
         { version_number: 4, change_notes: "Sample notes", file_url: "https://placehold.co/400x400"}
