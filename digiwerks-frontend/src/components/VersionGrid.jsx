@@ -1,7 +1,8 @@
 import { Box, Heading, Divider, SimpleGrid } from "@chakra-ui/react";
 import VersionCard from "./VersionCard";
 
-export default function VersionGrid({ versions = [], onVersionClick }) {
+export default function VersionGrid({ versions, onVersionClick }) {
+  // console.log(versions);  
   
   return (
     <Box mt={10} maxW="900px" mx="auto">

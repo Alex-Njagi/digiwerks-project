@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 
 export default function VersionWindow ({ isOpen, onClose, version }) {
+  console.log(version);
+  
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
       <ModalOverlay />

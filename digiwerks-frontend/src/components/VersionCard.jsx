@@ -2,7 +2,8 @@ import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export default function VersionCard ({version, onClick}) {
-  const navigate = useNavigate();
+  // console.log(version);
+  
   
   return (
     <Box

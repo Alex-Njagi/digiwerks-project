@@ -2,8 +2,8 @@ import { Box } from "@chakra-ui/react";
 import AssetSummaryCard from "../components/AssetSummaryCard";
 import AssetStats from "../components/AssetStats";
 import VersionGrid from "../components/VersionGrid";
-import VersionWindow from "../components/VersionWindow";
 import { useState } from "react";
+import VersionWindow from "../components/VersionWindow";
 
 export default function AssetWorkspace() {
 
@@ -36,12 +36,17 @@ export default function AssetWorkspace() {
         <Box p={6}>
             <AssetSummaryCard asset = {asset} />
             <AssetStats asset = {asset}/>
-            <VersionGrid versions={versions} onVersionClick={openVersion}/>
+            <VersionGrid 
+                versions={versions}
+                onVersionClick={openVersion}
+            />
+            {selectedVersion && (
             <VersionWindow
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 version={selectedVersion}
             />
+            )}
                   
         </Box>
     );
