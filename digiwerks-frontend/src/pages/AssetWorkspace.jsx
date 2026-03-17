@@ -2,6 +2,8 @@ import { Box } from "@chakra-ui/react";
 import AssetSummaryCard from "../components/AssetSummaryCard";
 import AssetStats from "../components/AssetStats";
 import VersionGrid from "../components/VersionGrid";
+import VersionWindow from "../components/VersionWindow";
+import { useState } from "react";
 
 export default function AssetWorkspace() {
 
@@ -22,11 +24,25 @@ export default function AssetWorkspace() {
         { version_number: 4, change_notes: "Sample notes", file_url: "https://placehold.co/400x400"}
     ];
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedVersion, setSelectedVersion] = useState(null);
+
+    const openVersion = (version) => {
+        setSelectedVersion(version);
+        setIsOpen(true);
+    };
+
     return (
         <Box p={6}>
             <AssetSummaryCard asset = {asset} />
             <AssetStats asset = {asset}/>
-            <VersionGrid versions={versions}/>      
+            <VersionGrid versions={versions} onVersionClick={openVersion}/>
+            <VersionWindow
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                version={selectedVersion}
+            />
+                  
         </Box>
     );
 }

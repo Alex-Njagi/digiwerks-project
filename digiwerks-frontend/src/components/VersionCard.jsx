@@ -1,7 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function VersionCard ({title, thumbnail}) {
+export default function VersionCard ({version, onClick}) {
   const navigate = useNavigate();
   
   return (
@@ -19,18 +19,18 @@ export default function VersionCard ({title, thumbnail}) {
         borderColor: "brand.blue",
         boxShadow: "lg"
       }}
-      onClick={() => navigate("/project_workspace")}
+      onClick={onClick}
     >
 
       <Image
-        src={thumbnail}
-        alt={title}
+        src={version.file_url}
+        alt={version.version_number}
         w="100%"
         aspectRatio="1 / 1"
         objectFit="cover" />
 
       <Box p={3}>
-        <Text fontWeight="bold">Version: {title}</Text>
+        <Text fontWeight="bold">Version: {version.version_number}</Text>
       </Box>
     </Box>
   );

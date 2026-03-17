@@ -1,7 +1,8 @@
 import { Box, Heading, Divider, SimpleGrid } from "@chakra-ui/react";
 import VersionCard from "./VersionCard";
 
-export default function VersionGrid({ versions = [] }) {
+export default function VersionGrid({ versions = [], onVersionClick }) {
+  
   return (
     <Box mt={10} maxW="900px" mx="auto">
 
@@ -17,8 +18,8 @@ export default function VersionGrid({ versions = [] }) {
         {versions.map((version) => (
           <VersionCard
             key = {version.version_number}
-            title = {version.version_number}
-            thumbnail = {version.file_url}
+            version = {version}
+            onClick={() => onVersionClick(version)}
           />
         ))}
       </SimpleGrid>
