@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 import ArtistDashboard from './pages/ArtistDashboard';
 import BrowseProjects from './pages/BrowseProjects';
 import ProjectWorkspace from './pages/ProjectWorkspace';
+import AssetWorkspace from './pages/AssetWorkspace';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/artist_dashboard" element={<ArtistDashboard />} />
         <Route path="/browse_projects" element={<BrowseProjects />} />
         <Route path="/project_workspace" element={<ProjectWorkspace />} />
+        <Route path="/asset_workspace" element={<AssetWorkspace />} />
       </Routes>
     </Layout>    
   );

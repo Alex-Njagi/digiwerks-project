@@ -7,6 +7,7 @@ import {
   VStack,
   SimpleGrid
 } from "@chakra-ui/react";
+import AssetCard from "./AssetCard";
 
 function StageCard({
   order = 1,
@@ -28,7 +29,7 @@ function StageCard({
         position="relative"
         zIndex="2"
         />
-        
+
       {/* Stage content */}
       <Box
         flex="1"
@@ -47,21 +48,33 @@ function StageCard({
           </Text>
 
           {/* Name + Description */}
-          <Text fontWeight="bold">
-            {name} — {description}
-          </Text>
+           <Flex align="center" justify="space-between" mb={3}>
+                <Text fontWeight="bold" textAlign="left">
+                <b>Stage {order}:</b> {name} — {description}
+                </Text>
+        
+                {/* Add Asset Button */}
+                <Button
+                    size="sm"
+                    bg="brand.pink"
+                    color="white"
+                    _hover={{ bg: "brand.blue" }}
+                >
+                    + New Asset
+                </Button>
+            </Flex>
 
           {/* Asset previews */}
           <SimpleGrid minChildWidth="120px" spacing={3}>
             {assets.map((asset) => (
-              <Box
+            <AssetCard
                 key={asset.id}
-                bg="gray.200"
-                borderRadius="md"
-                h="70px"
-              />
+                name={asset.name}
+                description={asset.description}
+                tag={asset.tag}
+            />
             ))}
-          </SimpleGrid>
+            </SimpleGrid>
 
           {/* Buttons */}
           <Flex justify="space-between" mt={2}>

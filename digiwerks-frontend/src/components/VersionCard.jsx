@@ -1,8 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard(
-  {title = "Project Title",thumbnail = "https://placehold.co/400x400"}) {
+export default function VersionCard ({title, thumbnail}) {
   const navigate = useNavigate();
   
   return (
@@ -31,7 +30,7 @@ export default function ProjectCard(
         objectFit="cover" />
 
       <Box p={3}>
-        <Text fontWeight="bold">{title}</Text>
+        <Text fontWeight="bold">Version: {title}</Text>
       </Box>
     </Box>
   );

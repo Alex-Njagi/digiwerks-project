@@ -54,7 +54,7 @@ function ProjectStages() {
             color="white"
             _hover={{ bg: "brand.blue" }}
         >
-            +
+            + New Stage
         </Button>
     </Flex>
 

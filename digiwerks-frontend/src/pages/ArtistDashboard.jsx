@@ -5,10 +5,12 @@ import ProjectGrid from "../components/ProjectGrid";
 
 export default function ArtistDashboard() {
     const projects = [
-        { id: 1, title: "Concept Art", thumbnail: "https://placehold.co/400x400" },
-        { id: 2, title: "Character Sheet", thumbnail: "https://placehold.co/400x400" },
-        { id: 3, title: "Environment Study", thumbnail: "https://placehold.co/400x400" }
+        { id: 1, title: "Concept Art", thumbnail: "https://placehold.co/400x400"},
+        { id: 2, title: "Character Design", thumbnail: "https://placehold.co/400x400"},
+        { id: 3, title: "Fantasy World", thumbnail: "https://placehold.co/400x400"},
+        { id: 4, title: "Sci-Fi Assets", thumbnail: "https://placehold.co/400x400"}
     ];
+
     return (
     <Box p={6}>
         <ArtistProfileCard />
