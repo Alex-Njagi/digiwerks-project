@@ -8,6 +8,7 @@ import {
   SimpleGrid
 } from "@chakra-ui/react";
 import AssetCard from "./AssetCard";
+import { useNavigate } from "react-router-dom";
 
 function StageCard({
   order = 1,
@@ -16,6 +17,9 @@ function StageCard({
   date = "March 12 2025",
   assets = []
 }) {
+
+  const navigate = useNavigate();
+
   return (
     <Flex align="flex-start" gap={4} position="relative">
 
@@ -59,6 +63,7 @@ function StageCard({
                     bg="brand.pink"
                     color="white"
                     _hover={{ bg: "brand.blue" }}
+                    onClick={() => navigate("/project_asset/create")}
                 >
                     + New Asset
                 </Button>
@@ -83,6 +88,7 @@ function StageCard({
               bg="brand.pink"
               color="white"
               _hover={{ bg: "brand.blue" }}
+              onClick={() => navigate("/project_stage/edit")}
             >
               Edit Stage
             </Button>

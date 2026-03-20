@@ -6,10 +6,10 @@ import {
   Divider,
   VStack
 } from "@chakra-ui/react";
-
 import StageCard from "./StageCard";
+import { useNavigate } from "react-router-dom";
 
-function ProjectStages() {
+export default function StagesGrid() {
 
   const stages = [
     {
@@ -27,6 +27,8 @@ function ProjectStages() {
       assets: [{ id: 4 }, { id: 5 }]
     }
   ];
+
+  const navigate = useNavigate()
 
   return (
     <Box
@@ -53,6 +55,7 @@ function ProjectStages() {
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
+            onClick={() => navigate("/project_stage/create")}
         >
             + New Stage
         </Button>
@@ -86,5 +89,3 @@ function ProjectStages() {
     </Box>
   );
 }
-
-export default ProjectStages;

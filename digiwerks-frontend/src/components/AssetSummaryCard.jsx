@@ -8,8 +8,10 @@ import {
   HStack,
   Tag
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function AssetSummaryCard({asset}) {
+  const navigate = useNavigate();
   return (
     <Box
       bg="white"
@@ -64,6 +66,7 @@ export default function AssetSummaryCard({asset}) {
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
+            onClick={() => navigate("/project_asset/edit")}
           >
             Edit Asset
           </Button>

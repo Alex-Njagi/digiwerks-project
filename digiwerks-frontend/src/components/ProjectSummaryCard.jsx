@@ -7,14 +7,12 @@ import {
   VStack,
   HStack
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-function ProjectSummaryCard({
-  title = "Project Title",
-  description = "This project contains artwork assets and versions for a larger creative pipeline.",
-  status = "Active",
-  startDate = "Jan 2025",
-  endDate = "Dec 2025"
-}) {
+function ProjectSummaryCard({project}) {
+
+  const navigate = useNavigate();
+
   return (
     <Box
       bg="white"
@@ -31,17 +29,17 @@ function ProjectSummaryCard({
 
         {/* Project Title */}
         <Heading textAlign="center">
-          {title}
+          {project.title}
         </Heading>
 
         {/* Description + Status */}
         <VStack spacing={2}>
           <Text textAlign="center" color="gray.600">
-            {description}
+            {project.description}
           </Text>
 
           <Text fontWeight="bold">
-            Status: {status}
+            Status: {project.status}
           </Text>
         </VStack>
 
@@ -49,12 +47,12 @@ function ProjectSummaryCard({
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
             <Text fontWeight="bold">Start Date: </Text>
-            <Text>{startDate}</Text>
+            <Text>{project.startDate}</Text>
           </HStack>
 
           <HStack>
             <Text fontWeight="bold">End Date: </Text>
-            <Text>{endDate}</Text>
+            <Text>{project.endDate}</Text>
           </HStack>
         </HStack>
 
@@ -64,6 +62,7 @@ function ProjectSummaryCard({
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
+            onClick={() => navigate("/project/edit")}
           >
             Edit Project
           </Button>

@@ -8,11 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ArtistProfileCard({
-  username = "ArtistName",
-  bio = "This is the artist bio. It can be a short description about the creator.",
-  profilePicture = ""
-}) {
+export default function ArtistProfileCard({artist}) {
 
   const navigate = useNavigate();
 
@@ -35,18 +31,18 @@ export default function ArtistProfileCard({
         {/* Profile Picture */}
         <Avatar
           size="2xl"
-          src={profilePicture}
-          name={username}
+          src={artist.profileImage}
+          alt={artist.username}
         />
 
         {/* Username + Bio */}
         <VStack align="start" spacing={2}>
           <Text fontSize="xl" fontWeight="bold">
-            {username}
+            {artist.username}
           </Text>
 
           <Text color="gray.600">
-            {bio}
+            {artist.bio}
           </Text>
         </VStack>
 
@@ -58,7 +54,7 @@ export default function ArtistProfileCard({
           bg="brand.blue"
           color="white"
           _hover={{ bg: "brand.pink" }}
-          onClick={() => navigate("/edit_profile")}
+          onClick={() => navigate("/artist/edit")}
         >
           Edit Profile
         </Button>

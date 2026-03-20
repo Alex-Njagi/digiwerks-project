@@ -34,11 +34,11 @@ function Sidebar({ isOpen, onClose }) {
               Browse
             </Button>
 
-            <Button variant="ghost" onClick={() => go("/create")}>
+            <Button variant="ghost" onClick={() => go("/project/create")}>
               Create
             </Button>
 
-            <Button variant="ghost" onClick={() => go("/artist_dashboard")}>
+            <Button variant="ghost" onClick={() => go("/artist/dashboard")}>
               Profile
             </Button>
 

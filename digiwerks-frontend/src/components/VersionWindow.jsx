@@ -14,9 +14,11 @@ import {
   Button
 } from "@chakra-ui/react";
 import FeedbackCard from "./FeedbackCard";
+import { useNavigate } from "react-router-dom";
 
 export default function VersionWindow ({ isOpen, onClose, version }) {
   console.log(version);
+  const navigate = useNavigate()
   
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
@@ -72,6 +74,16 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                     {version.change_notes}
                   </Text>
                 </Box>
+
+                <Button
+                  size="sm"
+                  bg="brand.pink"
+                  color="white"
+                  _hover={{ bg: "brand.blue" }}
+                  onClick={() => navigate("/version/edit")}
+                >
+                  Edit
+                </Button>
 
                 <Divider borderColor="brand.blue"/>
 
