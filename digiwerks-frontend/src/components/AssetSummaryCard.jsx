@@ -43,7 +43,7 @@ export default function AssetSummaryCard({asset}) {
             color="white"
             margin="2px"
             >
-              {asset.tag}
+              {/* {asset.tag} */}
           </Tag>
         </VStack>
 
@@ -51,12 +51,12 @@ export default function AssetSummaryCard({asset}) {
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
             <Text fontWeight="bold">Owner: </Text>
-            <Text>{asset.owner}</Text>
+            {/* <Text>{asset.owner}</Text> */}
           </HStack>
 
           <HStack>
             <Text fontWeight="bold">Project: </Text>
-            <Text>{asset.project}</Text>
+            {/* <Text>{asset.project}</Text> */}
           </HStack>
         </HStack>
 

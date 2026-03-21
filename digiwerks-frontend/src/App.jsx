@@ -21,7 +21,7 @@ import CreateAsset from './pages/CreateAssetPage';
 import EditAsset from './pages/EditAssetPage';
 
 import CreateVersion from './pages/CreateVersionPage';
-import EditVersion from './pages/Edit VersionPage';
+import EditVersion from './pages/EditVersionPage';
 
 
 export default function App() {
@@ -48,7 +48,7 @@ export default function App() {
         <Route path="/browse_projects" element={<BrowseProjects />} />
         {/* <Route path="/project_workspace" element={<ProjectWorkspace />} /> */}
         <Route path="/projects/:id" element={<ProjectWorkspace />} /> {/* workspace */}
-        <Route path="/asset_workspace" element={<AssetWorkspace />} />
+        <Route path="/assets/:id" element={<AssetWorkspace />} />
       </Routes>
     </Layout>    
   );

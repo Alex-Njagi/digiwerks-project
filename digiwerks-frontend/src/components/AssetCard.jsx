@@ -8,9 +8,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function AssetCard({asset}){
 
-  // console.log(asset);
+  const assetId = asset._id
+  console.log(assetId);
+
+  const openAsset = () => {
+    navigate(`/assets/${assetId}`, {
+      state: { asset }   // ← pass full asset object
+    });
+  };
   
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -27,7 +34,7 @@ export default function AssetCard({asset}){
       }}
       transition="0.2s"
       cursor="pointer"
-      onClick={() => navigate("/asset_workspace")}
+      onClick={openAsset}
     >
       <VStack align="stretch" spacing={2}>
 
