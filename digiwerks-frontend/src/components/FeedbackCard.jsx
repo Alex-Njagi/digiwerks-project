@@ -6,20 +6,22 @@ import {
   Textarea
 } from "@chakra-ui/react";
 
-export default function FeedbackCard({ feedbacks }) {
+export default function FeedbackCard({feedbacks}) {
   const hasFeedback = Array.isArray(feedbacks) && feedbacks.length > 0;
+  console.log(feedbacks);
+  
 
   return (
     <>
         <Box p={4} bg="gray.50" borderRadius="md">
         <Text fontWeight="semibold" mb={2}>
-            Feedback
+            What others had to say:
         </Text>
 
         {hasFeedback ? (
             feedbacks.map((feedback) => (
-            <Text key={feedback.id} fontSize="sm" color="gray.600">
-                <b>{feedback.author}</b>: {feedback.body}
+            <Text key={feedback._id} fontSize="sm" color="gray.600">
+                <b></b>: {feedback.comment_text}
             </Text>
             ))
         ) : (

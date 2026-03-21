@@ -17,9 +17,12 @@ import FeedbackCard from "./FeedbackCard";
 import { useNavigate } from "react-router-dom";
 
 export default function VersionWindow ({ isOpen, onClose, version }) {
-  console.log(version);
+  // console.log(version);
   const navigate = useNavigate()
+  const feedbacks = version.feedbacks
+  console.log(feedbacks);
   
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
       <ModalOverlay />
@@ -88,8 +91,8 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                 <Divider borderColor="brand.blue"/>
 
 
-                <FeedbackCard feedbacks = {version.feedbacks}/>
-
+                
+                <FeedbackCard feedbacks={feedbacks}/>
               </VStack>
             </Flex>
 

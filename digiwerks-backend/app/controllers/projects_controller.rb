@@ -51,13 +51,20 @@ class ProjectsController < ApplicationController
         project = Project.find(params[:id])
 
         render json: project.as_json(
-            include: {project_stages: {
-                    include: {assets: {
-                        include: :asset_versions}
+            include: {
+                project_stages: {
+                include: {
+                    assets: {
+                    include: {
+                        asset_versions: {
+                        include: :feedbacks   # ← THIS is the key line
                         }
                     }
+                    }
                 }
-            )
+                }
+            }
+        )
     end
 
     private
