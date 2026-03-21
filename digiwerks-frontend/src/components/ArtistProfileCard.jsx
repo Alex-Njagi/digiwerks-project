@@ -31,7 +31,7 @@ export default function ArtistProfileCard({artist}) {
         {/* Profile Picture */}
         <Avatar
           size="2xl"
-          src={artist.profileImage}
+          src={artist.profile_image_url}
           alt={artist.username}
         />
 

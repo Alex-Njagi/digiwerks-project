@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    skip_before_action :authenticate_artist!
+    skip_before_action :authenticate_artist!, only: [:artist_login, :current_artist_info]
 
     def artist_login
     artist = Artist.find_by(email: params[:email])
@@ -17,6 +17,14 @@ class SessionsController < ApplicationController
             artist: current_artist,
             admin: current_admin
         }
+    end
+
+    def current_artist_info
+        if current_artist
+            render json: current_artist.as_json(except: [:password_digest])
+        else
+            render json: { error: "Not logged in" }, status: :unauthorized
+        end
     end
 
     def admin_login

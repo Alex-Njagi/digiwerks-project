@@ -10,27 +10,58 @@ import {
   Button,
   FormLabel
 } from "@chakra-ui/react";
+import { useSignupArtist } from "../../hooks/useSignupArtist";
+import { useNavigate } from "react-router-dom";
 
 export default function ArtistForm ({initialData, mode}) {
+    const navigate = useNavigate();
+
     const [form, setForm] = useState({
         email: initialData?.email || "",
         username: initialData?.username || "",
         password: initialData?.password || "",
         bio: initialData?.bio || "",
-        profileImage: initialData?.profileImage || null
+        profile_image_url: initialData?.profile_image_url || ""
     });
     
     const handleChange = (field) => (e) => {
     if (field === "profileImage") {
-        setForm({ ...form, profileImage: e.target.files[0] });
+        setForm({ ...form, profile_image_url: e.target.files[0] });
     } else {
         setForm({ ...form, [field]: e.target.value });
     }
     };
+
+    const { signup, loading, error } = useSignupArtist();
     
-    // const handleSubmit = () => {
-    // onSubmit(form);
-    // };
+    const handleSubmit = async () => {
+        if (mode === "edit") {
+            // we'll handle update later
+            return;
+        }
+
+        const payload = {
+            artist: {
+            email: form.email,
+            username: form.username,
+            password: form.password,
+            bio: form.bio,
+            profile_image_url: form.profile_image_url
+            // profile image handled separately if using multipart
+            }
+        };
+
+        try {
+            const data = await signup(payload);
+            console.log("Artist created:", data);
+            alert(`Account successfully created! Welcome ${form.username}!`)
+            navigate("/artist/login")
+            // TODO: redirect or auto-login
+        } catch (err) {
+            console.error(err);
+            alert(`Oops! Something went wrong!`)
+        }
+    };
 
     return (
         <>
@@ -87,7 +118,7 @@ export default function ArtistForm ({initialData, mode}) {
             <Input
                 type="file"
                 accept="image/*"
-                onChange={handleChange("profileImage")}
+                onChange={handleChange("profile_image_url")}
             />
     
             <Flex justify="flex-end" pt={2}>        
@@ -96,6 +127,8 @@ export default function ArtistForm ({initialData, mode}) {
                 bg="brand.pink"
                 color="white"
                 _hover={{ bg: "brand.blue" }}
+                onClick={handleSubmit}
+                isLoading={loading}
                 >
                 {mode === "edit" ? "Save Changes" : "Sign Up"}
                 </Button>
@@ -111,8 +144,12 @@ export default function ArtistForm ({initialData, mode}) {
                         Delete Account
                     </Button>
                 : null }
-
             </Flex>
+            {error && (
+            <Text color="red.500" fontSize="sm">
+                {error}
+            </Text>
+            )}
             </VStack>
         </Box>
       </Flex>

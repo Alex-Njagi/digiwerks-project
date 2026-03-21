@@ -9,9 +9,23 @@ import {
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { useLogoutArtist } from "../hooks/useLogoutArtist";
 
 function Sidebar({ isOpen, onClose }) {
+  const { logout, loading } = useLogoutArtist();
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Optional: clear any frontend state like current artist
+      alert(`Logout successful! We hope to see you again!`)
+      navigate("/artist/login"); // redirect back to login page
+    } catch (err) {
+      console.error(err);
+      alert(`Oops! Something went wrong!`)
+    }
+  };
 
   const go = (path) => {
     navigate(path);
@@ -51,6 +65,7 @@ function Sidebar({ isOpen, onClose }) {
               color="white"
               _hover={{ bg: "brand.blue" }}
               mt={6}
+              onClick={handleLogout} isLoading={loading}
             >
               Logout
             </Button>

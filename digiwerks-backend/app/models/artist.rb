@@ -8,7 +8,7 @@ class Artist < User
 
   field :username, type: String
   field :bio, type: String
-  field :profile_image_url, type: String, default: "https://example.com/default-profile.png"
+  field :profile_image_url, type: String, default: "https://image2url.com/r2/default/images/1772557830988-428d3761-1c85-4bb4-a11f-70ec21d38637.png"
 
   # Field validations
   # Username

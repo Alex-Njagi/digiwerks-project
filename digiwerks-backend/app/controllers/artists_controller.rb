@@ -1,5 +1,7 @@
 class ArtistsController < UsersController
     before_action :require_account_manager!, only: [:view_accounts]
+    skip_before_action :authenticate_artist!, only: [:create]
+    # skip_before_action :verify_authenticity_token
 
     def view_accounts
         artists = Artist.all
@@ -28,7 +30,13 @@ class ArtistsController < UsersController
     end
 
     def artist_params
-        params.permit(:email, :password, :username, :bio, :profile_image_url)
+        params.require(:artist).permit(
+            :email,
+            :password,
+            :username,
+            :bio,
+            :profile_image_url
+        )
     end
 
 end
