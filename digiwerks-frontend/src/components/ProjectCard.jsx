@@ -1,8 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard(
-  {title = "Project Title",thumbnail = "https://placehold.co/400x400"}) {
+export default function ProjectCard({title, thumbnail}) {
   const navigate = useNavigate();
   
   return (

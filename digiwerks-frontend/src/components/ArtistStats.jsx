@@ -11,11 +11,7 @@ function StatItem({ number, label }) {
   );
 }
 
-function ArtistStats({
-  projects = 5,
-  assets = 10,
-  versions = 15
-}) {
+function ArtistStats({stats}) {
   return (
     <Flex
       maxW="900px"
@@ -25,15 +21,15 @@ function ArtistStats({
       justify="center"
       gap={4}
     >
-      <StatItem number={projects} label="Projects" />
+      <StatItem number={stats.projects_count} label="Projects" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={assets} label="Assets" />
+      <StatItem number={stats.assets_count} label="Assets" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={versions} label="Asset Versions" />
+      <StatItem number={stats.asset_versions_count} label="Asset Versions" />
     </Flex>
   );
 }

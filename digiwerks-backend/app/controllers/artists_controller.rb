@@ -8,11 +8,6 @@ class ArtistsController < UsersController
         render json: artists
     end
 
-    # def index
-    #     artists = Artist.all
-    #     render json: artists
-    # end
-
     def create
         artist = Artist.new(artist_params)
 
@@ -21,6 +16,28 @@ class ArtistsController < UsersController
         else
             render json: {errors: artist.errors}, status: :unprocessable_entity
         end
+    end
+
+    def stats
+        artist = current_artist
+
+        # Projects count — still simple
+        projects_count = artist.projects.count
+
+        # Assets count — sum assets across all stages of all projects
+        assets_count = artist.projects.map(&:project_stages).flatten.map(&:assets).flatten.count
+
+        # Asset versions count — sum all versions for all assets
+        asset_versions_count = artist.projects
+                                    .map(&:project_stages).flatten
+                                    .map(&:assets).flatten
+                                    .map(&:asset_versions).flatten.count
+
+    render json: {
+        projects_count: projects_count,
+        assets_count: assets_count,
+        asset_versions_count: asset_versions_count
+    }
     end
 
     private

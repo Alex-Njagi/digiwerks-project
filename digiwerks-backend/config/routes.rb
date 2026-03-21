@@ -45,7 +45,9 @@ Rails.application.routes.draw do
   post "/admin_login", to: "sessions#admin_login"
   delete "/logout", to: "sessions#logout"
 
-  get "/artists/:artist_id/owned_projects", to: "projects#owned_projects"
+  # get "/artists/:artist_id/owned_projects", to: "projects#owned_projects"
+  get "/my_projects", to: "projects#owned_projects"
+  get "/artist_stats", to: "artists#stats"
   
   get "/admin/view_accounts", to: "artists#view_accounts"
   get "/admin/moderate_projects", to: "projects#moderation_dashboard"

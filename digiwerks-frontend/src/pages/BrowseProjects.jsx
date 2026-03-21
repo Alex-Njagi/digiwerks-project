@@ -10,16 +10,16 @@ import {
 import { useState } from "react";
 import ProjectGrid from "../components/ProjectGrid";
 
+import { useAllProjects } from "../hooks/useAllProjects";
+
 function BrowseProjects() {
 
   const [search, setSearch] = useState("");
 
-  const projects = [
-    { id: 1, title: "Concept Art", thumbnail: "https://placehold.co/400x400"},
-    { id: 2, title: "Character Design", thumbnail: "https://placehold.co/400x400"},
-    { id: 3, title: "Fantasy World", thumbnail: "https://placehold.co/400x400"},
-    { id: 4, title: "Sci-Fi Assets", thumbnail: "https://placehold.co/400x400"}
-  ];
+  const { projects, loading: projectsLoading, error: projectsError } = useAllProjects();
+    
+  if (projectsLoading) return <p>Loading...</p>;
+  if (projectsError) return <p>{projectsError}</p>;  
 
   const filteredProjects = projects.filter(project =>
     project.title.toLowerCase().includes(search.toLowerCase())

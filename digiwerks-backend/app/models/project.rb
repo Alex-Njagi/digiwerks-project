@@ -14,6 +14,7 @@ class Project
   field :title, type: String
   field :description, type: String
   field :status, type: String, default: "In-Progress"
+  field :cover_img, type: String, default: "https://placehold.co/400x400"
   field :start_date, type: Date
   field :end_date, type: Date, default: "empty"
 
