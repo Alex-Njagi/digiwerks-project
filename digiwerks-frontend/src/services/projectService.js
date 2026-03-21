@@ -9,3 +9,13 @@ export const fetchOwnedProjects = async () => {
   const response = await apiClient.get("/my_projects"); // uses session, no ID needed
   return response.data;
 };
+
+export const getProject = async (id) => {
+  const response = await apiClient.get(`/projects/${id}`);
+  return response.data;
+};
+
+export const getProjectWorkspace = async (id) => {
+  const res = await apiClient.get(`/projects/${id}/workspace`);
+  return res.data;
+};

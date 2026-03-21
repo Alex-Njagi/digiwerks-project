@@ -34,8 +34,7 @@ function ProjectGrid({ projects = [] }) {
         {projects.map((project) => (
           <ProjectCard
             key={project._id}
-            title={project.title}
-            thumbnail={project.cover_img}
+            project={project}
           />
         ))}
       </SimpleGrid>

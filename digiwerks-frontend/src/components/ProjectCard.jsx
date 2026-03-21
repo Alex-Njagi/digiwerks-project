@@ -1,8 +1,12 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard({title, thumbnail}) {
+export default function ProjectCard({project}) {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/projects/${project._id}`); // navigate to workspace route
+  };
   
   return (
     <Box
@@ -19,18 +23,18 @@ export default function ProjectCard({title, thumbnail}) {
         borderColor: "brand.blue",
         boxShadow: "lg"
       }}
-      onClick={() => navigate("/project_workspace")}
+      onClick={handleClick}
     >
 
       <Image
-        src={thumbnail}
-        alt={title}
+        src={project.cover_img}
+        alt={project.title}
         w="100%"
         aspectRatio="1 / 1"
         objectFit="cover" />
 
       <Box p={3}>
-        <Text fontWeight="bold">{title}</Text>
+        <Text fontWeight="bold">{project.title}</Text>
       </Box>
     </Box>
   );

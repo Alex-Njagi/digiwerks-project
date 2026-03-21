@@ -47,6 +47,19 @@ class ProjectsController < ApplicationController
         head :no_content
     end
 
+    def workspace
+        project = Project.find(params[:id])
+
+        render json: project.as_json(
+            include: {project_stages: {
+                    include: {assets: {
+                        include: :asset_versions}
+                        }
+                    }
+                }
+            )
+    end
+
     private
 
     def set_artist

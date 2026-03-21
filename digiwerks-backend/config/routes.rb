@@ -21,9 +21,12 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
+    member do
+      get :workspace
+    end
     resources :project_stages, shallow: true
   end
-
+  
   resources :project_stages do
     resources :assets, path: "project_assets", shallow: true
   end

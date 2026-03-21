@@ -6,13 +6,10 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function AssetCard({
-  name = "Asset Name",
-  description = "Short description of the asset",
-  tag = "Concept",
-  versions = 3
-}){
+export default function AssetCard({asset}){
 
+  // console.log(asset);
+  
     const navigate = useNavigate();
 
   return (
@@ -35,15 +32,15 @@ export default function AssetCard({
       <VStack align="stretch" spacing={2}>
 
         <Text fontWeight="bold" color="brand.pink">
-          {name}
+          {asset.asset_name}
         </Text>
 
         <Text fontSize="sm" color="gray.600">
-          "{description}"
+          "{asset.asset_description}"
         </Text>
 
         <Text fontSize="sm" color="gray.600">
-          Versions: <b>{versions}</b>
+          Versions: <b></b>
         </Text>
 
         <Tag
@@ -51,7 +48,7 @@ export default function AssetCard({
           bg="brand.pink"
           color="white"
         >
-          {tag}
+          {/* {tag} */}
         </Tag>
 
       </VStack>

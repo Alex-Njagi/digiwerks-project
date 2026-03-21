@@ -46,7 +46,8 @@ export default function App() {
         <Route path="/version/edit" element={<EditVersion />} />
 
         <Route path="/browse_projects" element={<BrowseProjects />} />
-        <Route path="/project_workspace" element={<ProjectWorkspace />} />
+        {/* <Route path="/project_workspace" element={<ProjectWorkspace />} /> */}
+        <Route path="/projects/:id" element={<ProjectWorkspace />} /> {/* workspace */}
         <Route path="/asset_workspace" element={<AssetWorkspace />} />
       </Routes>
     </Layout>    

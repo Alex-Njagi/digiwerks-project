@@ -10,13 +10,7 @@ import {
 import AssetCard from "./AssetCard";
 import { useNavigate } from "react-router-dom";
 
-function StageCard({
-  order = 1,
-  name = "Concept Sketch",
-  description = "Initial sketches and ideation",
-  date = "March 12 2025",
-  assets = []
-}) {
+function StageCard({stage}) {
 
   const navigate = useNavigate();
 
@@ -48,13 +42,13 @@ function StageCard({
 
           {/* Date */}
           <Text fontSize="sm" color="gray.500">
-            Date: {date}
+            Date: {stage.created_at}
           </Text>
 
           {/* Name + Description */}
            <Flex align="center" justify="space-between" mb={3}>
                 <Text fontWeight="bold" textAlign="left">
-                <b>Stage {order}:</b> {name} — {description}
+                <b>Stage {stage.stage_order}:</b> {stage.stage_name} — {stage.description}
                 </Text>
         
                 {/* Add Asset Button */}
@@ -71,12 +65,10 @@ function StageCard({
 
           {/* Asset previews */}
           <SimpleGrid minChildWidth="120px" spacing={3}>
-            {assets.map((asset) => (
+            {stage.assets.map(asset => (
             <AssetCard
-                key={asset.id}
-                name={asset.name}
-                description={asset.description}
-                tag={asset.tag}
+                key={asset._id}
+                asset={asset}
             />
             ))}
             </SimpleGrid>

@@ -9,24 +9,7 @@ import {
 import StageCard from "./StageCard";
 import { useNavigate } from "react-router-dom";
 
-export default function StagesGrid() {
-
-  const stages = [
-    {
-      id: 1,
-      name: "Concept",
-      description: "Early idea sketches",
-      date: "March 10 2025",
-      assets: [{ id: 1 }, { id: 2 }, { id: 3 }]
-    },
-    {
-      id: 2,
-      name: "Line Art",
-      description: "Refined outlines",
-      date: "March 18 2025",
-      assets: [{ id: 4 }, { id: 5 }]
-    }
-  ];
+export default function StagesGrid({stages}) {
 
   const navigate = useNavigate()
 
@@ -74,14 +57,11 @@ export default function StagesGrid() {
       />
 
       <VStack spacing={8} align="stretch">
-        {stages.map((stage, index) => (
+        {stages.map((stage) => (
           <StageCard
-            key={stage.id}
-            order={index + 1}
-            name={stage.name}
-            description={stage.description}
-            date={stage.date}
-            assets={stage.assets}
+            key={stage._id}
+            // order={index + 1}
+            stage={stage}
           />
         ))}
       </VStack>

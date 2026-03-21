@@ -38,8 +38,8 @@ function ProjectSummaryCard({project}) {
             {project.description}
           </Text>
 
-          <Text fontWeight="bold">
-            Status: {project.status}
+          <Text>
+            <b>Status:</b> {project.status}
           </Text>
         </VStack>
 
@@ -47,12 +47,12 @@ function ProjectSummaryCard({project}) {
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
             <Text fontWeight="bold">Start Date: </Text>
-            <Text>{project.startDate}</Text>
+            <Text>{project.start_date}</Text>
           </HStack>
 
           <HStack>
             <Text fontWeight="bold">End Date: </Text>
-            <Text>{project.endDate}</Text>
+            <Text>{project.end_date}</Text>
           </HStack>
         </HStack>
 
