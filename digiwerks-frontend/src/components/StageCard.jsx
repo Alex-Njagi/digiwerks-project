@@ -78,7 +78,7 @@ function StageCard({stage, project}) {
                     bg="brand.pink"
                     color="white"
                     _hover={{ bg: "brand.blue" }}
-                    onClick={() => navigate("/project_asset/create")}
+                    onClick={() => navigate("/project_asset/create", { state: {stage, project} })}
                 >
                     + New Asset
                 </Button>
@@ -90,6 +90,7 @@ function StageCard({stage, project}) {
             <AssetCard
                 key={asset._id}
                 asset={asset}
+                projectId={project._id}
             />
             ))}
             </SimpleGrid>

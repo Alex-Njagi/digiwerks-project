@@ -1,7 +1,13 @@
 import { Heading } from "@chakra-ui/react";
 import AssetForm from "../components/forms/AssetForm";
+import { useLocation } from "react-router-dom";
 
 export default function CreateAsset() {
+  const location = useLocation();
+  const stage = location.state?.stage;
+  const project = location.state?.project;
+  const projectId = project._id
+
   return (
     <>
     {/* Section Header */}
@@ -11,6 +17,8 @@ export default function CreateAsset() {
 
     <AssetForm 
       mode = "create"
+      projectId={projectId}
+      stage={stage}
       initialData={null}
     />
     </>

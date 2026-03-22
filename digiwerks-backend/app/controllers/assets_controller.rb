@@ -45,7 +45,7 @@ class AssetsController < ApplicationController
   end
 
   def asset_params
-    params.permit(:asset_name, :asset_description, :asset_tag)
+    params.require(:asset).permit(:asset_name, :asset_description, :asset_tag)
   end
 
 end

@@ -2,14 +2,18 @@ import {
   Box,
   Text,
   Tag,
-  VStack
+  VStack,
+  Flex,
+  Button
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { useDeleteAsset } from "../hooks/useAssetHooks";
 
-export default function AssetCard({asset}){
-
+export default function AssetCard({projectId, asset}){
+  console.log(projectId);
+  
   const assetId = asset._id
-  // console.log(assetId);
+  const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
 
   const openAsset = () => {
     navigate(`/assets/${assetId}`, {
@@ -18,6 +22,21 @@ export default function AssetCard({asset}){
   };
   
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+        "Are you sure you want to delete this asset? This cannot be undone."
+    );
+    if (!confirmed) return;
+    try {
+        await deleteAsset(assetId);
+        alert("Your asset has been deleted successfully!");
+        navigate(`/projects/${projectId}`)
+    } catch (error) {
+        console.error(error);
+        alert("Failed to delete asset.");
+    }
+  };
 
   return (
     <Box
@@ -57,6 +76,25 @@ export default function AssetCard({asset}){
         >
           {asset.asset_tag}
         </Tag>
+
+        <Flex justify="flex-end" mt={2}>
+          <Button
+              size="sm"
+              bg="red.400"
+              color="white"
+              _hover={{ bg: "red.500" }}
+              onClick={handleDelete}
+              isLoading={deleteLoading}
+              loadingText="Deleting..."
+            >
+              Delete Asset
+            </Button>
+            {(deleteError) && (
+                <Text color="red.500" fontSize="sm">
+                {deleteError?.message}
+                </Text>
+            )} 
+        </Flex>
 
       </VStack>
     </Box>

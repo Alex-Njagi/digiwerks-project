@@ -72,15 +72,7 @@ export default function StageForm ({project, initialData, mode}) {
                 Enter Project Stage Details
             </Text>
 
-            <VStack spacing={4} align="stretch">                   
-                {/* <FormLabel fontSize="xs" mb={-2} color="brand.blue">Project</FormLabel>
-                <Input
-                required
-                placeholder="Project"
-                value={form.project}
-                onChange={handleChange("project")}
-                /> */}
-
+            <VStack spacing={4} align="stretch">
                 <FormLabel fontSize="xs" mb={-2} color="brand.blue">Stage Name</FormLabel>
                 <Input
                 required

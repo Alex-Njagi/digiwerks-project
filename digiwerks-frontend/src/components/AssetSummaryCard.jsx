@@ -61,7 +61,7 @@ export default function AssetSummaryCard({asset}) {
         </HStack>
 
         {/* Edit Button */}
-        <Flex justify="center" mt={4}>
+        {/* <Flex justify="center" mt={4}>
           <Button
             bg="brand.pink"
             color="white"
@@ -70,7 +70,7 @@ export default function AssetSummaryCard({asset}) {
           >
             Edit Asset
           </Button>
-        </Flex>
+        </Flex> */}
 
       </VStack>
     </Box>

@@ -11,31 +11,55 @@ import {
   FormLabel,
   Tag
 } from "@chakra-ui/react";
+import { useCreateAsset } from "../../hooks/useAssetHooks";
+import { useNavigate } from "react-router-dom";
 
-export default function AssetForm ({initialData, mode}) {
+export default function AssetForm ({projectId, stage, initialData, mode}) {
+    const stageId = stage._id
+    const navigate = useNavigate()
+
+    const { submitAsset, loading: createLoading, error: createError } = useCreateAsset();
+    const [submitting, setSubmitting] = useState(false);
+
     const [form, setForm] = useState({
-        project_stage: initialData?.project_stage || "",
         asset_name: initialData?.asset_name || "",
         asset_tag: initialData?.asset_tag || "",
+        project_stage_id: initialData?.project_stage_id || stageId,
         asset_description: initialData?.stage_order || ""
     });
 
     const tags = [
         {tag_id: 1, tag_name: "Sketch"},
         {tag_id: 2, tag_name: "Illustration"},
-        {tag_id: 3, tag_name: "Line Art"},
-        {tag_id: 4, tag_name: "Digital Painting"},
-        {tag_id: 5, tag_name: "Graphic Design"},
+        {tag_id: 3, tag_name: "Line-Art"},
+        {tag_id: 4, tag_name: "Digital-Painting"},
+        {tag_id: 5, tag_name: "Graphic-Design"},
     ]
 
-    
     const handleChange = (field) => (e) => {
-        setForm({ ...form, [field]: e.target.value });
+        setForm({ ...form, [field]: e.target.value });        
+    };
+
+    const setField = (field, value) => {
+        setForm(prev => ({ ...prev, [field]: value }));
     };
     
-    // const handleSubmit = () => {
-    // onSubmit(form);
-    // };
+    const handleSubmit = async () => {
+        try {
+            setSubmitting(true);
+
+            let payload = { ...form };
+            console.log(payload);            
+                await submitAsset(stageId, payload);
+                alert("Say hello to your new asset!");
+                navigate(`/projects/${projectId}`)
+        } catch (error) {
+            console.error(error);
+            alert(`Oops! Something went wrong! Please try again.`)
+        } finally {
+            setSubmitting(false);
+        }
+    };    
 
     return (
         <>
@@ -53,15 +77,7 @@ export default function AssetForm ({initialData, mode}) {
                 Enter Asset Details
             </Text>
 
-            <VStack spacing={4} align="stretch">                   
-                <FormLabel fontSize="xs" mb={-2} color="brand.blue">Project Stage</FormLabel>
-                <Input
-                required
-                placeholder="Stage"
-                value={form.project_stage}
-                onChange={handleChange("stage")}
-                />
-
+            <VStack spacing={4} align="stretch">
                 <FormLabel fontSize="xs" mb={-2} color="brand.blue">Asset Name</FormLabel>
                 <Input
                 required
@@ -80,15 +96,19 @@ export default function AssetForm ({initialData, mode}) {
 
                 <HStack justify="center">
                 {tags.map((tag) => (
-                    <Tag
-                        key={tag.id}
-                        alignSelf="flex-end"
-                        bg="brand.pink"
-                        color="white"
-                        // onClick = {form.status = "In-Progress"}
-                        _hover={{ bg: "brand.blue", cursor: "pointer" }}
-                    >{tag.tag_name}</Tag>
-                    
+                <Tag
+                    key={tag.tag_id}
+                    bg={form.asset_tag === tag.tag_name ? "brand.blue" : "brand.pink"}
+                    color="white"
+                    cursor="pointer"
+                    onClick={() => {
+                    const isSelected = form.asset_tag === tag.tag_name;
+                    setField("asset_tag", isSelected ? "" : tag.tag_name);
+                    }}
+                    _hover={{ opacity: 0.85 }}
+                >
+                    {tag.tag_name}
+                </Tag>
                 ))}
                 </HStack>
 
@@ -107,22 +127,30 @@ export default function AssetForm ({initialData, mode}) {
                 bg="brand.pink"
                 color="white"
                 _hover={{ bg: "brand.blue" }}
+                onClick={handleSubmit}
+                isLoading={submitting || createLoading}
+                loadingText="Submitting..."
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
             </Flex>
 
             {mode === "edit" ? 
-                    <Button
-                        marginLeft={5}
-                        size="sm"
-                        bg="red.400"
-                        color="white"
-                        _hover={{ bg: "red.500" }}
-                        >
-                        Delete Asset
-                    </Button>
+                <Button
+                    marginLeft={5}
+                    size="sm"
+                    bg="red.400"
+                    color="white"
+                    _hover={{ bg: "red.500" }}
+                    >
+                    Delete Asset
+                </Button>
             : null }
+            {(createError) && (
+                <Text color="red.500" fontSize="sm">
+                {createError?.message}
+                </Text>
+            )}
         </Box>
         </Flex>
         </>
