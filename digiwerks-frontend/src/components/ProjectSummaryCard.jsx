@@ -8,7 +8,7 @@ import {
   HStack
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import ProjectCard from "./ProjectCard";
+import { formatDateTime } from "../utils/formatDate";
 
 function ProjectSummaryCard({project}) {
 
@@ -49,13 +49,13 @@ function ProjectSummaryCard({project}) {
         {/* Dates */}
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
-            <Text fontWeight="bold">Start Date: </Text>
-            <Text>{project.start_date}</Text>
+            <Text fontWeight="bold">Creation Date: </Text>
+            <Text>{formatDateTime(project.created_at)}</Text>
           </HStack>
 
           <HStack>
-            <Text fontWeight="bold">End Date: </Text>
-            <Text>{project.end_date}</Text>
+            <Text fontWeight="bold">Last Modified: </Text>
+            <Text>{formatDateTime(project.updated_at)}</Text>
           </HStack>
         </HStack>
 

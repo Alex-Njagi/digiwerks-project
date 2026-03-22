@@ -11,6 +11,7 @@ import AssetCard from "./AssetCard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useDeleteProjectStage from "../hooks/useDeleteStage";
+import { formatDateTime } from "../utils/formatDate";
 
 function StageCard({stage, project}) {
   // console.log(projectId);
@@ -62,7 +63,7 @@ function StageCard({stage, project}) {
 
           {/* Date */}
           <Text fontSize="sm" color="gray.500">
-            Date: {stage.created_at}
+            Date: {formatDateTime(stage.created_at)}
           </Text>
 
           {/* Name + Description */}
