@@ -12,6 +12,9 @@ function StatItem({ number, label }) {
 }
 
 export default function AssetStats({asset}) {
+  const version_count = asset.asset_versions.length
+  const feedback_count = asset.asset_versions.flatMap(v => v.feedbacks).length
+
   return (
     <Flex
       maxW="900px"
@@ -21,11 +24,11 @@ export default function AssetStats({asset}) {
       justify="center"
       gap={4}
     >
-      <StatItem number={asset.versions} label="Asset Versions" />
+      <StatItem number={version_count} label="Asset Versions" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={asset.comments} label="Total Comments" />
+      <StatItem number={feedback_count} label="Total Comments" />
     </Flex>
   );
 }

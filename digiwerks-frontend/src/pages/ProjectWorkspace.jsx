@@ -31,7 +31,7 @@ function ProjectWorkspace() {
     <Box p={6}>
 
       <ProjectSummaryCard project = {project}/>
-      <ProjectStats />
+      <ProjectStats project = {project}/>
       <StagesGrid 
         stages={project.project_stages}
       />

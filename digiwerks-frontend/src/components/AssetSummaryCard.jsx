@@ -43,7 +43,7 @@ export default function AssetSummaryCard({asset}) {
             color="white"
             margin="2px"
             >
-              {/* {asset.tag} */}
+              {asset.asset_tag}
           </Tag>
         </VStack>
 

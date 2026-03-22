@@ -9,7 +9,7 @@ class AssetsController < ApplicationController
   end
 
   def show
-    render json: @asset, include: [:asset_versions, :asset_tags]
+    render json: @asset, include: :asset_versions
   end
 
   def create
@@ -45,7 +45,7 @@ class AssetsController < ApplicationController
   end
 
   def asset_params
-    params.permit(:asset_name, :asset_description)
+    params.permit(:asset_name, :asset_description, :asset_tag)
   end
 
 end

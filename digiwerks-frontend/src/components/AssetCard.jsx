@@ -47,7 +47,7 @@ export default function AssetCard({asset}){
         </Text>
 
         <Text fontSize="sm" color="gray.600">
-          Versions: <b></b>
+          Versions: <b>{asset.asset_versions.length}</b>
         </Text>
 
         <Tag
@@ -55,7 +55,7 @@ export default function AssetCard({asset}){
           bg="brand.pink"
           color="white"
         >
-          {/* {tag} */}
+          {asset.asset_tag}
         </Tag>
 
       </VStack>

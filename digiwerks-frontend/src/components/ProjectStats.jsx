@@ -11,11 +11,12 @@ function StatItem({ number, label }) {
   );
 }
 
-export default function ProjectStats({
-  stages = 5,
-  assets = 10,
-  versions = 15
-}) {
+export default function ProjectStats({project}) {
+  // console.log(project);
+  const stage_count = project.project_stages.length
+  const asset_count = project.project_stages.flatMap(s => s.assets).length
+  const version_count = project.project_stages.flatMap(s => s.assets).flatMap(a => a.asset_versions).length
+
   return (
     <Flex
       maxW="900px"
@@ -25,15 +26,15 @@ export default function ProjectStats({
       justify="center"
       gap={4}
     >
-      <StatItem number={stages} label="Stages" />
+      <StatItem number={stage_count} label="Stages" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={assets} label="Assets" />
+      <StatItem number={asset_count} label="Assets" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={versions} label="Asset Versions" />
+      <StatItem number={version_count} label="Asset Versions" />
     </Flex>
   );
 }
