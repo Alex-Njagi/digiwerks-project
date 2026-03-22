@@ -9,7 +9,8 @@ import {
 import StageCard from "./StageCard";
 import { useNavigate } from "react-router-dom";
 
-export default function StagesGrid({stages}) {
+export default function StagesGrid({project, stages}) {
+  // console.log(projectId);  
 
   const navigate = useNavigate()
 
@@ -38,7 +39,8 @@ export default function StagesGrid({stages}) {
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
-            onClick={() => navigate("/project_stage/create")}
+            onClick={() => navigate("/project_stage/create", { state: { project } })}
+            
         >
             + New Stage
         </Button>

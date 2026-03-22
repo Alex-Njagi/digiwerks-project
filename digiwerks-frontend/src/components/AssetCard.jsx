@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function AssetCard({asset}){
 
   const assetId = asset._id
-  console.log(assetId);
+  // console.log(assetId);
 
   const openAsset = () => {
     navigate(`/assets/${assetId}`, {

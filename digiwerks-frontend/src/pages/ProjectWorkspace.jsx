@@ -33,6 +33,7 @@ function ProjectWorkspace() {
       <ProjectSummaryCard project = {project}/>
       <ProjectStats project = {project}/>
       <StagesGrid 
+        project={project}
         stages={project.project_stages}
       />
       
