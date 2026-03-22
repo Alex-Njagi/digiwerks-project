@@ -1,17 +1,10 @@
 import { Heading } from "@chakra-ui/react";
 import ProjectForm from "../components/forms/ProjectForm";
+import { useLocation } from "react-router-dom";
 
 export default function EditProject() {
-  // Temporary mock data (API later)
-  const projectData = {};
-
-  const handleUpdate = (updatedData) => {
-    console.log("Updated artist:", updatedData);
-  };
-
-  const handleDelete = () => {
-    console.log("Delete account clicked");
-  };
+  const location = useLocation();
+  const project = location.state?.project;
 
   return (
     <>
@@ -22,7 +15,7 @@ export default function EditProject() {
 
     <ProjectForm 
       mode = "edit"
-      initialData={projectData}
+      initialData={project}
     />
     </>
   )

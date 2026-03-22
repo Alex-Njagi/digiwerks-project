@@ -26,3 +26,12 @@ export const createProject = async (projectData) => {
   });
   return res.data;
 };
+
+export const updateProject = async (projectId, data) => {
+  const response = await apiClient.put(`/projects/${projectId}`, data);
+  return response.data;
+};
+
+export const deleteProject = async (projectId) => {
+  await apiClient.delete(`/projects/${projectId}`);
+};

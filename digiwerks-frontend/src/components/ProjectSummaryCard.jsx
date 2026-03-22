@@ -62,7 +62,7 @@ function ProjectSummaryCard({project}) {
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
-            onClick={() => navigate("/project/edit")}
+            onClick={() => navigate("/project/edit", { state: { project } })}
           >
             Edit Project
           </Button>

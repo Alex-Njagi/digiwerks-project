@@ -12,6 +12,8 @@ import {
   Tag
 } from "@chakra-ui/react";
 import { useCreateProject } from "../../hooks/useCreateProject";
+import useUpdateProject from "../../hooks/useUpdateProject";
+import useDeleteProject from "../../hooks/useDeleteProject";
 import { useNavigate } from "react-router-dom";
 
 
@@ -30,6 +32,8 @@ export default function ProjectForm ({initialData, mode}) {
     };
 
     const { submitProject, loading, error, success } = useCreateProject();
+    const { updateProject } = useUpdateProject();
+    const { deleteProject } = useDeleteProject();
     const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
 
@@ -40,7 +44,7 @@ export default function ProjectForm ({initialData, mode}) {
         status: initialData?.status || "",
         start_date: initialData?.start_date || "",
         end_date: initialData?.end_date || ""
-    });
+    });    
     
     const handleChange = (field) => async (e) => {
         if (field === "cover_img") {
@@ -64,17 +68,41 @@ export default function ProjectForm ({initialData, mode}) {
             if (form.cover_img instanceof File) {
             payload.cover_img = await convertToBase64(form.cover_img);
             }
-
-            await submitProject(payload);
-            alert("Your project has been successfully created!");
-            console.log(success);
-            navigate("/artist/dashboard")           
+            
+            if (mode === "edit") {
+                await updateProject(initialData._id, payload);
+                alert("Your project has been successfully updated!");
+                console.log(success);
+                navigate("/artist/dashboard") 
+            } else {
+                await submitProject(payload);
+                alert("Your project has been successfully created!");
+                console.log(success);
+                navigate("/artist/dashboard")  
+            }
             
         } catch (error) {
             console.error(error);
             alert(`Oops! Something went wrong! Please try again.`)
         } finally {
             setSubmitting(false);
+        }
+    };
+
+    const handleDelete = async () => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this project? This cannot be undone."
+        );
+
+        if (!confirmed) return;
+
+        try {
+            await deleteProject(initialData._id);
+            alert("Your project has been deleted successfully!");
+            navigate("/artist/dashboard");
+        } catch (error) {
+            console.error(error);
+            alert("❌ Failed to delete project.");
         }
     };
 
@@ -188,6 +216,7 @@ export default function ProjectForm ({initialData, mode}) {
                         bg="red.400"
                         color="white"
                         _hover={{ bg: "red.500" }}
+                        onClick={handleDelete}
                         >
                         Delete Project
                     </Button>
