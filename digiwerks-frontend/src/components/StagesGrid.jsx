@@ -62,7 +62,7 @@ export default function StagesGrid({project, stages}) {
         {stages.map((stage) => (
           <StageCard
             key={stage._id}
-            // order={index + 1}
+            project={project}
             stage={stage}
           />
         ))}

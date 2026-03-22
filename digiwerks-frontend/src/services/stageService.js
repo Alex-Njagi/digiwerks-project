@@ -11,3 +11,12 @@ export const createProjectStage = async (projectId, stageData) => {
   });
   return res.data;
 };
+
+export const updateProjectStage = async (stageId, data) => {
+  const response = await apiClient.put(`/project_stages/${stageId}`, data);
+  return response.data;
+};
+
+export const deleteProjectStage = async (stageId) => {
+  await apiClient.delete(`/project_stages/${stageId}`);
+};

@@ -7,7 +7,6 @@ export default function CreateStage() {
   const project = location.state?.project;
   // console.log(project);
   
-
   return (
     <>
     {/* Section Header */}

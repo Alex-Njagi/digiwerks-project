@@ -9,10 +9,30 @@ import {
 } from "@chakra-ui/react";
 import AssetCard from "./AssetCard";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useDeleteProjectStage from "../hooks/useDeleteStage";
 
-function StageCard({stage}) {
-
+function StageCard({stage, project}) {
+  // console.log(projectId);
+  
+  const { deleteStage, loading: deleteLoading, error: deleteError } = useDeleteProjectStage();
+  // const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+        "Are you sure you want to delete this stage? This cannot be undone."
+    );
+    if (!confirmed) return;
+    try {
+        await deleteStage(stage._id);
+        alert("Your project stage has been deleted successfully!");
+        window.location.reload()
+    } catch (error) {
+        console.error(error);
+        alert("Failed to delete stage.");
+    }
+  };
 
   return (
     <Flex align="flex-start" gap={4} position="relative">
@@ -80,7 +100,7 @@ function StageCard({stage}) {
               bg="brand.pink"
               color="white"
               _hover={{ bg: "brand.blue" }}
-              onClick={() => navigate("/project_stage/edit")}
+              onClick={() => navigate("/project_stage/edit", { state: { stage, project} })}
             >
               Edit Stage
             </Button>
@@ -90,9 +110,17 @@ function StageCard({stage}) {
               bg="red.400"
               color="white"
               _hover={{ bg: "red.500" }}
+              onClick={handleDelete}
+              isLoading={deleteLoading}
+              loadingText="Deleting..."
             >
               Delete Stage
             </Button>
+            {(deleteError) && (
+                <Text color="red.500" fontSize="sm">
+                {deleteError?.message}
+                </Text>
+            )} 
           </Flex>
 
         </VStack>

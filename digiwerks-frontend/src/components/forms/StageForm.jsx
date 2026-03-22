@@ -11,6 +11,7 @@ import {
   FormLabel
 } from "@chakra-ui/react";
 import useCreateProjectStage from "../../hooks/useCreateStage";
+import useUpdateStage from "../../hooks/useUpdateStage";
 import { useNavigate } from "react-router-dom";
 
 export default function StageForm ({project, initialData, mode}) {
@@ -18,6 +19,7 @@ export default function StageForm ({project, initialData, mode}) {
     const navigate = useNavigate()
 
     const { createStage, loading: createLoading, error: createError } = useCreateProjectStage();
+    const { updateStage, loading: updateLoading, error: updateError } = useUpdateStage();
     const [submitting, setSubmitting] = useState(false);
     
     const [form, setForm] = useState({
@@ -38,10 +40,9 @@ export default function StageForm ({project, initialData, mode}) {
             let payload = { ...form };
             
             if (mode === "edit") {
-                // await updateProject(initialData._id, payload);
-                // alert("Your project has been successfully updated!");
-                // // navigate(`projects/${_id}`) 
-                // navigate(`/projects/${initialData._id}`)
+                await updateStage(initialData._id, payload);
+                alert("Congratulations! Your stage has a new look!");
+                navigate(`/projects/${projectId}`)
             } else {
                 await createStage(projectId, payload);
                 alert("Your project officially has a new stage!");
@@ -53,8 +54,7 @@ export default function StageForm ({project, initialData, mode}) {
         } finally {
             setSubmitting(false);
         }
-    };
-    
+    };    
 
     return (
         <>
@@ -113,27 +113,15 @@ export default function StageForm ({project, initialData, mode}) {
                 color="white"
                 _hover={{ bg: "brand.blue" }}
                 onClick={handleSubmit}
-                isLoading={submitting || createLoading}
+                isLoading={submitting || createLoading || updateLoading}
                 loadingText="Submitting..."
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
-
-                {mode === "edit" ? 
-                    <Button
-                        marginLeft={5}
-                        size="sm"
-                        bg="red.400"
-                        color="white"
-                        _hover={{ bg: "red.500" }}
-                        >
-                        Delete Stage
-                    </Button>
-            : null }
             </Flex>         
-            {(createError) && (
+            {(createError || updateError) && (
                 <Text color="red.500" fontSize="sm">
-                {createError?.message}
+                {createError?.message || updateError?.message}
                 </Text>
             )}  
         </Box>

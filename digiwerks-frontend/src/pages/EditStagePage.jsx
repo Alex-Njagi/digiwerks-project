@@ -1,17 +1,13 @@
 import { Heading } from "@chakra-ui/react";
 import StageForm from "../components/forms/StageForm";
+import { useLocation } from "react-router-dom";
 
 export default function EditStage() {
-  // Temporary mock data (API later)
-  const stageData = {};
-
-  const handleUpdate = (updatedData) => {
-    console.log("Updated artist:", updatedData);
-  };
-
-  const handleDelete = () => {
-    console.log("Delete account clicked");
-  };
+  const location = useLocation();
+  const stage = location.state?.stage;
+  const project = location.state?.project;  
+  // console.log(project);
+  
 
   return (
     <>
@@ -22,7 +18,8 @@ export default function EditStage() {
 
     <StageForm 
       mode = "edit"
-      initialData={stageData}
+      project={project}
+      initialData={stage}
     />
     </>
   )
