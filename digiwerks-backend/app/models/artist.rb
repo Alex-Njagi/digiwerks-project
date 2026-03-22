@@ -16,11 +16,4 @@ class Artist < User
 
   # Bio length
   validates :bio, length: { maximum: 500 }, allow_blank: true
-
-  # Profile Image URL format
-  validates :profile_image_url,
-    format: {
-      with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
-      message: "must be a valid URL"
-    }, allow_blank: true
 end

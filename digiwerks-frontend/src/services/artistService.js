@@ -5,6 +5,15 @@ export const signupArtist = async (artistData) => {
   return response.data;
 };
 
+export const updateArtist = async (artistId, data) => {
+  const response = await apiClient.put(`/artists/${artistId}`, data);
+  return response.data;
+};
+
+export const deleteArtist = async (artistId) => {
+  await apiClient.delete(`/artists/${artistId}`);
+};
+
 export const loginArtist = async (credentials) => {
   const response = await apiClient.post("/artist_login", credentials);
   return response.data;

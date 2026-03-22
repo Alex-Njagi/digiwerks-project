@@ -1,4 +1,4 @@
-import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Image, Spinner, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 // import { useProject } from "../hooks/useProject";
 import { useProjectWorkspace } from "../hooks/useProjectWorkspace";

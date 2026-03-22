@@ -18,6 +18,15 @@ class ArtistsController < UsersController
         end
     end
 
+    def update
+        artist = current_artist
+        if artist.update(permitted_params)
+        render json: artist
+        else
+        render json: { errors: artist.errors }, status: :unprocessable_entity
+        end
+    end
+
     def stats
         artist = current_artist
 

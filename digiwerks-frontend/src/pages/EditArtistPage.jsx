@@ -1,23 +1,10 @@
 import { Heading } from "@chakra-ui/react";
 import ArtistForm from "../components/forms/ArtistForm";
+import { useLocation } from "react-router-dom";
 
 export default function EditArtist() {
-  // Temporary mock data (API later)
-  const artistData = {
-    email: "user@email.com",
-    username: "user_name",
-    password: "user@emA1l.com",
-    bio: "Test User",
-    profileImage: "https://placehold.co/400x400"
-  };
-
-  const handleUpdate = (updatedData) => {
-    console.log("Updated artist:", updatedData);
-  };
-
-  const handleDelete = () => {
-    console.log("Delete account clicked");
-  };
+  const location = useLocation();
+  const artist = location.state?.artist;
 
   return (
     <>
@@ -28,7 +15,7 @@ export default function EditArtist() {
 
     <ArtistForm 
       mode = "edit"
-      initialData={artistData}
+      initialData={artist}
     />
     </>
   )

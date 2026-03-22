@@ -54,7 +54,7 @@ export default function ArtistProfileCard({artist}) {
           bg="brand.blue"
           color="white"
           _hover={{ bg: "brand.pink" }}
-          onClick={() => navigate("/artist/edit")}
+          onClick={() => navigate("/artist/edit", { state: { artist } })}
         >
           Edit Profile
         </Button>

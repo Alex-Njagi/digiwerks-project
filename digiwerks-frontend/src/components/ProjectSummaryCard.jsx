@@ -8,6 +8,7 @@ import {
   HStack
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import ProjectCard from "./ProjectCard";
 
 function ProjectSummaryCard({project}) {
 
@@ -41,6 +42,8 @@ function ProjectSummaryCard({project}) {
           <Text>
             <b>Status:</b> {project.status}
           </Text>
+
+          {/* <ProjectCard project={project} /> */}
         </VStack>
 
         {/* Dates */}

@@ -18,22 +18,9 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function ProjectForm ({initialData, mode}) {
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-        });
-    };
-
-    const setField = (field, value) => {
-        setForm(prev => ({ ...prev, [field]: value }));
-    };
-
-    const { submitProject, loading, error, success } = useCreateProject();
-    const { updateProject } = useUpdateProject();
-    const { deleteProject } = useDeleteProject();
+    const { submitProject, loading: createLoading, error: createError } = useCreateProject();
+    const { updateProject, loading: updateLoading, error: updateError } = useUpdateProject();
+    const { deleteProject, loading: deleteLoading, error: deleteError } = useDeleteProject();
     const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
 
@@ -44,8 +31,12 @@ export default function ProjectForm ({initialData, mode}) {
         status: initialData?.status || "",
         start_date: initialData?.start_date || "",
         end_date: initialData?.end_date || ""
-    });    
-    
+    }); 
+
+    const setField = (field, value) => {
+        setForm(prev => ({ ...prev, [field]: value }));
+    };
+
     const handleChange = (field) => async (e) => {
         if (field === "cover_img") {
             const file = e.target.files[0];
@@ -58,13 +49,22 @@ export default function ProjectForm ({initialData, mode}) {
         }
     };
 
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+    };    
+
     const handleSubmit = async () => {
         try {
             setSubmitting(true);
 
             let payload = { ...form };
 
-            // 🖼️ Convert image if user uploaded one
+            // Convert image if user uploaded one
             if (form.cover_img instanceof File) {
             payload.cover_img = await convertToBase64(form.cover_img);
             }
@@ -72,12 +72,11 @@ export default function ProjectForm ({initialData, mode}) {
             if (mode === "edit") {
                 await updateProject(initialData._id, payload);
                 alert("Your project has been successfully updated!");
-                console.log(success);
-                navigate("/artist/dashboard") 
+                // navigate(`projects/${_id}`) 
+                navigate(`/projects/${initialData._id}`)
             } else {
                 await submitProject(payload);
                 alert("Your project has been successfully created!");
-                console.log(success);
                 navigate("/artist/dashboard")  
             }
             
@@ -93,16 +92,14 @@ export default function ProjectForm ({initialData, mode}) {
         const confirmed = window.confirm(
             "Are you sure you want to delete this project? This cannot be undone."
         );
-
         if (!confirmed) return;
-
         try {
             await deleteProject(initialData._id);
             alert("Your project has been deleted successfully!");
             navigate("/artist/dashboard");
         } catch (error) {
             console.error(error);
-            alert("❌ Failed to delete project.");
+            alert("Failed to delete project.");
         }
     };
 
@@ -203,8 +200,8 @@ export default function ProjectForm ({initialData, mode}) {
                 color="white"
                 _hover={{ bg: "brand.blue" }}
                 onClick={handleSubmit}
-                isLoading={loading}
-                loadingText="Submitting"
+                isLoading={submitting || createLoading || updateLoading}
+                loadingText="Submitting..."
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
@@ -217,16 +214,18 @@ export default function ProjectForm ({initialData, mode}) {
                         color="white"
                         _hover={{ bg: "red.500" }}
                         onClick={handleDelete}
+                        isLoading={deleteLoading}
+                        loadingText="Deleting..."
                         >
                         Delete Project
                     </Button>
                 : null }                
             </Flex>
-            {error && (
+            {(createError || updateError || deleteError) && (
                 <Text color="red.500" fontSize="sm">
-                {error}
+                {createError?.message || updateError?.message || deleteError?.message}
                 </Text>
-            )}            
+            )}          
         </Box>
         </Flex>
         </>
