@@ -11,8 +11,27 @@ import {
   FormLabel,
   Tag
 } from "@chakra-ui/react";
+import { useCreateProject } from "../../hooks/useCreateProject";
+import { useNavigate } from "react-router-dom";
+
 
 export default function ProjectForm ({initialData, mode}) {
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+    };
+
+    const setField = (field, value) => {
+        setForm(prev => ({ ...prev, [field]: value }));
+    };
+
+    const { submitProject, loading, error, success } = useCreateProject();
+    const [submitting, setSubmitting] = useState(false);
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         title: initialData?.title || "",
@@ -20,20 +39,44 @@ export default function ProjectForm ({initialData, mode}) {
         cover_img: initialData?.cover_img || "",
         status: initialData?.status || "",
         start_date: initialData?.start_date || "",
-        end_date: initialData?.end_date || null
+        end_date: initialData?.end_date || ""
     });
     
-    const handleChange = (field) => (e) => {
-    if (field === "cover_img") {
-        setForm({ ...form, cover_img: e.target.files[0] });
-    } else {
-        setForm({ ...form, [field]: e.target.value });
-    }
+    const handleChange = (field) => async (e) => {
+        if (field === "cover_img") {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const base64 = await convertToBase64(file);
+            setForm({ ...form, cover_img: base64 });
+        } else {
+            setForm({ ...form, [field]: e.target.value });
+        }
     };
-    
-    // const handleSubmit = () => {
-    // onSubmit(form);
-    // };
+
+    const handleSubmit = async () => {
+        try {
+            setSubmitting(true);
+
+            let payload = { ...form };
+
+            // 🖼️ Convert image if user uploaded one
+            if (form.cover_img instanceof File) {
+            payload.cover_img = await convertToBase64(form.cover_img);
+            }
+
+            await submitProject(payload);
+            alert("Your project has been successfully created!");
+            console.log(success);
+            navigate("/artist/dashboard")           
+            
+        } catch (error) {
+            console.error(error);
+            alert(`Oops! Something went wrong! Please try again.`)
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     return (
         <>
@@ -70,20 +113,21 @@ export default function ProjectForm ({initialData, mode}) {
 
                 <HStack justify="center">
                 <Tag
-                    alignSelf="flex-end"
-                    bg="brand.pink"
+                    bg={form.status === "In-Progress" ? "brand.blue" : "brand.pink"}
                     color="white"
-                    // onClick = {form.status = "In-Progress"}
-                    _hover={{ bg: "brand.blue", cursor: "pointer" }}
+                    cursor="pointer"
+                    onClick={() => setField("status", "In-Progress")}
+                    _hover={{ opacity: 0.85 }}
                 >
                     In-Progress
                 </Tag>
+
                 <Tag
-                    alignSelf="flex-start"
-                    bg="brand.pink"
+                    bg={form.status === "Complete" ? "brand.blue" : "brand.pink"}
                     color="white"
-                    // onClick = {form.status = "Complete"}
-                    _hover={{ bg: "brand.blue", cursor: "pointer" }}
+                    cursor="pointer"
+                    onClick={() => setField("status", "Complete")}
+                    _hover={{ opacity: 0.85 }}
                 >
                     Complete
                 </Tag>
@@ -130,6 +174,9 @@ export default function ProjectForm ({initialData, mode}) {
                 bg="brand.pink"
                 color="white"
                 _hover={{ bg: "brand.blue" }}
+                onClick={handleSubmit}
+                isLoading={loading}
+                loadingText="Submitting"
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
@@ -144,9 +191,13 @@ export default function ProjectForm ({initialData, mode}) {
                         >
                         Delete Project
                     </Button>
-                : null }
-
+                : null }                
             </Flex>
+            {error && (
+                <Text color="red.500" fontSize="sm">
+                {error}
+                </Text>
+            )}            
         </Box>
         </Flex>
         </>

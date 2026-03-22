@@ -146,9 +146,9 @@ export default function ArtistForm ({initialData, mode}) {
                 : null }
             </Flex>
             {error && (
-            <Text color="red.500" fontSize="sm">
+                <Text color="red.500" fontSize="sm">
                 {error}
-            </Text>
+                </Text>
             )}
             </VStack>
         </Box>

@@ -19,3 +19,10 @@ export const getProjectWorkspace = async (id) => {
   const res = await apiClient.get(`/projects/${id}/workspace`);
   return res.data;
 };
+
+export const createProject = async (projectData) => {
+  const res = await apiClient.post("/projects", {
+    project: projectData
+  });
+  return res.data;
+};
