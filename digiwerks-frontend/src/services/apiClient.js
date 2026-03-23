@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:3000", // Rails server
+  baseURL: "https://digiwerks-api.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true // ← THIS enables cookies
+  withCredentials: true
 });
 
 export default apiClient;
