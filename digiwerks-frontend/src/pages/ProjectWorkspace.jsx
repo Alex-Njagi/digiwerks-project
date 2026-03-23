@@ -1,6 +1,5 @@
 import { Box, Center, Image, Spinner, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-// import { useProject } from "../hooks/useProject";
 import { useProjectWorkspace } from "../hooks/useProjectWorkspace";
 import ProjectSummaryCard from "../components/ProjectSummaryCard";
 import ProjectStats from "../components/ProjectStats";

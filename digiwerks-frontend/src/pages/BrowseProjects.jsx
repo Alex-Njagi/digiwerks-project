@@ -4,7 +4,9 @@ import {
   Text,
   Input,
   Divider,
-  VStack
+  VStack,
+  Center,
+  Spinner
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -18,8 +20,16 @@ function BrowseProjects() {
 
   const { projects, loading: projectsLoading, error: projectsError } = useAllProjects();
     
-  if (projectsLoading) return <p>Loading...</p>;
-  if (projectsError) return <p>{projectsError}</p>;  
+  if (projectsLoading) {
+          return (
+              <Center h="50vh" flexDirection="column" gap={4}>
+                  <Spinner size="xl" thickness="4px" color="brand.pink" />
+                  <Text>Loading projects...</Text>
+              </Center>
+          );
+      }
+  
+      if (projectsError) return <p>{projectsError}</p>;
 
   const filteredProjects = projects.filter(project =>
     project.title.toLowerCase().includes(search.toLowerCase())

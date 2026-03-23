@@ -2,7 +2,7 @@ import { Box, Heading, Divider, SimpleGrid, Button, Flex } from "@chakra-ui/reac
 import VersionCard from "./VersionCard";
 import { useNavigate } from "react-router-dom";
 
-export default function VersionGrid({ versions, onVersionClick }) {
+export default function VersionGrid({ asset, versions, onVersionClick }) {
   // console.log(versions);  
   const navigate = useNavigate()
   
@@ -22,7 +22,7 @@ export default function VersionGrid({ versions, onVersionClick }) {
               size="sm"
               bg="brand.pink"
               color="white"
-              onClick={() => navigate("/version/create")}
+              onClick={() => navigate("/version/create", { state: { asset } })}
               _hover={{ bg: "brand.blue" }}
           >
               + New Version

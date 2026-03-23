@@ -10,15 +10,13 @@ import { useNavigate } from "react-router-dom"
 import { useDeleteAsset } from "../hooks/useAssetHooks";
 
 export default function AssetCard({projectId, asset}){
-  console.log(projectId);
+  // console.log(projectId);
   
   const assetId = asset._id
   const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
 
   const openAsset = () => {
-    navigate(`/assets/${assetId}`, {
-      state: { asset }   // ← pass full asset object
-    });
+    navigate(`/project_assets/${assetId}`);
   };
   
   const navigate = useNavigate();

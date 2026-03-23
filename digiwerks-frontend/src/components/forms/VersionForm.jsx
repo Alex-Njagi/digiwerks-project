@@ -10,26 +10,60 @@ import {
   Button,
   FormLabel
 } from "@chakra-ui/react";
+import { useCreateVersion } from "../../hooks/useVersionHooks";
+import { useNavigate } from "react-router-dom";
 
-export default function VersionForm ({initialData, mode}) {
+export default function VersionForm ({asset, initialData, mode}) {    
+    const { submitVersion, loading: createLoading, error: createError } = useCreateVersion()
+    const [submitting, setSubmitting] = useState(false);
+    const navigate = useNavigate();
+
+    const assetId = asset._id
+    
     const [form, setForm] = useState({
-        project_asset: initialData?.asset_name || "",
-        version_number: initialData?.version_number || "",
+        version_number: initialData?.version_number || 0,
         change_notes: initialData?.change_notes || "",
+        asset_id: initialData?.asset_id || assetId,
         file_url: initialData?.file_url || ""
     });
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+    };   
     
     const handleChange = (field) => (e) => {
-    if (field === "file_url") {
-        setForm({ ...form, file_url: e.target.files[0] });
-    } else {
-        setForm({ ...form, [field]: e.target.value });
-    }
+        if (field === "file_url") {
+            const file = e.target.files[0];
+            setForm({ ...form, file_url: file || null }); // keep the File object
+        } else {
+            setForm({ ...form, [field]: e.target.value });
+        }
     };
     
-    // const handleSubmit = () => {
-    // onSubmit(form);
-    // };
+    const handleSubmit = async () => {
+        try {
+            setSubmitting(true);
+            let payload = { ...form };
+            console.log(payload);
+            
+            if (form.file_url instanceof File) {
+            payload.file_url = await convertToBase64(form.file_url);
+            }
+            await submitVersion(assetId, payload);
+            alert("Congrats! Your version is ready for all to see!");
+            navigate(`/project_assets/${assetId}`)
+        } catch (error) {
+            console.error(error);
+            alert(`Oops! Something went wrong! Please try again.`)
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     return (
         <>
@@ -47,15 +81,7 @@ export default function VersionForm ({initialData, mode}) {
                 Provide Version Details
             </Text>
 
-            <VStack spacing={4} align="stretch">                   
-                <FormLabel fontSize="xs" mb={-2} color="brand.blue">Asset</FormLabel>
-                <Input
-                required
-                placeholder="Asset"
-                value={form.project_asset}
-                onChange={handleChange("project_asset")}
-                />
-
+            <VStack spacing={4} align="stretch">
                 <FormLabel fontSize="xs" mb={-2} color="brand.blue">Version Number</FormLabel>
                 <Input
                 required
@@ -91,6 +117,9 @@ export default function VersionForm ({initialData, mode}) {
                 bg="brand.pink"
                 color="white"
                 _hover={{ bg: "brand.blue" }}
+                onClick={handleSubmit}
+                isLoading={submitting || createLoading}
+                loadingText="Submitting..."
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
@@ -107,7 +136,13 @@ export default function VersionForm ({initialData, mode}) {
                     </Button>
                 : null }
 
+                {(createError) && (
+                <Text color="red.500" fontSize="sm">
+                    {createError?.message}
+                </Text>
+                )}
             </Flex>
+            
         </Box>
         </Flex>
         </>

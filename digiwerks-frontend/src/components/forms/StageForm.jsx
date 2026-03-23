@@ -24,7 +24,7 @@ export default function StageForm ({project, initialData, mode}) {
     
     const [form, setForm] = useState({
         stage_name: initialData?.stage_name || "",
-        stage_order: initialData?.stage_order || "",
+        stage_order: initialData?.stage_order || 0,
         project_id: initialData?.project_id || projectId,
         description: initialData?.description || ""
     });

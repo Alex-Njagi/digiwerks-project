@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function AssetSummaryCard({asset}) {
   const navigate = useNavigate();
+  const projectTitle = asset.project_stage?.project?.title
+  const artistName = asset.project_stage?.project?.artist?.username 
+
   return (
     <Box
       bg="white"
@@ -50,27 +53,15 @@ export default function AssetSummaryCard({asset}) {
         {/* Ownership */}
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
-            <Text fontWeight="bold">Owner: </Text>
-            {/* <Text>{asset.owner}</Text> */}
+            <Text fontWeight="bold" color="brand.pink">Owner: </Text>
+            <Text color="brand.blue">{artistName}</Text>
           </HStack>
 
           <HStack>
-            <Text fontWeight="bold">Project: </Text>
-            {/* <Text>{asset.project}</Text> */}
+            <Text fontWeight="bold" color="brand.pink">Project: </Text>
+            <Text color="brand.blue">{projectTitle}</Text>
           </HStack>
         </HStack>
-
-        {/* Edit Button */}
-        {/* <Flex justify="center" mt={4}>
-          <Button
-            bg="brand.pink"
-            color="white"
-            _hover={{ bg: "brand.blue" }}
-            onClick={() => navigate("/project_asset/edit")}
-          >
-            Edit Asset
-          </Button>
-        </Flex> */}
 
       </VStack>
     </Box>

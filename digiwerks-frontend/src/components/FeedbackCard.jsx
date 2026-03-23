@@ -5,11 +5,41 @@ import {
   Button,
   Textarea
 } from "@chakra-ui/react";
+import { useCreateFeedback } from "../hooks/useFeedbackHooks";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function FeedbackCard({feedbacks}) {
+export default function FeedbackCard({versionId, feedbacks}) {
   const hasFeedback = Array.isArray(feedbacks) && feedbacks.length > 0;
-  console.log(feedbacks);
+  // console.log(versionId);
   
+  const { submitFeedback, loading: createLoading, error: createError } = useCreateFeedback();
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+      asset_version_id: versionId,
+      comment_text: " "
+  }); 
+
+  const handleChange = (field) => (e) => {
+        setForm({ ...form, [field]: e.target.value });        
+  };
+
+  const handleSubmit = async () => {
+    try {
+        setSubmitting(true);
+        let payload = { ...form };        
+        await submitFeedback(versionId, payload);
+        alert("feedback successfully received! Thank you");
+        window.location.reload()         
+    } catch (error) {
+        console.error(error);
+        alert(`Oops! Something went wrong! Please try again.`)
+    } finally {
+        setSubmitting(false);
+    }
+  };    
 
   return (
     <>
@@ -19,9 +49,9 @@ export default function FeedbackCard({feedbacks}) {
         </Text>
 
         {hasFeedback ? (
-            feedbacks.map((feedback) => (
+            feedbacks.map((feedback) => (              
             <Text key={feedback._id} fontSize="sm" color="gray.600">
-                <b></b>: {feedback.comment_text}
+                <b>{feedback.artist.username}</b>: {feedback.comment_text}
             </Text>
             ))
         ) : (
@@ -39,16 +69,29 @@ export default function FeedbackCard({feedbacks}) {
             bg="brand.pastelPink"
             borderRadius="md"
         >
-            <Textarea placeholder="Say something..." mb={5}/>
+            <Textarea 
+            color="brand.blue"
+            placeholder="Say something..." mb={5}
+            required
+            value={form.comment_text}
+            onChange={handleChange("comment_text")}/>
 
             <Button
             size="sm"
             bg="brand.pink"
             color="white"
             _hover={{ bg: "brand.blue" }}
-          >
+            onClick={handleSubmit}
+            isLoading={submitting || createLoading }
+            loadingText="Submitting...">
             Submit
           </Button>
+
+          {(createError) && (
+                <Text color="red.500" fontSize="sm">
+                {createError?.message}
+                </Text>
+          )}  
         </Box>
     </>
   );

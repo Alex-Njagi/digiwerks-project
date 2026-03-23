@@ -45,19 +45,15 @@ function Sidebar({ isOpen, onClose }) {
           <VStack align="stretch" spacing={4} mt={4}>
 
             <Button variant="ghost" onClick={() => go("/browse_projects")}>
-              Browse
+              Browse Projects
             </Button>
 
             <Button variant="ghost" onClick={() => go("/project/create")}>
-              Create
+              Create Project
             </Button>
 
             <Button variant="ghost" onClick={() => go("/artist/dashboard")}>
-              Profile
-            </Button>
-
-            <Button variant="ghost" onClick={() => go("/about")}>
-              About Us
+              View Profile
             </Button>
 
             <Button

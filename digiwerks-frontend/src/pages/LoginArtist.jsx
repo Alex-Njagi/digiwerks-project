@@ -5,7 +5,8 @@ import {
   Input,
   Text,
   VStack,
-  Heading
+  Heading,
+  Link
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -76,6 +77,13 @@ function LoginArtist() {
                 Login
               </Button>
             </Flex>
+            <Link 
+              href="/artist/new"
+              fontSize="sm"
+              color="brand.pink"
+              _hover={{ color: "brand.blue" }}>
+                Need to make an account? Click me!
+            </Link>
             {error && <Text color="red.500">{error}</Text>}
           </VStack>
         </Box>

@@ -1,7 +1,11 @@
 import { Heading } from "@chakra-ui/react";
 import VersionForm from "../components/forms/VersionForm";
+import { useLocation } from "react-router-dom";
 
 export default function CreateVersion() {
+  const location = useLocation();
+  const asset = location.state?.asset;
+
   return (
     <>
     {/* Section Header */}
@@ -11,6 +15,7 @@ export default function CreateVersion() {
 
     <VersionForm 
       mode = "create"
+      asset={asset}
       initialData={null}
     />
     </>

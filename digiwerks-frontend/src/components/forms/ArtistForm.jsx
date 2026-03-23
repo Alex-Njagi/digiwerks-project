@@ -8,7 +8,8 @@ import {
   Input,
   Textarea,
   Button,
-  FormLabel
+  FormLabel,
+  Link
 } from "@chakra-ui/react";
 import { useSignupArtist } from "../../hooks/useSignupArtist";
 import useUpdateArtist from "../../hooks/useUpdateArtist";
@@ -182,12 +183,20 @@ export default function ArtistForm({ initialData, mode }) {
               </Button>
             )}
           </Flex>
-
           {(signupError || updateError || deleteError) && (
             <Text color="red.500" fontSize="sm">
               {signupError?.message || updateError?.message || deleteError?.message}
             </Text>
           )}
+          {mode === "create" ?
+            <Link 
+              href="/artist/login"
+              fontSize="sm"
+              color="brand.pink"
+              _hover={{ color: "brand.blue" }}>
+                Ready to login? Click me!
+            </Link>
+          : null}
         </VStack>
       </Box>
     </Flex>

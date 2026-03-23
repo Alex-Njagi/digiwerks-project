@@ -48,7 +48,7 @@ export default function App() {
         <Route path="/browse_projects" element={<BrowseProjects />} />
         {/* <Route path="/project_workspace" element={<ProjectWorkspace />} /> */}
         <Route path="/projects/:id" element={<ProjectWorkspace />} /> {/* workspace */}
-        <Route path="/assets/:id" element={<AssetWorkspace />} />
+        <Route path="/project_assets/:id" element={<AssetWorkspace />} />
       </Routes>
     </Layout>    
   );

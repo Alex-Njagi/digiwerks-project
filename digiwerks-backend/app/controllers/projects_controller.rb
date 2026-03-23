@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
                     assets: {
                     include: {
                         asset_versions: {
-                        include: :feedbacks   # ← THIS is the key line
+                        include: :feedbacks
                         }
                     }
                     }

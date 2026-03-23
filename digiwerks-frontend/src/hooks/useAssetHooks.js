@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createAsset } from "../services/assetService";
 import { deleteAsset } from "../services/assetService";
+import { getAsset } from "../services/assetService";
 
 export function useCreateAsset() {
   const [loading, setLoading] = useState(false);
@@ -40,4 +41,28 @@ export function useDeleteAsset() {
   };
 
   return { deleteAsset: remove, loading, error };
+}
+
+export function useAsset(id) {
+  const [asset, setAsset] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAsset = async () => {
+      try {
+        setLoading(true);
+        const data = await getAsset(id);
+        setAsset(data);
+      } catch (err) {
+        setError(err.response?.data || "Failed to fetch asset");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchAsset();
+  }, [id]);
+
+  return { asset, loading, error };
 }

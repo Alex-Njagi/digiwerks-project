@@ -15,13 +15,33 @@ import {
 } from "@chakra-ui/react";
 import FeedbackCard from "./FeedbackCard";
 import { useNavigate } from "react-router-dom";
+import { useDeleteVersion } from "../hooks/useVersionHooks";
 
-export default function VersionWindow ({ isOpen, onClose, version }) {
-  // console.log(version);
-  const navigate = useNavigate()
+export default function VersionWindow ({ isOpen, onClose, version, asset }) {
   const feedbacks = version.feedbacks
-  console.log(feedbacks);
+  // console.log(version);
+
+  const assetName = asset.asset_name
+  const projectTitle = asset.project_stage?.project?.title
+  const artistName = asset.project_stage?.project?.artist?.username  
+
+  const { deleteVersion, loading: deleteLoading, error: deleteError } = useDeleteVersion();
+    const navigate = useNavigate();
   
+    const handleDelete = async () => {
+      const confirmed = window.confirm(
+          "Are you sure you want to delete this version? This cannot be undone."
+      );
+      if (!confirmed) return;
+      try {
+          await deleteVersion(version._id);
+          alert("Your asset version has been deleted successfully!");
+          window.location.reload()
+      } catch (error) {
+          console.error(error);
+          alert("Failed to delete version.");
+      }
+    }; 
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
@@ -57,12 +77,12 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                 
                 {/* Asset Header */}
                 <Box>
-                  <Heading size="md" color="brand.pink">Asset Name</Heading>
+                  <Heading size="md" color="brand.pink">{assetName}</Heading>
                   <Text fontSize="sm" color="gray.500">
                     Version Number: {version.version_number}
                   </Text>
                   <Text fontSize="sm" color="brand.blue">
-                    Artist Name — Project Title
+                    {artistName} — {projectTitle}
                   </Text>
                 </Box>
 
@@ -83,16 +103,24 @@ export default function VersionWindow ({ isOpen, onClose, version }) {
                   bg="brand.pink"
                   color="white"
                   _hover={{ bg: "brand.blue" }}
-                  onClick={() => navigate("/version/edit")}
+                  onClick={handleDelete}
+                  isLoading={deleteLoading}
+                  loadingText="Deleting..."
                 >
-                  Edit
+                  Delete Version
                 </Button>
+                {(deleteError) && (
+                  <Text color="red.500" fontSize="sm">
+                  {deleteError?.message}
+                  </Text>
+                )} 
 
                 <Divider borderColor="brand.blue"/>
-
-
                 
-                <FeedbackCard feedbacks={feedbacks}/>
+                <FeedbackCard 
+                  feedbacks={feedbacks}
+                  versionId={version._id}
+                />
               </VStack>
             </Flex>
 

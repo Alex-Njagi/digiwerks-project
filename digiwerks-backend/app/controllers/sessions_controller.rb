@@ -39,9 +39,8 @@ class SessionsController < ApplicationController
     end
 
     def logout
-    session.delete(:artist_id)
-    session.delete(:admin_id)
-
-    render json: { message: "Logged out" }
+        session.delete(:artist_id)
+        session.delete(:admin_id)
+        render json: { message: "Logged out" }
     end
 end
