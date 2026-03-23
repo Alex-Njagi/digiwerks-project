@@ -47,6 +47,6 @@ class ProjectStagesController < ApplicationController
     end
 
     def stage_params
-        params.permit(:stage_name, :stage_order, :description)
+        params.require(:project_stage).permit(:stage_name, :stage_order, :description)
     end
 end

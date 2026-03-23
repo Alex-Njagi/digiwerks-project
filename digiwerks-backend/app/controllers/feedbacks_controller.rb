@@ -2,7 +2,6 @@ class FeedbacksController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     before_action :set_asset_version, only: [:index, :create]
-    before_action :set_artist, only: [:create]
     before_action :set_feedback, only: [:show, :update, :destroy]
 
     def index
@@ -16,7 +15,7 @@ class FeedbacksController < ApplicationController
 
     def create
         feedback = @asset_version.feedbacks.build(feedback_params)
-        feedback.artist = @artist
+        feedback.artist = current_artist
 
         if feedback.save
             render json: feedback.as_json(include: { artist: { only: [:id, :username] }}), status: :created
@@ -45,16 +44,12 @@ class FeedbacksController < ApplicationController
         @asset_version = AssetVersion.find(params[:asset_version_id])
     end
 
-    def set_artist
-        @artist = current_artist
-    end
-
     def set_feedback
         @feedback = Feedback.find(params[:id])
     end
 
     def feedback_params
-        params.permit(:comment_text)
+        params.require(:feedback).permit(:comment_text)
     end
     
 end

@@ -8,8 +8,50 @@ class AssetsController < ApplicationController
     render json: assets
   end
 
+  # def show
+  #   render json: @asset.as_json(
+  #     include: {
+  #       asset_versions: {
+  #         include: {
+  #           feedbacks: {
+  #             include: {
+  #               artist: { only: [:id, :username] }
+  #             }
+  #           }
+  #         }
+  #       }
+  #     }
+  #   )
+  # end
+
   def show
-    render json: @asset, include: [:asset_versions, :asset_tags]
+    asset = Asset
+      .includes(
+        :project_stage,
+        asset_versions: [feedbacks: :artist]).find(params[:id])
+
+    render json: asset.as_json(
+      include: {
+        project_stage: {
+          include: {
+            project: {
+              include: {
+                artist: { only: [:id, :username] }
+              }
+            }
+          }
+        },
+        asset_versions: {
+          include: {
+            feedbacks: {
+              include: {
+                artist: { only: [:id, :username] }
+              }
+            }
+          }
+        }
+      }
+    )
   end
 
   def create
@@ -45,7 +87,7 @@ class AssetsController < ApplicationController
   end
 
   def asset_params
-    params.permit(:asset_name, :asset_description)
+    params.require(:asset).permit(:asset_name, :asset_description, :asset_tag)
   end
 
 end

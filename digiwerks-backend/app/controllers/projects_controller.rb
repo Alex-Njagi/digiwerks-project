@@ -47,6 +47,26 @@ class ProjectsController < ApplicationController
         head :no_content
     end
 
+    def workspace
+        project = Project.find(params[:id])
+
+        render json: project.as_json(
+            include: {
+                project_stages: {
+                include: {
+                    assets: {
+                    include: {
+                        asset_versions: {
+                        include: :feedbacks
+                        }
+                    }
+                    }
+                }
+                }
+            }
+        )
+    end
+
     private
 
     def set_artist
@@ -58,7 +78,9 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.permit(:title, :description, :status, :start_date, :end_date)
+        params.require(:project).permit(
+            :title, :description, :status, :cover_img, :start_date, :end_date
+        )
     end
 
 end

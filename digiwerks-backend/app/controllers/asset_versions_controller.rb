@@ -45,7 +45,6 @@ class AssetVersionsController < ApplicationController
     end
 
     def version_params
-        params.permit(:version_number, :file_url, :change_notes)
+        params.require(:asset_version).permit(:version_number, :file_url, :change_notes)
     end
-
 end
