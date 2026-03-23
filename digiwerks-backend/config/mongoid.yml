@@ -333,6 +333,9 @@ production:
   clients:
     default:
       uri: <%= ENV['MONGODB_URI'] %>
+      options:
+        ssl: true   # forces TLS/SSL
+        retry_writes: true
 
 development:
   clients:
