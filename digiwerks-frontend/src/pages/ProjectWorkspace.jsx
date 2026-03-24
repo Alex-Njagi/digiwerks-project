@@ -4,8 +4,9 @@ import { useProjectWorkspace } from "../hooks/useProjectWorkspace";
 import ProjectSummaryCard from "../components/ProjectSummaryCard";
 import ProjectStats from "../components/ProjectStats";
 import StagesGrid from "../components/StagesGrid";
+import ProjectCoverImage from "../components/ProjectCoverImage";
 
-function ProjectWorkspace() {
+export default function ProjectWorkspace() {
   const { id } = useParams();
   const { project, loading, error } = useProjectWorkspace(id);  
 
@@ -20,25 +21,17 @@ function ProjectWorkspace() {
 
   if (error) return <p>{error}</p>;
 
-  // const stages = project.project_stages
-  // console.log(stages);
-  
-  // const assets = project.project_stages.map(stage => stage.assets)
-  // console.log(assets);  
-
   return (
     <Box p={6}>
 
       <ProjectSummaryCard project = {project}/>
+      <br />
+      <ProjectCoverImage project={project} />
       <ProjectStats project = {project}/>
       <StagesGrid 
         project={project}
         stages={project.project_stages}
-      />
-      
-
+      />   
     </Box>
   );
 }
-
-export default ProjectWorkspace;

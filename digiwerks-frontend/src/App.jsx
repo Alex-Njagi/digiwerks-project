@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import Layout from './components/Layout';
+import LandingPage from './pages/LandingPage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import BrowseProjects from './pages/BrowseProjects';
 import ProjectWorkspace from './pages/ProjectWorkspace';
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<p>Landing page placeholder</p>}/>
+        <Route path="/" element={<LandingPage />}/>
         <Route path="/artist/new" element={<SignupArtist />}/>
         <Route path="/artist/login" element={<LoginArtist />} />
         <Route path="/artist/edit" element={<EditArtist />} />
