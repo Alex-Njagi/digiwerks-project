@@ -28,6 +28,7 @@ export default function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="/" element={<p>Landing page placeholder</p>}/>
         <Route path="/artist/new" element={<SignupArtist />}/>
         <Route path="/artist/login" element={<LoginArtist />} />
         <Route path="/artist/edit" element={<EditArtist />} />
