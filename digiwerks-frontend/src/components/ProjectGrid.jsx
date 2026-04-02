@@ -13,7 +13,7 @@ function ProjectGrid({ projects = [] }) {
         </Heading>  
       </Flex>
 
-      <Divider mb={6} borderColor="brand.blue" />
+      <Divider mb={6} borderColor="brand.blue"/>
 
       {/* Responsive Grid */}
       <SimpleGrid minChildWidth="250px" spacing={6}>
