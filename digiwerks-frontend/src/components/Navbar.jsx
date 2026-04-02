@@ -2,7 +2,8 @@ import {
   Flex,
   Box,
   IconButton,
-  useDisclosure
+  useDisclosure,
+  Image
 } from "@chakra-ui/react";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -34,14 +35,18 @@ function Navbar() {
 
         {/* Centered Logo */}
         <Box
-          position="absolute"
-          left="50%"
-          transform="translateX(-50%)"
-          fontWeight="bold"
-          color="white"
-          fontSize="lg"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flex="1"
         >
-          DigiWerks
+          <Image
+            src="https://res.cloudinary.com/dctir0tjg/image/upload/q_auto/f_auto/v1775146271/DigiWerks_Logo_kig5ve.png"
+            alt="DigiWerks Logo"
+            maxW="150px"
+            w="100%"
+            objectFit="contain"
+          />
         </Box>
 
         {/* Spacer to balance layout */}
