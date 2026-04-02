@@ -31,8 +31,7 @@ export default function AssetWorkspace() {
     if (error) return <p>{error}</p>;
 
     const versions = asset.asset_versions;
-    // console.log(versions);
-    
+    // console.log(versions);    
 
     return (
         <Box p={6}>

@@ -13,9 +13,6 @@ export default function ArtistDashboard() {
     const { projects, loading: projectsLoading, error: projectsError } = useOwnedProjects();
     const { stats, loading: statsLoading, error: statsError } = useArtistStats();
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Please log in</p>;
-
     if (artistLoading || projectsLoading || statsLoading) {
         return (
             <Center h="50vh" flexDirection="column" gap={4}>

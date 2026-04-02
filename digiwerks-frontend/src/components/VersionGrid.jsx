@@ -17,7 +17,7 @@ export default function VersionGrid({ asset, versions, onVersionClick }) {
               ASSET VERSIONS
           </Heading>
   
-          {/* Add Stage Button */}
+          {/* Add Version Button */}
           <Button
               size="sm"
               bg="brand.pink"

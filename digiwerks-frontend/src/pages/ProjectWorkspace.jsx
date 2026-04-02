@@ -12,10 +12,10 @@ export default function ProjectWorkspace() {
 
   if (loading) {
     return (
-        <Center h="50vh" flexDirection="column" gap={4}>
-            <Spinner size="xl" thickness="4px" color="brand.pink" />
-            <Text>Loading project...</Text>
-        </Center>
+      <Center h="50vh" flexDirection="column" gap={4}>
+          <Spinner size="xl" thickness="4px" color="brand.pink" />
+          <Text>Loading project...</Text>
+      </Center>
     );
   }
 
@@ -23,7 +23,6 @@ export default function ProjectWorkspace() {
 
   return (
     <Box p={6}>
-
       <ProjectSummaryCard project = {project}/>
       <br />
       <ProjectCoverImage project={project} />
