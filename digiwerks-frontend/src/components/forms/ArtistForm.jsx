@@ -41,14 +41,28 @@ export default function ArtistForm({ initialData, mode }) {
     }
   };
 
-  // Convert file to base64 only at submit
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-    });
+  const uploadToCloudinary = async (file, folder="digiwerks") => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "digiwerks_preset");
+    formData.append("folder", folder);
+
+    const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dctir0tjg/image/upload",
+        {
+        method: "POST",
+        body: formData,
+        }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        console.error("Cloudinary error:", data);
+        throw new Error("Upload failed");
+    }
+
+    return data.secure_url;
   };
 
   const handleSubmit = async () => {
@@ -58,10 +72,9 @@ export default function ArtistForm({ initialData, mode }) {
       let payload = { artist: { ...form } };
       console.log(payload);
       
-
       // Only convert if it's a File
       if (form.profile_image_url instanceof File) {
-        payload.artist.profile_image_url = await convertToBase64(form.profile_image_url);
+        payload.artist.profile_image_url = await uploadToCloudinary(form.profile_image_url, "digiwerks");
       }
 
       if (mode === "edit") {

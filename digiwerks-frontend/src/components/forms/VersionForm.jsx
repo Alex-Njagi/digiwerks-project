@@ -26,23 +26,38 @@ export default function VersionForm ({asset, initialData, mode}) {
         asset_id: initialData?.asset_id || assetId,
         file_url: initialData?.file_url || ""
     });
-
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-        });
-    };   
     
     const handleChange = (field) => (e) => {
         if (field === "file_url") {
             const file = e.target.files[0];
-            setForm({ ...form, file_url: file || null }); // keep the File object
+            setForm({ ...form, file_url: file || null });
         } else {
             setForm({ ...form, [field]: e.target.value });
         }
+    };
+
+    const uploadToCloudinary = async (file, folder="digiwerks") => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "digiwerks_preset");
+        formData.append("folder", folder);
+
+        const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dctir0tjg/image/upload",
+            {
+            method: "POST",
+            body: formData,
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error("Cloudinary error:", data);
+            throw new Error("Upload failed");
+        }
+
+        return data.secure_url;
     };
     
     const handleSubmit = async () => {
@@ -52,7 +67,7 @@ export default function VersionForm ({asset, initialData, mode}) {
             console.log(payload);
             
             if (form.file_url instanceof File) {
-            payload.file_url = await convertToBase64(form.file_url);
+            payload.file_url = await uploadToCloudinary(form.file_url, "digiwerks");
             }
             await submitVersion(assetId, payload);
             alert("Congrats! Your version is ready for all to see!");

@@ -7,24 +7,10 @@ function ProjectGrid({ projects = [] }) {
   return (
     <Box mt={10} maxW="900px" mx="auto">
 
-      <Flex align="center" justify="space-between" mb={3}>
-        {/* Empty spacer so the title stays centered */}
-          <Box w="40px" />
-  
-          <Heading size="md" color="brand.pink" textAlign="center">
-              PROJECTS
-          </Heading>
-  
-          {/* Add Stage Button */}
-          <Button
-              size="sm"
-              bg="brand.pink"
-              color="white"
-              onClick={() => navigate("/project/create")}
-              _hover={{ bg: "brand.blue" }}
-          >
-              + New Project
-          </Button>
+      <Flex align="center" justify="center" mb={3}>  
+        <Heading size="md" color="brand.pink" textAlign="center">
+            PROJECTS
+        </Heading>  
       </Flex>
 
       <Divider mb={6} borderColor="brand.blue" />

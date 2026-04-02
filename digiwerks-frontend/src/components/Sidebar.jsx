@@ -53,7 +53,7 @@ function Sidebar({ isOpen, onClose }) {
             </Button>
 
             <Button variant="ghost" onClick={() => go("/artist/dashboard")}>
-              View Profile
+              View Dashboard
             </Button>
 
             <Button

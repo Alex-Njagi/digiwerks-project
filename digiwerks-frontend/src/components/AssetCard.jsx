@@ -45,7 +45,7 @@ export default function AssetCard({projectId, asset}){
       p={4}
       boxShadow="sm"
       _hover={{
-        transform: "scale(1.03)",
+        transform: "scale(1.01)",
         borderColor: "brand.blue",
         boxShadow: "md"
       }}

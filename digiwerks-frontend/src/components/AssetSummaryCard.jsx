@@ -6,7 +6,8 @@ import {
   Flex,
   VStack,
   HStack,
-  Tag
+  Tag,
+  Link
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +15,7 @@ export default function AssetSummaryCard({asset}) {
   const navigate = useNavigate();
   const projectTitle = asset.project_stage?.project?.title
   const artistName = asset.project_stage?.project?.artist?.username 
+  const projectId = asset.project_stage?.project?._id  
 
   return (
     <Box
@@ -59,7 +61,7 @@ export default function AssetSummaryCard({asset}) {
 
           <HStack>
             <Text fontWeight="bold" color="brand.pink">Project: </Text>
-            <Text color="brand.blue">{projectTitle}</Text>
+            <Link onClick={()=>navigate(`/projects/${projectId}`)} color="brand.blue">{projectTitle}</Link>
           </HStack>
         </HStack>
 

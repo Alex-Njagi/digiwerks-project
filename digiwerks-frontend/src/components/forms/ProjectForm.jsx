@@ -40,23 +40,35 @@ export default function ProjectForm ({initialData, mode}) {
     const handleChange = (field) => async (e) => {
         if (field === "cover_img") {
             const file = e.target.files[0];
-            if (!file) return;
-
-            const base64 = await convertToBase64(file);
-            setForm({ ...form, cover_img: base64 });
+            setForm({ ...form, cover_img: file || null });            
         } else {
             setForm({ ...form, [field]: e.target.value });
         }
     };
 
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-        });
-    };    
+    const uploadToCloudinary = async (file, folder="digiwerks") => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "digiwerks_preset");
+        formData.append("folder", folder);
+
+        const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dctir0tjg/image/upload",
+            {
+            method: "POST",
+            body: formData,
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error("Cloudinary error:", data);
+            throw new Error("Upload failed");
+        }
+
+        return data.secure_url;
+    };
 
     const handleSubmit = async () => {
         try {
@@ -66,9 +78,11 @@ export default function ProjectForm ({initialData, mode}) {
 
             // Convert image if user uploaded one
             if (form.cover_img instanceof File) {
-            payload.cover_img = await convertToBase64(form.cover_img);
+                const imageUrl = await uploadToCloudinary(form.cover_img, "digiwerks");
+                payload.cover_img = imageUrl;
             }
-            
+
+
             if (mode === "edit") {
                 await updateProject(initialData._id, payload);
                 alert("Your project has been successfully updated!");

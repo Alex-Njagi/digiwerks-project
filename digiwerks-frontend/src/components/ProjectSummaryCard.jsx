@@ -43,7 +43,12 @@ function ProjectSummaryCard({project}) {
             <b>Status:</b> {project.status}
           </Text>
 
-          {/* <ProjectCard project={project} /> */}
+          {project.status === "Complete" ?
+            <HStack>
+              <Text fontWeight="bold">Completion Date: </Text>
+              <Text>{formatDateTime(project.end_date)}</Text>
+            </HStack>
+          : null}
         </VStack>
 
         {/* Dates */}
