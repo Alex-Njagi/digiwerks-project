@@ -8,8 +8,8 @@ import StagesBarChart from "../components/charts/StagesBarChart";
 import StatusPieChart from "../components/charts/StatusPieChart";
 
 import { useCurrentAdmin } from "../hooks/useAdminHooks";
-import { useOwnedProjects } from "../hooks/useOwnedProjects";
-import { useArtistStats } from "../hooks/useArtistStats";
+import { useAllProjects } from "../hooks/useAllProjects";
+import { useAllArtists } from "../hooks/useAdminHooks";
 
 import { useState } from "react";
 import ProjectCard from "../components/ProjectCard";
@@ -17,14 +17,15 @@ import ProjectCard from "../components/ProjectCard";
 
 export default function AdminDashboard() {
     const { admin, loading: adminLoading, error: adminError } = useCurrentAdmin();
-    // const { projects, loading: projectsLoading, error: projectsError } = useOwnedProjects();
-    // const { stats, loading: statsLoading, error: statsError } = useArtistStats();
+    const { artists, loading: artistsLoading, error: artistsError } = useAllArtists();
+    const { projects, loading: projectsLoading, error: projectsError } = useAllProjects();
 
     // const [showStats, setShowStats] = useState(false);
 
-    
+    const artist_count = artists.length
+    const project_count = projects.length    
 
-    if (adminLoading) {
+    if (adminLoading || projectsLoading || artistsLoading) {
         return (
             <Center h="50vh" flexDirection="column" gap={4}>
                 <Spinner size="xl" thickness="4px" color="brand.pink" />
@@ -34,13 +35,16 @@ export default function AdminDashboard() {
     }
 
     if (adminError) return <p>Please log in</p>;
-    // if (projectsError) return <p>{projectsError}</p>;
-    // if (statsError) return <p>{statsError}</p>;
+    if (projectsError) return <p>{projectsError}</p>;
+    if (artistsError) return <p>{artistsError}</p>;
 
     return (
         <Box p={6}>
             <AdminProfileCard admin={admin}/>
-            <AdminStats />
+            <AdminStats            
+                artist_count={artist_count}
+                project_count={project_count}
+            />
 
             {/* <ArtistStats stats={stats}/>
             <br />

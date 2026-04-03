@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   
   get "/admin/view_accounts", to: "artists#view_accounts"
   get "/admin/view_accounts/:id", to: "artists#show_account"
-  get "/admin/moderate_projects", to: "projects#moderation_dashboard"
+  # get "/admin/view_projects", to: "projects#moderation_dashboard"
 
   get "/whoami", to: "sessions#whoami"
   get "/current_artist", to: "sessions#current_artist_info"

@@ -11,22 +11,22 @@ function StatItem({ number, label }) {
   );
 }
 
-export default function AdminStats() {
-  return (
-    <Flex
-      maxW="900px"
-      mx="auto"
-      mt={6}
-      align="center"
-      justify="center"
-      gap={4}
-    >
-      <StatItem number={5} label="Total Artists" />
+export default function AdminStats({project_count, artist_count}) {
+    return (
+        <Flex
+        maxW="900px"
+        mx="auto"
+        mt={6}
+        align="center"
+        justify="center"
+        gap={4}
+        >
+        <StatItem number={artist_count} label="Total Artists" />
 
-      <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
+        <Divider orientation="vertical" height="40px" borderColor="brand.blue" />
 
-      <StatItem number={10} label="Total Projects" />
+        <StatItem number={project_count} label="Total Projects" />
 
-    </Flex>
-  );
+        </Flex>
+    );
 }

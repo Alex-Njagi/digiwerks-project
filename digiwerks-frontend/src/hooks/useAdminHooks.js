@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { loginAdmin } from "../services/adminService";
 import { logoutAdmin } from "../services/adminService";
 import { getCurrentAdmin } from "../services/adminService";
+import { fetchAllArtists } from "../services/adminService";
 
 export const useLoginAdmin = () => {
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,7 @@ export const useCurrentAdmin = () => {
     const fetchAdmin = async () => {
       try {
         const data = await getCurrentAdmin();
-        setAdmin(data);
+        setAdmin(data);        
       } catch (err) {
         setError("Not authenticated");
       } finally {
@@ -74,4 +75,28 @@ export const useCurrentAdmin = () => {
   }, []);
 
   return { admin, loading, error };
+};
+
+export const useAllArtists = () => {
+  const [artists, setArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchArtists = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchAllArtists();
+      setArtists(data);
+    } catch (err) {
+      setError("Failed to fetch artists");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchArtists();
+  }, []);
+
+  return { artists, loading, error, refetch: fetchArtists };
 };

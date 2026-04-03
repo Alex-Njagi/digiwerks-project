@@ -13,3 +13,8 @@ export const getCurrentAdmin = async () => {
 export const logoutAdmin = async () => {
   const response = await apiClient.delete("/logout");
 };
+
+export const fetchAllArtists = async () => {
+  const response = await apiClient.get("/admin/view_accounts");
+  return response.data;
+};
