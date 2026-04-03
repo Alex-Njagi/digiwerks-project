@@ -5,7 +5,7 @@ import AdminProfileCard from "../components/AdminProfileCard";
 import AdminStats from "../components/AdminStats";
 import ArtistSignupChart from "../components/charts/ArtistSignupChart";
 import ProjectCreationChart from "../components/charts/ProjectCreationChart";
-import StatusPieChart from "../components/charts/StatusPieChart";
+import ArtistsTable from "../components/charts/ArtistsTable";
 
 import { useCurrentAdmin } from "../hooks/useAdminHooks";
 import { useAllProjects } from "../hooks/useAllProjects";
@@ -45,8 +45,6 @@ export default function AdminDashboard() {
                 artist_count={artist_count}
                 project_count={project_count}
             />
-
-            {/* <ArtistStats stats={stats}/> */}
             <br />
             <Box mt={4} maxW="900px" mx="auto">
                 <Flex justifySelf="center">
@@ -69,8 +67,8 @@ export default function AdminDashboard() {
                     </SimpleGrid>
                 </Collapse>
             </Box>
-            
-            {/* <ProjectGrid projects={projects} /> */}
+            <br />            
+            <ArtistsTable artists={artists} />
         </Box>
     );
 }
