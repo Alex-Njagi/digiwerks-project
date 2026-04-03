@@ -1,11 +1,28 @@
 class ArtistsController < UsersController
-    before_action :require_account_manager!, only: [:view_accounts]
+    # before_action :authenticate_admin!, only: [:view_accounts]
     skip_before_action :authenticate_artist!, only: [:create]
     # skip_before_action :verify_authenticity_token
 
     def view_accounts
         artists = Artist.all
-        render json: artists
+        render json: artists, include: :projects
+    end
+
+    def show_account
+        artist = Artist.find(params[:id])
+        render json: artist.as_json(include: {
+                projects: {
+                include: {
+                    project_stages: {
+                    include: {
+                        assets: {
+                        include: :asset_versions
+                        }
+                    }
+                    }
+                }
+                }
+            })
     end
 
     def create
