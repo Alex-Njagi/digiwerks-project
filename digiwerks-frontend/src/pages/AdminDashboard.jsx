@@ -3,8 +3,8 @@ import {
  } from "@chakra-ui/react";
 import AdminProfileCard from "../components/AdminProfileCard";
 import AdminStats from "../components/AdminStats";
-import ProjectGrid from "../components/ProjectGrid";
-import StagesBarChart from "../components/charts/StagesBarChart";
+import ArtistSignupChart from "../components/charts/ArtistSignupChart";
+import ProjectCreationChart from "../components/charts/ProjectCreationChart";
 import StatusPieChart from "../components/charts/StatusPieChart";
 
 import { useCurrentAdmin } from "../hooks/useAdminHooks";
@@ -20,7 +20,7 @@ export default function AdminDashboard() {
     const { artists, loading: artistsLoading, error: artistsError } = useAllArtists();
     const { projects, loading: projectsLoading, error: projectsError } = useAllProjects();
 
-    // const [showStats, setShowStats] = useState(false);
+    const [showStats, setShowStats] = useState(false);
 
     const artist_count = artists.length
     const project_count = projects.length    
@@ -46,9 +46,8 @@ export default function AdminDashboard() {
                 project_count={project_count}
             />
 
-            {/* <ArtistStats stats={stats}/>
+            {/* <ArtistStats stats={stats}/> */}
             <br />
-
             <Box mt={4} maxW="900px" mx="auto">
                 <Flex justifySelf="center">
                 <Button
@@ -65,13 +64,13 @@ export default function AdminDashboard() {
 
                 <Collapse in={showStats} animateOpacity>
                     <SimpleGrid minChildWidth="250px" spacing={6}>
-                    <StagesBarChart projects={projects} />
-                    <StatusPieChart projects={projects} />
+                    <ArtistSignupChart artists={artists} />
+                    <ProjectCreationChart projects={projects} />
                     </SimpleGrid>
                 </Collapse>
             </Box>
             
-            <ProjectGrid projects={projects} /> */}
+            {/* <ProjectGrid projects={projects} /> */}
         </Box>
     );
 }
