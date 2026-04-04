@@ -3,6 +3,7 @@ import { loginAdmin } from "../services/adminService";
 import { logoutAdmin } from "../services/adminService";
 import { getCurrentAdmin } from "../services/adminService";
 import { fetchAllArtists } from "../services/adminService";
+import { fetchSpecificArtist } from "../services/adminService";
 
 export const useLoginAdmin = () => {
   const [loading, setLoading] = useState(false);
@@ -99,4 +100,29 @@ export const useAllArtists = () => {
   }, []);
 
   return { artists, loading, error, refetch: fetchArtists };
+};
+
+export const useSpecificArtist = (id) => {
+  const [artist, setArtist] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!id) return;
+
+    const getArtist = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchSpecificArtist(id);
+        setArtist(data);
+      } catch (err) {
+        setError("Failed to load artist");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getArtist();
+  }, [id]);
+
+  return { artist, loading, error };
 };

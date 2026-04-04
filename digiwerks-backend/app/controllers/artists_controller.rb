@@ -1,6 +1,6 @@
 class ArtistsController < UsersController
     # before_action :authenticate_admin!, only: [:view_accounts]
-    skip_before_action :authenticate_artist!, only: [:create, :view_accounts]
+    skip_before_action :authenticate_artist!, only: [:create, :view_accounts, :show_account]
     # skip_before_action :verify_authenticity_token
 
     def view_accounts

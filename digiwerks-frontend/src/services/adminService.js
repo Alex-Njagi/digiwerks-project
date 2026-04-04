@@ -18,3 +18,8 @@ export const fetchAllArtists = async () => {
   const response = await apiClient.get("/admin/view_accounts");
   return response.data;
 };
+
+export const fetchSpecificArtist = async (id) => {
+  const response = await apiClient.get(`/admin/view_accounts/${id}`);
+  return response.data;
+};
