@@ -23,9 +23,22 @@ export default function ProjectWorkspace() {
 
   return (
     <Box p={6}>
-      <ProjectSummaryCard project = {project}/>
-      <br />
+      <Box
+      bg="white"
+      border="4px solid"
+      borderColor="brand.pink"
+      borderRadius="xl"
+      boxShadow="lg"
+      p={8}
+      maxW="1200px"
+      mx="auto"
+      mt={6}
+    >
       <ProjectCoverImage project={project} />
+      <br/>
+      <ProjectSummaryCard project = {project}/>   
+    </Box>
+          
       <ProjectStats project = {project}/>
       <StagesGrid 
         project={project}

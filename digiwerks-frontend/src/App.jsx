@@ -24,6 +24,9 @@ import EditAsset from './pages/EditAssetPage';
 import CreateVersion from './pages/CreateVersionPage';
 import EditVersion from './pages/EditVersionPage';
 
+import LoginAdmin from './pages/LoginAdmin';
+import AdminDashboard from './pages/AdminDashboard';
+
 
 export default function App() {
   return (
@@ -34,6 +37,9 @@ export default function App() {
         <Route path="/artist/login" element={<LoginArtist />} />
         <Route path="/artist/edit" element={<EditArtist />} />
         <Route path="/artist/dashboard" element={<ArtistDashboard />} />
+
+        <Route path="/admin/login" element={<LoginAdmin />} />
+        <Route path="admin/dashboard" element={<AdminDashboard />} />
         
         <Route path="/project/create" element={<CreateProject />} />
         <Route path="/project/edit" element={<EditProject />} />

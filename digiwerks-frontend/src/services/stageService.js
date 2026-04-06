@@ -1,6 +1,6 @@
 import apiClient from "./apiClient";
 
-export const fetchProjectStages = async () => {
+export const fetchProjectStages = async (id) => {
   const response = await apiClient.get(`/projects/${id}/project_stages`);
   return response.data;
 };

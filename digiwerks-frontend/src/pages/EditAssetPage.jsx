@@ -1,7 +1,12 @@
 import { Heading } from "@chakra-ui/react";
 import AssetForm from "../components/forms/AssetForm";
+import { useLocation } from "react-router-dom";
 
 export default function EditAsset() {
+  const location = useLocation();
+  const asset = location.state?.asset;
+  // console.log(asset);  
+
   return (
     <>
     {/* Section Header */}
@@ -11,7 +16,8 @@ export default function EditAsset() {
 
     <AssetForm 
       mode = "edit"
-      initialData={null}
+      // initialData={asset}
+      // stage={stage}
     />
     </>
   )

@@ -25,16 +25,16 @@ class ApplicationController < ActionController::Base
     render json: { error: "Admin login required" }, status: :unauthorized unless current_admin
   end
 
-  def require_account_manager!
-    unless current_admin && current_admin.role == "account_management"
-      render json: { error: "Account manager access required" }, status: :forbidden
-    end
-  end
+  # def require_account_manager!
+  #   unless current_admin && current_admin.role == "account_management"
+  #     render json: { error: "Account manager access required" }, status: :forbidden
+  #   end
+  # end
 
-  def require_content_moderator!
-    unless current_admin && current_admin.role == "content_moderation"
-      render json: { error: "Content moderator access required" }, status: :forbidden
-    end
-  end
+  # def require_content_moderator!
+  #   unless current_admin && current_admin.role == "content_moderation"
+  #     render json: { error: "Content moderator access required" }, status: :forbidden
+  #   end
+  # end
   
 end
