@@ -6,7 +6,7 @@ export const fetchAllProjects = async () => {
 };
 
 export const fetchOwnedProjects = async () => {
-  const response = await apiClient.get("/my_projects"); // uses session, no ID needed
+  const response = await apiClient.get("/my_projects");
   return response.data;
 };
 

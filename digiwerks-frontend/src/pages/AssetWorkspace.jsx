@@ -27,7 +27,6 @@ export default function AssetWorkspace() {
             </Center>
         );
     }
-
     if (error) return <p>{error}</p>;
 
     const versions = asset.asset_versions;
@@ -37,11 +36,7 @@ export default function AssetWorkspace() {
         <Box p={6}>
             <AssetSummaryCard asset={asset} />
             <AssetStats asset={asset} />
-            <VersionGrid 
-                asset={asset}
-                versions={versions}
-                onVersionClick={openVersion}
-            />
+            <VersionGrid asset={asset} versions={versions} onVersionClick={openVersion} />
             {selectedVersion && (
                 <VersionWindow
                     isOpen={isOpen}

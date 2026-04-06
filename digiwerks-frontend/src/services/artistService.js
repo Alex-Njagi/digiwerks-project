@@ -26,7 +26,7 @@ export const getCurrentArtist = async () => {
 
 export const logoutArtist = async () => {
   const response = await apiClient.delete("/logout");
-  return response.data; // optional, Rails might not return anything
+  return response.data;
 };
 
 export const fetchArtistStats = async () => {

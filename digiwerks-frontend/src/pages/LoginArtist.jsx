@@ -1,23 +1,12 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Text,
-  VStack,
-  Heading,
-  Link
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, VStack, Heading, Link } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLoginArtist } from "../hooks/useLoginArtist";
 
-function LoginArtist() {
+export default function LoginArtist() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { login, loading, error } = useLoginArtist();
 
   const handleSubmit = async () => {
@@ -34,56 +23,19 @@ function LoginArtist() {
 
   return (
     <>
-      <Heading size="lg" mb={2} color="brand.pink" justifySelf="center" p={7}>
-        Welcome back! Login now
-      </Heading>
-
+      <Heading size="lg" mb={2} color="brand.pink" justifySelf="center" p={7}>Welcome back! Login now</Heading>
       <Flex justify="center" align="center" h="50vh">
-        <Box
-          bg="white"
-          p={8}
-          borderRadius="xl"
-          border="4px solid"
-          borderColor="brand.blue"
-          boxShadow="2xl"
-          w="400px"
-        >
-          <Text mb={4} fontWeight="bold" textAlign="left">
-            Artist Account Login
-          </Text>
-
+        <Box bg="white" p={8} borderRadius="xl" border="4px solid" borderColor="brand.blue" boxShadow="2xl" w="400px">
+          <Text mb={4} fontWeight="bold" textAlign="left">Artist Account Login</Text>
           <VStack spacing={4}>
-            <Input 
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input 
-            placeholder="Password" 
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            />
-
+            <Input placeholder="Email" required value={email}
+            onChange={(e) => setEmail(e.target.value)} />
+            <Input placeholder="Password" required type="password" value={password}
+            onChange={(e) => setPassword(e.target.value)} />
             <Flex w="100%" justify="flex-end">
-              <Button
-                bg="brand.pink"
-                color="white"
-                _hover={{ bg: "brand.blue" }}
-                onClick={handleSubmit} 
-                isLoading={loading}
-              >
-                Login
-              </Button>
+              <Button bg="brand.pink" color="white" _hover={{ bg: "brand.blue" }} onClick={handleSubmit} isLoading={loading}>Login</Button>
             </Flex>
-            <Link 
-              href="/artist/new"
-              fontSize="sm"
-              color="brand.pink"
-              _hover={{ color: "brand.blue" }}>
-                Need to make an account? Click me!
-            </Link>
+            <Link href="/artist/new" fontSize="sm" color="brand.pink" _hover={{ color: "brand.blue" }}>Need to make an account? Click me!</Link>
             {error && <Text color="red.500">{error}</Text>}
           </VStack>
         </Box>
@@ -91,5 +43,3 @@ function LoginArtist() {
     </>
   );
 }
-
-export default LoginArtist;
