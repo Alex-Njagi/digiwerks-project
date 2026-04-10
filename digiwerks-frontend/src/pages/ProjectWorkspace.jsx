@@ -38,7 +38,7 @@ export default function ProjectWorkspace() {
       borderColor="brand.pink"
       borderRadius="xl"
       boxShadow="lg"
-      p={8}
+      p={5}
       maxW="1200px"
       mx="auto"
       mt={6}

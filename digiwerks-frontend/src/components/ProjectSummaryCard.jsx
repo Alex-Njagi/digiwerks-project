@@ -20,7 +20,6 @@ function ProjectSummaryCard({project, protectedMode}) {
       border="4px solid"
       borderColor="brand.blue"
       borderRadius="xl"
-      boxShadow="lg"
       p={8}
       maxW="900px"
       mx="auto"
