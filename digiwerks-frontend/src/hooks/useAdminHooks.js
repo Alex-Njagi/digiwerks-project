@@ -110,7 +110,7 @@ export const useSpecificArtist = (id) => {
   useEffect(() => {
     if (!id) return;
 
-    const getArtist = async () => {
+    const fetchArtist = async () => {
       try {
         setLoading(true);
         const data = await fetchSpecificArtist(id);
@@ -121,7 +121,7 @@ export const useSpecificArtist = (id) => {
         setLoading(false);
       }
     };
-    getArtist();
+    fetchArtist();
   }, [id]);
 
   return { artist, loading, error };

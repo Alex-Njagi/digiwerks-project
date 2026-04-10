@@ -12,6 +12,8 @@ import CreateProject from './pages/CreateProjectPage';
 
 import SignupArtist from './pages/SignupArtistPage';
 import LoginArtist from './pages/LoginArtist';
+import SearchArtists from './pages/SearchArtists';
+import ViewArtist from './pages/ViewArtist';
 
 import EditProject from './pages/EditProjectPage';
 
@@ -38,6 +40,9 @@ export default function App() {
         <Route path="/artist/edit" element={<EditArtist />} />
         <Route path="/artist/dashboard" element={<ArtistDashboard />} />
 
+        <Route path="/search_artists" element={<SearchArtists />} />
+        <Route path="/artists/:id" element={<ViewArtist />} />
+
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="admin/dashboard" element={<AdminDashboard />} />
         
@@ -54,8 +59,7 @@ export default function App() {
         <Route path="/version/edit" element={<EditVersion />} />
 
         <Route path="/browse_projects" element={<BrowseProjects />} />
-        {/* <Route path="/project_workspace" element={<ProjectWorkspace />} /> */}
-        <Route path="/projects/:id" element={<ProjectWorkspace />} /> {/* workspace */}
+        <Route path="/projects/:id" element={<ProjectWorkspace />} />
         <Route path="/project_assets/:id" element={<AssetWorkspace />} />
       </Routes>
     </Layout>    

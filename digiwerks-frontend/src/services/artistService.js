@@ -33,3 +33,13 @@ export const fetchArtistStats = async () => {
   const response = await apiClient.get("/artist_stats");
   return response.data;
 };
+
+export const getAllArtists = async () => {
+  const response = await apiClient.get("/artists");
+  return response.data;
+};
+
+export const getOneArtist = async (id) => {
+  const response = await apiClient.get(`/artists/${id}`);
+  return response.data;
+};

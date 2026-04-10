@@ -48,6 +48,10 @@ function Sidebar({ isOpen, onClose }) {
               Browse Projects
             </Button>
 
+            <Button variant="ghost" onClick={() => go("/search_artists")}>
+              Explore Artists
+            </Button>
+
             <Button variant="ghost" onClick={() => go("/project/create")}>
               Create Project
             </Button>
