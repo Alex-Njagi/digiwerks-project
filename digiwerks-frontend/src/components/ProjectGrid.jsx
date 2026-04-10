@@ -2,7 +2,7 @@ import { Box, Heading, Divider, SimpleGrid, Button, Flex } from "@chakra-ui/reac
 import ProjectCard from "./ProjectCard";
 import { useNavigate } from "react-router-dom";
 
-function ProjectGrid({ projects = [] }) {
+function ProjectGrid({ projects = [], protectedMode }) {
   const navigate = useNavigate()
   return (
     <Box mt={10} maxW="900px" mx="auto">
@@ -21,6 +21,7 @@ function ProjectGrid({ projects = [] }) {
           <ProjectCard
             key={project._id}
             project={project}
+            protectedMode={protectedMode}
           />
         ))}
       </SimpleGrid>

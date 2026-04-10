@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "../utils/formatDate";
 
-function ProjectSummaryCard({project}) {
+function ProjectSummaryCard({project, protectedMode}) {
 
   const navigate = useNavigate();
 
@@ -64,8 +64,8 @@ function ProjectSummaryCard({project}) {
           </HStack>
         </HStack>
 
-        {/* Edit Button */}
-        <Flex justify="flex-end" mt={4}>
+        {protectedMode === true ? null :
+          <Flex justify="flex-end" mt={4}>
           <Button
             bg="brand.pink"
             color="white"
@@ -75,7 +75,7 @@ function ProjectSummaryCard({project}) {
             Edit Project
           </Button>
         </Flex>
-
+        }      
       </VStack>
     </Box>
   );

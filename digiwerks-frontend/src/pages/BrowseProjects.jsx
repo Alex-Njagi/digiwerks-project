@@ -14,11 +14,12 @@ import ProjectGrid from "../components/ProjectGrid";
 
 import { useAllProjects } from "../hooks/useAllProjects";
 
-function BrowseProjects() {
+export default function BrowseProjects() {
 
   const [search, setSearch] = useState("");
 
   const { projects, loading: projectsLoading, error: projectsError } = useAllProjects();
+  const protectedMode = true; 
     
   if (projectsLoading) {
           return (
@@ -57,10 +58,8 @@ function BrowseProjects() {
 
       </VStack>
 
-      <ProjectGrid projects={filteredProjects} />
+      <ProjectGrid projects={filteredProjects} protectedMode={protectedMode}/>
 
     </Box>
   );
 }
-
-export default BrowseProjects;

@@ -1,11 +1,13 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard({project}) {
+export default function ProjectCard({project, protectedMode}) {
   const navigate = useNavigate();
+  // console.log(protectedMode);
+  
 
   const handleClick = () => {
-    navigate(`/projects/${project._id}`); // navigate to workspace route
+    navigate(`/projects/${project._id}`, { state: {protectedMode: protectedMode} })
   };
   
   return (

@@ -9,14 +9,14 @@ import {
 import { useNavigate } from "react-router-dom"
 import { useDeleteAsset } from "../hooks/useAssetHooks";
 
-export default function AssetCard({projectId, asset}){
+export default function AssetCard({projectId, asset, protectedMode}){
   // console.log(projectId);
   
   const assetId = asset._id
   const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
 
   const openAsset = () => {
-    navigate(`/project_assets/${assetId}`);
+    navigate(`/project_assets/${assetId}`, { state: {protectedMode: protectedMode} });
   };
   
   const navigate = useNavigate();
@@ -75,24 +75,27 @@ export default function AssetCard({projectId, asset}){
           {asset.asset_tag}
         </Tag>
 
-        <Flex justify="flex-end" mt={2}>
-          <Button
-              size="sm"
-              bg="red.400"
-              color="white"
-              _hover={{ bg: "red.500" }}
-              onClick={handleDelete}
-              isLoading={deleteLoading}
-              loadingText="Deleting..."
-            >
-              Delete Asset
-            </Button>
-            {(deleteError) && (
-                <Text color="red.500" fontSize="sm">
-                {deleteError?.message}
-                </Text>
-            )} 
+        {protectedMode === true ? null : 
+          <Flex justify="flex-end" mt={2}>
+            <Button
+                size="sm"
+                bg="red.400"
+                color="white"
+                _hover={{ bg: "red.500" }}
+                onClick={handleDelete}
+                isLoading={deleteLoading}
+                loadingText="Deleting..."
+              >
+                Delete Asset
+              </Button>
+              {(deleteError) && (
+                  <Text color="red.500" fontSize="sm">
+                  {deleteError?.message}
+                  </Text>
+              )} 
         </Flex>
+        }
+        
 
       </VStack>
     </Box>

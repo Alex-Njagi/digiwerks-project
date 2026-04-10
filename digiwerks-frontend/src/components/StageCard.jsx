@@ -13,9 +13,8 @@ import { useState } from "react";
 import useDeleteProjectStage from "../hooks/useDeleteStage";
 import { formatDateTime } from "../utils/formatDate";
 
-function StageCard({stage, project}) {
-  // console.log(projectId);
-  
+function StageCard({stage, project, protectedMode}) {
+  // console.log(projectId);  
   const { deleteStage, loading: deleteLoading, error: deleteError } = useDeleteProjectStage();
   // const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -70,18 +69,18 @@ function StageCard({stage, project}) {
            <Flex align="center" justify="space-between" mb={3}>
                 <Text fontWeight="bold" textAlign="left">
                 <b>Stage {stage.stage_order}:</b> {stage.stage_name} — {stage.description}
-                </Text>
-        
-                {/* Add Asset Button */}
-                <Button
+                </Text>        
+                {protectedMode === true ? null : 
+                  <Button
                     size="sm"
                     bg="brand.pink"
                     color="white"
                     _hover={{ bg: "brand.blue" }}
                     onClick={() => navigate("/project_asset/create", { state: {stage, project} })}
-                >
-                    + New Asset
-                </Button>
+                  >
+                      + New Asset
+                  </Button>
+                }                
             </Flex>
 
           {/* Asset previews */}
@@ -91,39 +90,42 @@ function StageCard({stage, project}) {
                 key={asset._id}
                 asset={asset}
                 projectId={project._id}
+                protectedMode={protectedMode}
             />
             ))}
             </SimpleGrid>
 
-          {/* Buttons */}
-          <Flex justify="space-between" mt={2}>
-            <Button
-              size="sm"
-              bg="brand.pink"
-              color="white"
-              _hover={{ bg: "brand.blue" }}
-              onClick={() => navigate("/project_stage/edit", { state: { stage, project} })}
-            >
-              Edit Stage
-            </Button>
+          {protectedMode === true ? null : 
+            <Flex justify="space-between" mt={2}>
+              <Button
+                size="sm"
+                bg="brand.pink"
+                color="white"
+                _hover={{ bg: "brand.blue" }}
+                onClick={() => navigate("/project_stage/edit", { state: { stage, project} })}
+              >
+                Edit Stage
+              </Button>
 
-            <Button
-              size="sm"
-              bg="red.400"
-              color="white"
-              _hover={{ bg: "red.500" }}
-              onClick={handleDelete}
-              isLoading={deleteLoading}
-              loadingText="Deleting..."
-            >
-              Delete Stage
-            </Button>
-            {(deleteError) && (
-                <Text color="red.500" fontSize="sm">
-                {deleteError?.message}
-                </Text>
-            )} 
+              <Button
+                size="sm"
+                bg="red.400"
+                color="white"
+                _hover={{ bg: "red.500" }}
+                onClick={handleDelete}
+                isLoading={deleteLoading}
+                loadingText="Deleting..."
+              >
+                Delete Stage
+              </Button>
+              {(deleteError) && (
+                  <Text color="red.500" fontSize="sm">
+                  {deleteError?.message}
+                  </Text>
+              )} 
           </Flex>
+          }
+          
 
         </VStack>
       </Box>

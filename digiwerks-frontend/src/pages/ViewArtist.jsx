@@ -12,6 +12,8 @@ export default function ViewArtist() {
     const { artist, loading, error } = useGetOneArtist(id); 
     const [showStats, setShowStats] = useState(false);   
 
+    const protectedMode = true; 
+    // console.log(protectedMode);   
     const projects = artist?.projects;
     // console.log(projects); 
 
@@ -27,7 +29,7 @@ export default function ViewArtist() {
 
     return (
     <Box p={6}>
-        <ArtistProfileCard artist={artist}/>
+        <ArtistProfileCard artist={artist} protectedMode={protectedMode}/>
         <br />
         <Box mt={4} maxW="900px" mx="auto">
             <Flex justifySelf="center">
@@ -42,7 +44,7 @@ export default function ViewArtist() {
                 </SimpleGrid>
             </Collapse>
         </Box>        
-        <ProjectGrid projects={projects} />
+        <ProjectGrid projects={projects} protectedMode={protectedMode}/>
     </Box>
     );
 }

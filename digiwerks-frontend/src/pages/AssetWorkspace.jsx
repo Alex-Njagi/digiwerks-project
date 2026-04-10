@@ -6,10 +6,14 @@ import { useState } from "react";
 import VersionWindow from "../components/VersionWindow";
 import { useParams } from "react-router-dom";
 import { useAsset } from "../hooks/useAssetHooks";
+import { useLocation } from "react-router-dom";
 
 export default function AssetWorkspace() {
     const { id } = useParams();
     const { asset, loading, error } = useAsset(id);
+
+    const location = useLocation();
+    const protectedMode = location.state?.protectedMode;
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedVersion, setSelectedVersion] = useState(null);
@@ -34,15 +38,16 @@ export default function AssetWorkspace() {
 
     return (
         <Box p={6}>
-            <AssetSummaryCard asset={asset} />
+            <AssetSummaryCard asset={asset} protectedMode={protectedMode}/>
             <AssetStats asset={asset} />
-            <VersionGrid asset={asset} versions={versions} onVersionClick={openVersion} />
+            <VersionGrid asset={asset} versions={versions} onVersionClick={openVersion} protectedMode={protectedMode}/>
             {selectedVersion && (
                 <VersionWindow
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
                     version={selectedVersion}
                     asset={asset}
+                    protectedMode={protectedMode}
                 />
             )}
         </Box>

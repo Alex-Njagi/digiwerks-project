@@ -12,11 +12,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDeleteAsset } from "../hooks/useAssetHooks";
 
-export default function AssetSummaryCard({asset}) {
+export default function AssetSummaryCard({asset, protectedMode}) {
   const navigate = useNavigate();
   const projectTitle = asset.project_stage?.project?.title
   const artistName = asset.project_stage?.project?.artist?.username 
   const projectId = asset.project_stage?.project?._id  
+  const artistId = asset.project_stage?.project?.artist?._id   
 
   const assetId = asset._id
   const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
@@ -75,44 +76,45 @@ export default function AssetSummaryCard({asset}) {
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
             <Text fontWeight="bold" color="brand.pink">Owner: </Text>
-            <Text color="brand.blue">{artistName}</Text>
+            <Link onClick={()=>navigate(`/artists/${artistId}`, { state: {protectedMode: protectedMode} })} color="brand.blue">{artistName}</Link>
           </HStack>
 
           <HStack>
             <Text fontWeight="bold" color="brand.pink">Project: </Text>
-            <Link onClick={()=>navigate(`/projects/${projectId}`)} color="brand.blue">{projectTitle}</Link>
+            <Link onClick={()=>navigate(`/projects/${projectId}`, { state: {protectedMode: protectedMode} })} color="brand.blue">{projectTitle}</Link>
           </HStack>
         </HStack>
 
-        <Flex justify="space-between" mt={2}>
-          <Button
-            size="sm"
-            bg="brand.pink"
-            color="white"
-            _hover={{ bg: "brand.blue" }}
-            // onClick={() => navigate("/project_asset/edit", { state: { asset } })}
-          >
-            Edit Asset
-          </Button>
+        {protectedMode === true ? null : 
+          <Flex justify="space-between" mt={2}>
+            <Button
+              size="sm"
+              bg="brand.pink"
+              color="white"
+              _hover={{ bg: "brand.blue" }}
+              // onClick={() => navigate("/project_asset/edit", { state: { asset } })}
+            >
+              Edit Asset
+            </Button>
 
-          <Button
-            size="sm"
-            bg="red.400"
-            color="white"
-            _hover={{ bg: "red.500" }}
-            onClick={handleDelete}
-            isLoading={deleteLoading}
-            loadingText="Deleting..."
-          >
-            Delete Asset
-          </Button>
-          {(deleteError) && (
-              <Text color="red.500" fontSize="sm">
-              {deleteError?.message}
-              </Text>
-          )} 
+            <Button
+              size="sm"
+              bg="red.400"
+              color="white"
+              _hover={{ bg: "red.500" }}
+              onClick={handleDelete}
+              isLoading={deleteLoading}
+              loadingText="Deleting..."
+            >
+              Delete Asset
+            </Button>
+            {(deleteError) && (
+                <Text color="red.500" fontSize="sm">
+                {deleteError?.message}
+                </Text>
+            )} 
         </Flex>
-
+        }     
       </VStack>
     </Box>
   );

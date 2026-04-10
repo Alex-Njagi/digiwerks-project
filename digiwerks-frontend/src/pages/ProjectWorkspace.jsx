@@ -1,5 +1,6 @@
 import { Box, Center, Image, Spinner, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useProjectWorkspace } from "../hooks/useProjectWorkspace";
 import ProjectSummaryCard from "../components/ProjectSummaryCard";
 import ProjectStats from "../components/ProjectStats";
@@ -9,6 +10,11 @@ import ProjectCoverImage from "../components/ProjectCoverImage";
 export default function ProjectWorkspace() {
   const { id } = useParams();
   const { project, loading, error } = useProjectWorkspace(id);  
+
+  const location = useLocation();
+  const protectedMode = location.state?.protectedMode;
+  // console.log(protectedMode);
+  
 
   if (loading) {
     return (
@@ -36,13 +42,14 @@ export default function ProjectWorkspace() {
     >
       <ProjectCoverImage project={project} />
       <br/>
-      <ProjectSummaryCard project = {project}/>   
+      <ProjectSummaryCard project = {project} protectedMode={protectedMode}/>   
     </Box>
           
       <ProjectStats project = {project}/>
       <StagesGrid 
         project={project}
         stages={project.project_stages}
+        protectedMode={protectedMode}
       />   
     </Box>
   );

@@ -36,7 +36,7 @@ class AssetsController < ApplicationController
           include: {
             project: {
               include: {
-                artist: { only: [:id, :username] }
+                artist: { only: [:_id, :username] }
               }
             }
           }
@@ -45,7 +45,7 @@ class AssetsController < ApplicationController
           include: {
             feedbacks: {
               include: {
-                artist: { only: [:id, :username] }
+                artist: { only: [:_id, :username] }
               }
             }
           }

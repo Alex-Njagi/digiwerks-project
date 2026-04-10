@@ -2,7 +2,7 @@ import { Box, Flex, Button, Heading, Divider, VStack } from "@chakra-ui/react";
 import StageCard from "./StageCard";
 import { useNavigate } from "react-router-dom";
 
-export default function StagesGrid({project, stages}) {
+export default function StagesGrid({project, stages, protectedMode}) {
   // console.log(projectId);  
 
   const navigate = useNavigate()
@@ -15,11 +15,14 @@ export default function StagesGrid({project, stages}) {
 
       <Flex align="center" justify="space-between" mb={3}>
           <Box w="40px" />
-          <Heading size="md" color="brand.pink" textAlign="center">PROJECT STAGES</Heading>
-          <Button
+          <Heading size="md" color="brand.pink" textAlign="center" justifySelf="center">PROJECT STAGES</Heading>
+          {protectedMode === true ? null : 
+            <Button
               size="sm" bg="brand.pink" color="white" _hover={{ bg: "brand.blue" }}
               onClick={() => navigate("/project_stage/create", { state: { project } })}            
-          >+ New Stage</Button>
+            >+ New Stage</Button>
+          }
+          
       </Flex>
       <Divider mb={6} borderColor="brand.blue" />      
       <Box
@@ -33,7 +36,7 @@ export default function StagesGrid({project, stages}) {
 
       <VStack spacing={8} align="stretch">
         {stages.map((stage) => (
-          <StageCard key={stage._id} project={project} stage={stage}
+          <StageCard key={stage._id} project={project} stage={stage} protectedMode={protectedMode}
           />
         ))}
       </VStack>

@@ -15,6 +15,9 @@ export default function ArtistDashboard() {
     const { stats, loading: statsLoading, error: statsError } = useArtistStats();
     const [showStats, setShowStats] = useState(false); 
 
+    const protectedMode = false; 
+    // console.log(protectedMode);
+
     if (artistLoading || projectsLoading || statsLoading) {
         return (
             <Center h="50vh" flexDirection="column" gap={4}>
@@ -29,7 +32,7 @@ export default function ArtistDashboard() {
 
     return (
     <Box p={6}>
-        <ArtistProfileCard artist={artist}/>
+        <ArtistProfileCard artist={artist} protectedMode={protectedMode}/>
         <ArtistStats stats={stats}/>
         <br />
         <Box mt={4} maxW="900px" mx="auto">
@@ -45,7 +48,7 @@ export default function ArtistDashboard() {
                 </SimpleGrid>
             </Collapse>
         </Box>        
-        <ProjectGrid projects={projects} />
+        <ProjectGrid projects={projects} protectedMode={protectedMode}/>
     </Box>
     );
 }

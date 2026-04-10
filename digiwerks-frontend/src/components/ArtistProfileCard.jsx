@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ArtistProfileCard({artist}) {
+export default function ArtistProfileCard({artist, protectedMode}) {
 
   const navigate = useNavigate();
 
@@ -49,7 +49,8 @@ export default function ArtistProfileCard({artist}) {
       </Flex>
 
       {/* Edit profile button */}
-      <Flex justify="flex-end" mt={6}>
+      {protectedMode === true ? null :
+        <Flex justify="flex-end" mt={6}>
         <Button
           bg="brand.blue"
           color="white"
@@ -59,7 +60,7 @@ export default function ArtistProfileCard({artist}) {
           Edit Profile
         </Button>
       </Flex>
-
+      }    
     </Box>
   );
 }
