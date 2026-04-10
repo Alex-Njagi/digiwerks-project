@@ -32,6 +32,7 @@ export default function AdminProfileCard({admin}) {
         bg="white"
         border="4px solid"
         borderColor="brand.pink"
+        backgroundColor="white"
         borderRadius="xl"
         boxShadow="lg"
         p={8}

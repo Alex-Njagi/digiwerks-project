@@ -17,7 +17,7 @@ export default function ArtistProfileCard({artist, protectedMode}) {
       bg="white"
       border="4px solid"
       borderColor="brand.pink"
-      backgroundColor="transparent"
+      backgroundColor="white"
       borderRadius="xl"
       boxShadow="md"
       p={6}

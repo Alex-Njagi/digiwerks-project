@@ -8,9 +8,11 @@ import {
 
 import { HamburgerIcon } from "@chakra-ui/icons";
 import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -46,6 +48,8 @@ function Navbar() {
             maxW="150px"
             w="100%"
             objectFit="contain"
+            onClick={() => navigate("/")}
+            cursor="pointer"
           />
         </Box>
 

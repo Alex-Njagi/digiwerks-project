@@ -13,3 +13,4 @@ function Layout({ children }) {
 export default Layout;
 
 // bgGradient="radial(#FFD1DC, #FFFFFF)"
+// bgGradient="linear(to-r, brand.pastelPink, #FFFFFF)"
