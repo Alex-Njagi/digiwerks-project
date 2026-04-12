@@ -20,7 +20,7 @@ class Project
   end
 
   
-  validates :title, :status, :start_date, presence: true
+  validates :title, :status, presence: true
   validates :description, length: { maximum: 500 }, allow_blank: true
   validates :status, inclusion: { in: %w[In-Progress Complete] }
 
