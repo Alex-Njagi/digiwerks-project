@@ -180,7 +180,7 @@ export default function ProjectForm ({initialData, mode}) {
                 onChange={handleChange("description")}
                 />
 
-                <HStack>
+                {/* <HStack>
                     <FormLabel fontSize="xs" mb={-2} color="brand.blue">Start Date</FormLabel>
                     <Input
                     required
@@ -195,7 +195,7 @@ export default function ProjectForm ({initialData, mode}) {
                     value={form.end_date}
                     onChange={handleChange("end_date")}
                     />
-                </HStack>
+                </HStack> */}
 
                 <HStack>
                 <FormLabel fontSize="xs" color="brand.blue" mb={-2}>Cover Picture</FormLabel>

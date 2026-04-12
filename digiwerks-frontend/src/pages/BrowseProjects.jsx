@@ -46,7 +46,7 @@ export default function BrowseProjects() {
         </Heading>
 
         <Text color="gray.600">
-          View our artists' incredible catalogue here
+          View all <b>{projects.length}</b> of our artists' incredible projects here
         </Text>
 
         <Input

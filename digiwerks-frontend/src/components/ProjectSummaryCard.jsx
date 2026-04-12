@@ -42,12 +42,12 @@ function ProjectSummaryCard({project, protectedMode}) {
             <b>Status:</b> {project.status}
           </Text>
 
-          {project.status === "Complete" ?
+          {/* {project.status === "Complete" ?
             <HStack>
               <Text fontWeight="bold">Completion Date: </Text>
-              <Text>{formatDateTime(project.end_date)}</Text>
+              <Text>{formatDateTime(project.updated_at)}</Text>
             </HStack>
-          : null}
+          : null} */}
         </VStack>
 
         {/* Dates */}
@@ -58,7 +58,9 @@ function ProjectSummaryCard({project, protectedMode}) {
           </HStack>
 
           <HStack>
-            <Text fontWeight="bold">Last Modified: </Text>
+            {project.status === "Complete" ? 
+              <Text fontWeight="bold">Completion date: </Text> :
+              <Text fontWeight="bold">Last updated: </Text> }
             <Text>{formatDateTime(project.updated_at)}</Text>
           </HStack>
         </HStack>
