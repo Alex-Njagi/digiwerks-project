@@ -16,8 +16,7 @@ export default function EditAsset() {
 
     <AssetForm 
       mode = "edit"
-      // initialData={asset}
-      // stage={stage}
+      initialData={asset}
     />
     </>
   )

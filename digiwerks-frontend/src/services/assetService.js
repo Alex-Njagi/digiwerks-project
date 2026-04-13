@@ -12,6 +12,11 @@ export const createAsset = async (stageId, assetData) => {
   return res.data;
 };
 
+export const updateAsset = async (assetId, data) => {
+  const response = await apiClient.put(`/project_assets/${assetId}`, data);
+  return response.data;
+};
+
 export const deleteAsset = async (assetId) => {
   await apiClient.delete(`/project_assets/${assetId}`);
 };

@@ -12,21 +12,25 @@ import {
   Tag
 } from "@chakra-ui/react";
 import { useCreateAsset } from "../../hooks/useAssetHooks";
+import { useUpdateAsset } from "../../hooks/useAssetHooks";
 import { useNavigate } from "react-router-dom";
 
 export default function AssetForm ({projectId, stage, initialData, mode}) {
-    const stageId = stage._id
-    const navigate = useNavigate()
+    const stageId = stage?._id
+    const navigate = useNavigate();    
 
     const { submitAsset, loading: createLoading, error: createError } = useCreateAsset();
+    const { updateAsset, loading: updateLoading, error: updateError } = useUpdateAsset();
     const [submitting, setSubmitting] = useState(false);
 
     const [form, setForm] = useState({
         asset_name: initialData?.asset_name || "",
         asset_tag: initialData?.asset_tag || "",
         project_stage_id: initialData?.project_stage_id || stageId,
-        asset_description: initialData?.stage_order || ""
+        asset_description: initialData?.asset_description || ""
     });
+
+    // console.log(form);
 
     const tags = [
         {tag_id: 1, tag_name: "Sketch"},
@@ -49,10 +53,17 @@ export default function AssetForm ({projectId, stage, initialData, mode}) {
             setSubmitting(true);
 
             let payload = { ...form };
-            console.log(payload);            
+            // console.log(payload);
+            
+            if (mode === "edit") {
+                await updateAsset(initialData._id, payload);
+                alert("Congratulations! Your asset has a new coat of paint!");
+                navigate(`/project_assets/${initialData._id}`)
+            } else {
                 await submitAsset(stageId, payload);
                 alert("Say hello to your new asset!");
                 navigate(`/projects/${projectId}`)
+            }
         } catch (error) {
             console.error(error);
             alert(`Oops! Something went wrong! Please try again.`)
@@ -128,14 +139,14 @@ export default function AssetForm ({projectId, stage, initialData, mode}) {
                 color="white"
                 _hover={{ bg: "brand.blue" }}
                 onClick={handleSubmit}
-                isLoading={submitting || createLoading}
+                isLoading={submitting || createLoading || updateLoading}
                 loadingText="Submitting..."
                 >
                 {mode === "edit" ? "Save Changes" : "Submit"}
                 </Button>
             </Flex>
 
-            {mode === "edit" ? 
+            {/* {mode === "edit" ? 
                 <Button
                     marginLeft={5}
                     size="sm"
@@ -145,10 +156,10 @@ export default function AssetForm ({projectId, stage, initialData, mode}) {
                     >
                     Delete Asset
                 </Button>
-            : null }
-            {(createError) && (
+            : null } */}
+            {(createError || updateError) && (
                 <Text color="red.500" fontSize="sm">
-                {createError?.message}
+                {createError?.message || updateError?.message}
                 </Text>
             )}
         </Box>

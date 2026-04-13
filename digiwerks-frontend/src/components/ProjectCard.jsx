@@ -1,11 +1,12 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Link, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export default function ProjectCard({project, protectedMode}) {
   const navigate = useNavigate();
   // console.log(protectedMode);
-  
 
+  // console.log(project);
+  
   const handleClick = () => {
     navigate(`/projects/${project._id}`, { state: {protectedMode: protectedMode} })
   };
@@ -37,6 +38,10 @@ export default function ProjectCard({project, protectedMode}) {
 
       <Box p={3}>
         <Text fontWeight="bold">{project.title}</Text>
+        <HStack justify="left">
+          <Text fontSize="sm" fontWeight="bold">By: </Text>
+          <Text fontSize="sm">{project?.artist?.username}</Text>
+        </HStack>
       </Box>
     </Box>
   );

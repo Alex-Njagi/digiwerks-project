@@ -5,14 +5,18 @@ import {
   Button,
   Flex,
   VStack,
-  HStack
+  HStack,
+  Collapse,
+  Link,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "../utils/formatDate";
+import ProjectCoverImage from "./ProjectCoverImage";
+import { useState } from "react";
 
-function ProjectSummaryCard({project, protectedMode}) {
-
+function ProjectSummaryCard({ project, protectedMode }) {
   const navigate = useNavigate();
+  const [showImage, setShowImage] = useState(false);
 
   return (
     <Box
@@ -26,11 +30,22 @@ function ProjectSummaryCard({project, protectedMode}) {
       mt={6}
     >
       <VStack spacing={4} align="stretch">
-
         {/* Project Title */}
-        <Heading textAlign="center">
-          {project.title}
-        </Heading>
+        <Heading textAlign="center">{project.title}</Heading>
+
+        <HStack justify="center">
+          <Text fontWeight="bold">By: </Text>
+          <Link
+            onClick={() =>
+              navigate(`/artists/${project?.artist._id}`, {
+                state: { protectedMode: protectedMode },
+              })
+            }
+            _hover={{ color: "brand.pink" }}
+          >
+            {project?.artist.username}
+          </Link>
+        </HStack>
 
         {/* Description + Status */}
         <VStack spacing={2}>
@@ -58,25 +73,52 @@ function ProjectSummaryCard({project, protectedMode}) {
           </HStack>
 
           <HStack>
-            {project.status === "Complete" ? 
-              <Text fontWeight="bold">Completion date: </Text> :
-              <Text fontWeight="bold">Last updated: </Text> }
+            {project.status === "Complete" ? (
+              <Text fontWeight="bold">Completion date: </Text>
+            ) : (
+              <Text fontWeight="bold">Last updated: </Text>
+            )}
             <Text>{formatDateTime(project.updated_at)}</Text>
           </HStack>
         </HStack>
 
-        {protectedMode === true ? null :
-          <Flex justify="flex-end" mt={4}>
-          <Button
-            bg="brand.pink"
-            color="white"
-            _hover={{ bg: "brand.blue" }}
-            onClick={() => navigate("/project/edit", { state: { project } })}
-          >
-            Edit Project
-          </Button>
-        </Flex>
-        }      
+        {protectedMode === true ? (
+          <Flex justify="center" mt={2}>
+            <Button
+              bg="brand.pink"
+              color="white"
+              _hover={{ bg: "brand.blue" }}
+              onClick={() => setShowImage(!showImage)}
+            >
+              {showImage ? "Hide Cover" : "Show Cover"}
+            </Button>
+          </Flex>
+        ) : (
+          <Flex justify="space-between" mt={2}>
+            <Button
+              bg="brand.pink"
+              color="white"
+              _hover={{ bg: "brand.blue" }}
+              onClick={() => setShowImage(!showImage)}
+            >
+              {showImage ? "Hide Cover" : "Show Cover"}
+            </Button>
+            <Button
+              bg="brand.pink"
+              color="white"
+              _hover={{ bg: "brand.blue" }}
+              onClick={() => navigate("/project/edit", { state: { project } })}
+            >
+              Edit Project
+            </Button>
+          </Flex>
+        )}
+
+        <Box>
+          <Collapse in={showImage} animateOpacity>
+            <ProjectCoverImage project={project} />
+          </Collapse>
+        </Box>
       </VStack>
     </Box>
   );

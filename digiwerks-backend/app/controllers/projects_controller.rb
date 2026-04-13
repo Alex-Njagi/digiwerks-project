@@ -12,16 +12,33 @@ class ProjectsController < ApplicationController
 
     def index
         projects = Project.all
-        render json: projects, include: :project_stages
+
+        render json: projects.as_json(
+            include: {
+            artist: { only: [:_id, :username] },
+            project_stages: {}
+            }
+        )
     end
     
     def owned_projects
         owned_projects = @artist.projects
-        render json: owned_projects, include: :project_stages
+
+        render json: owned_projects.as_json(
+            include: {
+            artist: { only: [:_id, :username] },
+            project_stages: {}
+            }
+        )
     end
 
     def show
-        render json: @project, include: :project_stages
+        render json: @project.as_json(
+            include: {
+            artist: { only: [:_id, :username, :profile_image_url] },
+            project_stages: {}
+            }
+        )
     end
 
     def create
@@ -53,6 +70,7 @@ class ProjectsController < ApplicationController
 
         render json: project.as_json(
             include: {
+                artist: { only: [:_id, :username] },
                 project_stages: {
                 include: {
                     assets: {

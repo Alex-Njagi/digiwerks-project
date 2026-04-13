@@ -9,27 +9,24 @@ export default function VersionGrid({ asset, versions, onVersionClick, protected
   return (
     <Box mt={10} maxW="900px" mx="auto">
 
+      {protectedMode === true ? <Flex justify="center" mb={3}>
+        <Heading size="md" color="brand.pink" textAlign="center" justifySelf="center">ASSET VERSIONS</Heading>
+      </Flex> :  
       <Flex align="center" justify="space-between" alignItems="center" mb={3}>
-        {/* Empty spacer so the title stays centered */}
-          <Box w="40px" />
-  
-          <Heading size="md" color="brand.pink" textAlign="center">
-              ASSET VERSIONS
-          </Heading>
-  
-          {protectedMode === true ? null : 
-            <Button
-              size="sm"
-              bg="brand.pink"
-              color="white"
-              onClick={() => navigate("/version/create", { state: { asset } })}
-              _hover={{ bg: "brand.blue" }}
-            >
-                + New Version
-            </Button>
-          }
-          
-      </Flex>
+        <Box w="40px" />  
+        <Heading size="md" color="brand.pink" textAlign="center">
+            ASSET VERSIONS
+        </Heading>          
+          <Button
+            size="sm"
+            bg="brand.pink"
+            color="white"
+            onClick={() => navigate("/version/create", { state: { asset } })}
+            _hover={{ bg: "brand.blue" }}
+          >
+              + New Version
+          </Button>   
+      </Flex>}
       <Divider mb={6} borderColor="brand.blue" />
 
       {/* Responsive Grid */}

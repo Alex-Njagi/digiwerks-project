@@ -92,7 +92,7 @@ export default function AssetSummaryCard({asset, protectedMode}) {
               bg="brand.pink"
               color="white"
               _hover={{ bg: "brand.blue" }}
-              // onClick={() => navigate("/project_asset/edit", { state: { asset } })}
+              onClick={() => navigate("/project_asset/edit", { state: { asset } })}
             >
               Edit Asset
             </Button>

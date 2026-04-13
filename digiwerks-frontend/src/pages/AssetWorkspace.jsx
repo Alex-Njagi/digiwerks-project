@@ -9,47 +9,52 @@ import { useAsset } from "../hooks/useAssetHooks";
 import { useLocation } from "react-router-dom";
 
 export default function AssetWorkspace() {
-    const { id } = useParams();
-    const { asset, loading, error } = useAsset(id);
+  const { id } = useParams();
+  const { asset, loading, error } = useAsset(id);
 
-    const location = useLocation();
-    const protectedMode = location.state?.protectedMode;
+  const location = useLocation();
+  const protectedMode = location.state?.protectedMode;
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedVersion, setSelectedVersion] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedVersion, setSelectedVersion] = useState(null);
 
-    const openVersion = (version) => {
-        setSelectedVersion(version);
-        setIsOpen(true);
-    };
+  const openVersion = (version) => {
+    setSelectedVersion(version);
+    setIsOpen(true);
+  };
 
-    if (loading) {
-        return (
-            <Center h="50vh" flexDirection="column" gap={4}>
-                <Spinner size="xl" thickness="4px" color="brand.pink" />
-                <Text>Loading asset...</Text>
-            </Center>
-        );
-    }
-    if (error) return <p>{error}</p>;
-
-    const versions = asset.asset_versions;
-    // console.log(versions);    
-
+  if (loading) {
     return (
-        <Box p={6}>
-            <AssetSummaryCard asset={asset} protectedMode={protectedMode}/>
-            <AssetStats asset={asset} />
-            <VersionGrid asset={asset} versions={versions} onVersionClick={openVersion} protectedMode={protectedMode}/>
-            {selectedVersion && (
-                <VersionWindow
-                    isOpen={isOpen}
-                    onClose={() => setIsOpen(false)}
-                    version={selectedVersion}
-                    asset={asset}
-                    protectedMode={protectedMode}
-                />
-            )}
-        </Box>
+      <Center h="50vh" flexDirection="column" gap={4}>
+        <Spinner size="xl" thickness="4px" color="brand.pink" />
+        <Text>Loading asset...</Text>
+      </Center>
     );
+  }
+  if (error) return <p>{error}</p>;
+
+  const versions = asset.asset_versions;
+  // console.log(versions);
+
+  return (
+    <Box p={6}>
+      <AssetSummaryCard asset={asset} protectedMode={protectedMode} />
+      <AssetStats asset={asset} />
+      <VersionGrid
+        asset={asset}
+        versions={versions}
+        onVersionClick={openVersion}
+        protectedMode={protectedMode}
+      />
+      {selectedVersion && (
+        <VersionWindow
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          version={selectedVersion}
+          asset={asset}
+          protectedMode={protectedMode}
+        />
+      )}
+    </Box>
+  );
 }

@@ -13,6 +13,7 @@ class ArtistsController < UsersController
         render json: artist.as_json(include: {
             projects: {
             include: {
+                artist: { only: [:_id, :username] },
                 project_stages: {
                 include: {
                     assets: {
@@ -35,6 +36,7 @@ class ArtistsController < UsersController
         render json: artist.as_json(include: {
             projects: {
             include: {
+                artist: { only: [:_id, :username] },
                 project_stages: {
                 include: {
                     assets: {
@@ -69,23 +71,18 @@ class ArtistsController < UsersController
     def stats
         artist = current_artist
 
-        # Projects count — still simple
         projects_count = artist.projects.count
-
-        # Assets count — sum assets across all stages of all projects
         assets_count = artist.projects.map(&:project_stages).flatten.map(&:assets).flatten.count
-
-        # Asset versions count — sum all versions for all assets
         asset_versions_count = artist.projects
                                     .map(&:project_stages).flatten
                                     .map(&:assets).flatten
                                     .map(&:asset_versions).flatten.count
 
-    render json: {
-        projects_count: projects_count,
-        assets_count: assets_count,
-        asset_versions_count: asset_versions_count
-    }
+        render json: {
+            projects_count: projects_count,
+            assets_count: assets_count,
+            asset_versions_count: asset_versions_count
+        }
     end
 
     private

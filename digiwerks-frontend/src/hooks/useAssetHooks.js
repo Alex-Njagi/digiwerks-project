@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createAsset } from "../services/assetService";
 import { deleteAsset } from "../services/assetService";
 import { getAsset } from "../services/assetService";
+import { updateAsset } from "../services/assetService";
 
 export function useCreateAsset() {
   const [loading, setLoading] = useState(false);
@@ -65,4 +66,24 @@ export function useAsset(id) {
   }, [id]);
 
   return { asset, loading, error };
+}
+
+export function useUpdateAsset() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const update = async (id, data) => {
+    try {
+      setLoading(true);
+      setError(null);
+      return await updateAsset(id, data);
+    } catch (err) {
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { updateAsset: update, loading, error };
 }
