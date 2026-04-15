@@ -6,21 +6,20 @@ export default function CreateAsset() {
   const location = useLocation();
   const stage = location.state?.stage;
   const project = location.state?.project;
-  const projectId = project._id
+  const projectId = project._id;
 
   return (
     <>
-    {/* Section Header */}
-    <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
-      Make a New Asset Today!
-    </Heading>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+        Make a New Asset Today!
+      </Heading>
 
-    <AssetForm 
-      mode = "create"
-      projectId={projectId}
-      stage={stage}
-      initialData={null}
-    />
+      <AssetForm
+        mode="create"
+        projectId={projectId}
+        stage={stage}
+        initialData={null}
+      />
     </>
-  )
+  );
 }

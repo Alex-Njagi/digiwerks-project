@@ -33,7 +33,29 @@ export default function BrowseProjects() {
     );
   }
 
-  if (projectsError) return <p>{projectsError}</p>;
+  if (projectsError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="brand.pink"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! {projectsError}!
+          </Text>
+        </VStack>
+      </Box>
+    );
 
   const filteredProjects = projects.filter((project) =>
     project.title.toLowerCase().includes(search.toLowerCase()),

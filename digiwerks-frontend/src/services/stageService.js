@@ -7,7 +7,7 @@ export const fetchProjectStages = async (id) => {
 
 export const createProjectStage = async (projectId, stageData) => {
   const res = await apiClient.post(`/projects/${projectId}/project_stages`, {
-    project_stage: stageData
+    project_stage: stageData,
   });
   return res.data;
 };

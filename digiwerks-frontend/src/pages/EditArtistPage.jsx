@@ -8,15 +8,11 @@ export default function EditArtist() {
 
   return (
     <>
-    {/* Section Header */}
-    <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
-      Update Your Account Today!
-    </Heading>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+        Update Your Account Today!
+      </Heading>
 
-    <ArtistForm 
-      mode = "edit"
-      initialData={artist}
-    />
+      <ArtistForm mode="edit" initialData={artist} />
     </>
-  )
+  );
 }

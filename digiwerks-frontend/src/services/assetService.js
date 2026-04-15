@@ -6,9 +6,12 @@ export const getAsset = async (id) => {
 };
 
 export const createAsset = async (stageId, assetData) => {
-  const res = await apiClient.post(`/project_stages/${stageId}/project_assets`, {
-    asset: assetData
-  });
+  const res = await apiClient.post(
+    `/project_stages/${stageId}/project_assets`,
+    {
+      asset: assetData,
+    },
+  );
   return res.data;
 };
 

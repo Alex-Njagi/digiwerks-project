@@ -57,7 +57,7 @@ function Sidebar({ isOpen, onClose }) {
             </Button>
 
             <Button variant="ghost" onClick={() => go("/artist/dashboard")}>
-              View Dashboard
+              Artist Dashboard
             </Button>
 
             <Button
@@ -68,6 +68,10 @@ function Sidebar({ isOpen, onClose }) {
               onClick={handleLogout} isLoading={loading}
             >
               Logout
+            </Button>
+
+            <Button variant="ghost" onClick={() => go("/admin/dashboard")}>
+              Admin Dashboard
             </Button>
 
           </VStack>

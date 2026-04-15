@@ -6,7 +6,7 @@ import {
   Divider,
   VStack,
   Center,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import ArtistGrid from "../components/ArtistGrid";
@@ -14,20 +14,47 @@ import { useGetAllArtists } from "../hooks/useGettingArtists";
 
 export default function SearchArtists() {
   const [search, setSearch] = useState("");
-  const { artists: allArtists , loading: allArtistsLoading, error: allArtistsError } = useGetAllArtists();
-    
+  const {
+    artists: allArtists,
+    loading: allArtistsLoading,
+    error: allArtistsError,
+  } = useGetAllArtists();
+
   if (allArtistsLoading) {
     return (
       <Center h="50vh" flexDirection="column" gap={4}>
-          <Spinner size="xl" thickness="4px" color="brand.pink" />
-          <Text>Loading artists...</Text>
+        <Spinner size="xl" thickness="4px" color="brand.pink" />
+        <Text>Loading artists...</Text>
       </Center>
     );
-  }  
-  if (allArtistsError) return <p>{allArtistsError}</p>;
+  }
 
-  const filteredArtists = allArtists.filter(artist =>
-    artist.username.toLowerCase().includes(search.toLowerCase())
+  if (allArtistsError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="brand.pink"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! {allArtistsError}!
+          </Text>
+        </VStack>
+      </Box>
+    );
+
+  const filteredArtists = allArtists.filter((artist) =>
+    artist.username.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -37,9 +64,7 @@ export default function SearchArtists() {
           Search for Artists
         </Heading>
 
-        <Text color="gray.600">
-          Find an artist you enjoy today!
-        </Text>
+        <Text color="gray.600">Find an artist you enjoy today!</Text>
 
         <Input
           placeholder="Search artists..."

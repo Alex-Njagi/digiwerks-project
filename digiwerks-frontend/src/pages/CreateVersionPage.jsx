@@ -8,16 +8,11 @@ export default function CreateVersion() {
 
   return (
     <>
-    {/* Section Header */}
-    <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
-      Show Off your Latest Version Today!
-    </Heading>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+        Show Off your Latest Version Today!
+      </Heading>
 
-    <VersionForm 
-      mode = "create"
-      asset={asset}
-      initialData={null}
-    />
+      <VersionForm mode="create" asset={asset} initialData={null} />
     </>
-  )
+  );
 }

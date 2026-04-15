@@ -5,9 +5,9 @@ const theme = extendTheme({
     brand: {
       pastelPink: "#ffd1dc",
       pink: "#ff4da6",
-      blue: "#4da6ff"
-    }
-  }
+      blue: "#4da6ff",
+    },
+  },
 });
 
 export default theme;

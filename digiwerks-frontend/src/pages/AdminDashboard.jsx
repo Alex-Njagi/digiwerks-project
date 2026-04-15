@@ -5,6 +5,7 @@ import {
   Text,
   Flex,
   HStack,
+  VStack,
   Divider,
   Heading,
   SimpleGrid,
@@ -50,9 +51,53 @@ export default function AdminDashboard() {
     );
   }
 
-  if (adminError) return <p>Please log in</p>;
-  if (projectsError) return <p>{projectsError}</p>;
-  if (artistsError) return <p>{artistsError}</p>;
+  if (adminError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="red.400"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! This is restricted to admin login!
+          </Text>
+        </VStack>
+      </Box>
+    );
+
+  if (projectsError || artistsError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="brand.pink"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! {projectsError || artistsError}
+          </Text>
+        </VStack>
+      </Box>
+    );
 
   return (
     <Box p={6}>

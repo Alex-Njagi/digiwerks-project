@@ -7,6 +7,8 @@ import {
   SimpleGrid,
   Button,
   Collapse,
+  Heading,
+  VStack,
 } from "@chakra-ui/react";
 import ArtistProfileCard from "../components/ArtistProfileCard";
 import ArtistStats from "../components/ArtistStats";
@@ -44,8 +46,53 @@ export default function ArtistDashboard() {
     );
   }
 
-  if (artistError) return <p>Please log in</p>;
-  if (projectsError || statsError) return <p>{projectsError || statsError}</p>;
+  if (artistError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="red.400"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! This is restricted to artist login!
+          </Text>
+        </VStack>
+      </Box>
+    );
+
+  if (projectsError || statsError)
+    return (
+      <Box
+        bg="white"
+        border="4px solid"
+        borderColor="brand.pink"
+        borderRadius="xl"
+        boxShadow="lg"
+        p={8}
+        maxW="900px"
+        mx="auto"
+        mt={6}
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading textAlign="center" color="brand.blue">
+            OOPS!
+          </Heading>
+          <Text textAlign="center" color="brand.pink" size="md">
+            Sorry! {projectsError || statsError}!
+          </Text>
+        </VStack>
+      </Box>
+    );
 
   return (
     <Box p={6}>

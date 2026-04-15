@@ -4,15 +4,11 @@ import VersionForm from "../components/forms/VersionForm";
 export default function EditVersion() {
   return (
     <>
-    {/* Section Header */}
-    <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
-      Modify your Version Today!
-    </Heading>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+        Modify your Version Today!
+      </Heading>
 
-    <VersionForm 
-      mode = "edit"
-      initialData={null}
-    />
+      <VersionForm mode="edit" initialData={null} />
     </>
-  )
+  );
 }

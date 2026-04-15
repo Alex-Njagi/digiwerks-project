@@ -8,15 +8,11 @@ export default function EditProject() {
 
   return (
     <>
-    {/* Section Header */}
-    <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
-      Update Your Project Today!
-    </Heading>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+        Update Your Project Today!
+      </Heading>
 
-    <ProjectForm 
-      mode = "edit"
-      initialData={project}
-    />
+      <ProjectForm mode="edit" initialData={project} />
     </>
-  )
+  );
 }

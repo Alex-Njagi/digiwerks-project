@@ -28,14 +28,13 @@ export default function ArtistForm({ initialData, mode }) {
     username: initialData?.username || "",
     password: initialData?.password || "",
     bio: initialData?.bio || "",
-    profile_image_url: initialData?.profile_image_url || null, // start as null or existing base64
+    profile_image_url: initialData?.profile_image_url || null
   });
-
-  // Simple change handler: store file objects or values directly
+  
   const handleChange = (field) => (e) => {
     if (field === "profile_image_url") {
       const file = e.target.files[0];
-      setForm({ ...form, profile_image_url: file || null }); // keep the File object
+      setForm({ ...form, profile_image_url: file || null });
     } else {
       setForm({ ...form, [field]: e.target.value });
     }
@@ -72,7 +71,6 @@ export default function ArtistForm({ initialData, mode }) {
       let payload = { artist: { ...form } };
       console.log(payload);
       
-      // Only convert if it's a File
       if (form.profile_image_url instanceof File) {
         payload.artist.profile_image_url = await uploadToCloudinary(form.profile_image_url, "digiwerks");
       }
