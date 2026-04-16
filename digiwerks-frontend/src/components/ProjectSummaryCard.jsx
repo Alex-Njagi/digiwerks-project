@@ -8,6 +8,13 @@ import {
   HStack,
   Collapse,
   Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  Image,
+  Center
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "../utils/formatDate";
@@ -17,6 +24,7 @@ import { useState } from "react";
 function ProjectSummaryCard({ project, protectedMode }) {
   const navigate = useNavigate();
   const [showImage, setShowImage] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Box
@@ -30,7 +38,6 @@ function ProjectSummaryCard({ project, protectedMode }) {
       mt={6}
     >
       <VStack spacing={4} align="stretch">
-        {/* Project Title */}
         <Heading textAlign="center">{project.title}</Heading>
 
         <HStack justify="center">
@@ -47,7 +54,6 @@ function ProjectSummaryCard({ project, protectedMode }) {
           </Link>
         </HStack>
 
-        {/* Description + Status */}
         <VStack spacing={2}>
           <Text textAlign="center" color="gray.600">
             {project.description}
@@ -56,16 +62,8 @@ function ProjectSummaryCard({ project, protectedMode }) {
           <Text>
             <b>Status:</b> {project.status}
           </Text>
-
-          {/* {project.status === "Complete" ?
-            <HStack>
-              <Text fontWeight="bold">Completion Date: </Text>
-              <Text>{formatDateTime(project.updated_at)}</Text>
-            </HStack>
-          : null} */}
         </VStack>
 
-        {/* Dates */}
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
             <Text fontWeight="bold">Creation Date: </Text>
@@ -114,12 +112,34 @@ function ProjectSummaryCard({ project, protectedMode }) {
           </Flex>
         )}
 
-        <Box>
+        <Box
+          onClick={() => setIsModalOpen(true)}
+          cursor="pointer"
+          _hover={{ opacity: 0.9, transform: "scale(1.02)" }}
+          transition="0.2s"
+        >
           <Collapse in={showImage} animateOpacity>
             <ProjectCoverImage project={project} />
           </Collapse>
         </Box>
       </VStack>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} size="4xl">
+        <ModalOverlay />
+        <ModalContent bg="transparent" boxShadow="none">
+          <ModalCloseButton color="white" />
+
+          <ModalBody>
+            <Center>
+              <Image
+                src={project.cover_img}
+                maxH="80vh"
+                borderRadius="lg"
+              />
+            </Center>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
