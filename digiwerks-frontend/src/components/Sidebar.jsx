@@ -6,6 +6,7 @@ import {
   DrawerHeader,
   VStack,
   Button,
+  Divider,
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
@@ -57,6 +58,8 @@ function Sidebar({ isOpen, onClose }) {
             <Button variant="ghost" onClick={() => go("/artist/dashboard")}>
               Artist Dashboard
             </Button>
+
+            <Divider mb={-2} borderColor="brand.blue" />
 
             <Button
               bg="brand.pink"

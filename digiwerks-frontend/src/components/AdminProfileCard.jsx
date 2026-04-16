@@ -48,14 +48,24 @@ export default function AdminProfileCard({ admin }) {
             Account and Project Management Dashboard
           </Text>
 
-          <Tag
+          {admin.admin_role === "account_management" ? 
+            <Tag
             alignSelf="flex-center"
             bg="brand.blue"
             color="white"
             margin="2px"
-          >
-            {admin.admin_role}
-          </Tag>
+            >
+              Account Manager
+            </Tag>
+          : <Tag
+            alignSelf="flex-center"
+            bg="brand.blue"
+            color="white"
+            margin="2px"
+            >
+              Content Moderator
+            </Tag>}
+          
         </VStack>
 
         <HStack justify="center" spacing={20} mt={4}>

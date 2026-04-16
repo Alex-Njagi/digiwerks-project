@@ -35,8 +35,8 @@ export default function LandingPage() {
             />
           </Box>
 
-          <Heading textAlign="center" color="brand.pink">
-            "A CREATIVE WORKFLOW ANALYSIS AND TRACKING TOOL"
+          <Heading textAlign="center" color="brand.blue" fontStyle="italic">
+            "A CREATIVE WORKFLOW ANALYSIS AND ORGANISATION TOOL"
           </Heading>
 
           <HStack justify="center" spacing={20} mt={4}>

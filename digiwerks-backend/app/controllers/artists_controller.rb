@@ -1,7 +1,6 @@
 class ArtistsController < UsersController
-    # before_action :authenticate_admin!, only: [:view_accounts]
     skip_before_action :authenticate_artist!, only: [:index, :show, :create, :view_accounts, :show_account]
-    # skip_before_action :verify_authenticity_token
+    before_action :authenticate_user!, only: [:index]
 
     def view_accounts
         artists = Artist.all
@@ -99,6 +98,12 @@ class ArtistsController < UsersController
             :bio,
             :profile_image_url
         )
+    end
+
+    def authenticate_user!
+        unless current_artist || current_admin
+            render json: { error: "You must be logged in to continue" }, status: :unauthorized
+        end
     end
 
 end

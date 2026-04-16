@@ -2,8 +2,8 @@ class ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_artist, only: [:owned_projects, :create]
     before_action :set_project, only: [:show, :update, :destroy]
-    # before_action :authenticate_admin!, only: [:moderation_dashboard]
     skip_before_action :authenticate_artist!, only: [:index]
+    before_action :authenticate_user!, only: [:index]
 
     def moderation_dashboard
         projects = Project.all
@@ -100,6 +100,12 @@ class ProjectsController < ApplicationController
         params.require(:project).permit(
             :title, :description, :status, :cover_img, :start_date, :end_date
         )
+    end
+
+    def authenticate_user!
+        unless current_artist || current_admin
+            render json: { error: "You must be logged in to continue" }, status: :unauthorized
+        end
     end
 
 end

@@ -95,7 +95,6 @@ const ArtistsTable = ({ artists }) => {
           <Tbody>
             {filteredArtists.map((artist) => (
               <Tr key={artist._id}>
-                {/* Username + ID */}
                 <Td>
                   <Text
                     fontWeight="bold"
@@ -112,13 +111,10 @@ const ArtistsTable = ({ artists }) => {
                     ID: {artist._id}
                   </Text>
                 </Td>
-                {/* Email */}
                 <Td>{artist.email}</Td>
-
-                {/* Project count */}
+                
                 <Td>{artist.projects.length}</Td>
 
-                {/* Created date + account age */}
                 <Td>
                   <Text>
                     {new Date(artist.created_at).toLocaleDateString()}
