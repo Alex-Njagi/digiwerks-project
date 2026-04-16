@@ -9,7 +9,7 @@ export default function EditAsset() {
 
   return (
     <>
-      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={7}>
+      <Heading size="lg" mb={2} color="brand.blue" justifySelf="center" p={5}>
         Update your Asset Today!
       </Heading>
 

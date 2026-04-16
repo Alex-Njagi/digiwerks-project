@@ -10,19 +10,28 @@ import {
   Button,
   FormLabel,
 } from "@chakra-ui/react";
-import { useCreateVersion } from "../../hooks/useVersionHooks";
+import {
+  useCreateVersion,
+  useUpdateVersion,
+} from "../../hooks/useVersionHooks";
 import { useNavigate } from "react-router-dom";
 
-export default function VersionForm({ asset, initialData, mode }) {
+export default function VersionForm({ asset, initialData, mode, version }) {
   const {
     submitVersion,
     loading: createLoading,
     error: createError,
   } = useCreateVersion();
+  const {
+    updateVersion,
+    loading: updateLoading,
+    error: updateError,
+  } = useUpdateVersion();
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const assetId = asset._id;
+  const assetId = asset?._id;
+  //   console.log(initialData);
 
   const [form, setForm] = useState({
     version_number: initialData?.version_number || 0,
@@ -73,9 +82,16 @@ export default function VersionForm({ asset, initialData, mode }) {
       if (form.file_url instanceof File) {
         payload.file_url = await uploadToCloudinary(form.file_url, "digiwerks");
       }
-      await submitVersion(assetId, payload);
-      alert("Congrats! Your version is ready for all to see!");
-      navigate(`/project_assets/${assetId}`);
+
+      if (mode === "edit") {
+        await updateVersion(initialData._id, payload);
+        alert("Woohoo! Your version has been successfully updated!");
+        navigate(`/project_assets/${initialData.asset_id}`);
+      } else {
+        await submitVersion(assetId, payload);
+        alert("Congrats! Your version is ready for all to see!");
+        navigate(`/project_assets/${assetId}`);
+      }
     } catch (error) {
       console.error(error);
       alert(`Oops! Something went wrong! Please try again.`);
@@ -121,18 +137,16 @@ export default function VersionForm({ asset, initialData, mode }) {
               onChange={handleChange("change_notes")}
             />
 
-            {mode === "create" ? (
-              <HStack>
-                <FormLabel fontSize="xs" color="brand.blue" mb={-2}>
-                  Version Image
-                </FormLabel>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleChange("file_url")}
-                />
-              </HStack>
-            ) : null}
+            <HStack>
+              <FormLabel fontSize="xs" color="brand.blue" mb={-2}>
+                Version Image
+              </FormLabel>
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={handleChange("file_url")}
+              />
+            </HStack>
           </VStack>
 
           <Flex justify="flex-end" pt={2}>
@@ -142,27 +156,15 @@ export default function VersionForm({ asset, initialData, mode }) {
               color="white"
               _hover={{ bg: "brand.blue" }}
               onClick={handleSubmit}
-              isLoading={submitting || createLoading}
+              isLoading={submitting || createLoading || updateLoading}
               loadingText="Submitting..."
             >
               {mode === "edit" ? "Save Changes" : "Submit"}
             </Button>
 
-            {mode === "edit" ? (
-              <Button
-                marginLeft={5}
-                size="sm"
-                bg="red.400"
-                color="white"
-                _hover={{ bg: "red.500" }}
-              >
-                Delete Version
-              </Button>
-            ) : null}
-
-            {createError && (
+            {(createError || updateError) && (
               <Text color="red.500" fontSize="sm">
-                {createError?.message}
+                {createError?.message || updateError?.message}
               </Text>
             )}
           </Flex>

@@ -91,17 +91,28 @@ export default function VersionWindow({
                   </Text>
                 </Box>
                 {protectedMode === true ? null : (
-                  <Button
+                  <Flex justify="space-between" mt={2}>
+                    <Button
                     size="sm"
                     bg="brand.pink"
                     color="white"
                     _hover={{ bg: "brand.blue" }}
-                    onClick={handleDelete}
-                    isLoading={deleteLoading}
-                    loadingText="Deleting..."
-                  >
-                    Delete Version
-                  </Button>
+                    onClick={() => navigate("/version/edit", { state: { version } })}
+                    >
+                      Edit Version
+                    </Button>
+                    <Button
+                      size="sm"
+                      bg="red.400"
+                      color="white"
+                      _hover={{ bg: "brand.blue" }}
+                      onClick={handleDelete}
+                      isLoading={deleteLoading}
+                      loadingText="Deleting..."
+                    >
+                      Delete Version
+                    </Button>
+                  </Flex>                  
                 )}
                 {deleteError && (
                   <Text color="red.500" fontSize="sm">

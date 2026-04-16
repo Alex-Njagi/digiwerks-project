@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createVersion } from "../services/versionService";
 import { deleteVersion } from "../services/versionService";
+import { updateVersion } from "../services/versionService";
 
 export function useCreateVersion() {
   const [loading, setLoading] = useState(false);
@@ -39,4 +40,24 @@ export function useDeleteVersion() {
   };
 
   return { deleteVersion: remove, loading, error };
+}
+
+export function useUpdateVersion() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const update = async (id, data) => {
+    try {
+      setLoading(true);
+      setError(null);
+      return await updateVersion(id, data);
+    } catch (err) {
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { updateVersion: update, loading, error };
 }
