@@ -11,19 +11,14 @@ function StatItem({ number, label }) {
   );
 }
 
-export default function AssetStats({asset}) {
-  const version_count = asset.asset_versions.length
-  const feedback_count = asset.asset_versions.flatMap(v => v.feedbacks).length
+export default function AssetStats({ asset }) {
+  const version_count = asset.asset_versions.length;
+  const feedback_count = asset.asset_versions.flatMap(
+    (v) => v.feedbacks,
+  ).length;
 
   return (
-    <Flex
-      maxW="900px"
-      mx="auto"
-      mt={6}
-      align="center"
-      justify="center"
-      gap={4}
-    >
+    <Flex maxW="900px" mx="auto" mt={6} align="center" justify="center" gap={4}>
       <StatItem number={version_count} label="Asset Versions" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />

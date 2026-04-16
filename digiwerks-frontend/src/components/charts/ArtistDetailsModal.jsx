@@ -1,10 +1,4 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 import {
   Modal,
@@ -18,57 +12,57 @@ import {
   Text,
   useTheme,
   Heading,
-  Input
+  Input,
 } from "@chakra-ui/react";
 
 const ArtistDetailsModal = ({ artist, isOpen, onClose }) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    if (!artist) return null;
+  if (!artist) return null;
 
-    const getWorkflowStats = (artist) => {
-        let projects = artist.projects.length;
-        let stages = 0;
-        let assets = 0;
-        let versions = 0;
+  const getWorkflowStats = (artist) => {
+    let projects = artist.projects.length;
+    let stages = 0;
+    let assets = 0;
+    let versions = 0;
 
-        artist.projects.forEach((project) => {
-            stages += project.project_stages.length;
+    artist.projects.forEach((project) => {
+      stages += project.project_stages.length;
 
-            project.project_stages.forEach((stage) => {
-            assets += stage.assets.length;
+      project.project_stages.forEach((stage) => {
+        assets += stage.assets.length;
 
-            stage.assets.forEach((asset) => {
-                versions += asset.asset_versions.length;
-            });
-            });
+        stage.assets.forEach((asset) => {
+          versions += asset.asset_versions.length;
         });
+      });
+    });
 
-        return [
-            { name: "Cumulative Projects", value: projects },
-            { name: "Cumulative Project Stages", value: stages },
-            { name: "Cumulative Project Assets", value: assets },
-            { name: "Cumulative Asset Versions", value: versions },
-        ];
-    };
+    return [
+      { name: "Cumulative Projects", value: projects },
+      { name: "Cumulative Project Stages", value: stages },
+      { name: "Cumulative Project Assets", value: assets },
+      { name: "Cumulative Asset Versions", value: versions },
+    ];
+  };
 
-    const data = getWorkflowStats(artist);
+  const data = getWorkflowStats(artist);
 
-    const COLORS = [
+  const COLORS = [
     theme.colors.brand.pink,
     theme.colors.brand.blue,
     theme.colors.brand.pastelPink,
-    "#8884d8"
-    ];
+    "#8884d8",
+  ];
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="4xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>            
-            <Heading size="md" mb={4} color="brand.pink" justifySelf="center">
-                {artist.username}'s Workflow
-            </Heading>
+        <ModalHeader>
+          <Heading size="md" mb={4} color="brand.pink" justifySelf="center">
+            {artist.username}'s Workflow
+          </Heading>
         </ModalHeader>
         <ModalCloseButton />
 
@@ -87,10 +81,7 @@ const ArtistDetailsModal = ({ artist, isOpen, onClose }) => {
                     label
                   >
                     {data.map((entry, index) => (
-                      <Cell
-                        key={index}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -106,9 +97,11 @@ const ArtistDetailsModal = ({ artist, isOpen, onClose }) => {
                   mb={3}
                   p={3}
                   borderRadius="md"
-                //   border={`1px solid ${theme.colors.brand.blue}`}
+                  //   border={`1px solid ${theme.colors.brand.blue}`}
                 >
-                  <Text fontWeight="bold" color={theme.colors.brand.blue}>{item.name}</Text>
+                  <Text fontWeight="bold" color={theme.colors.brand.blue}>
+                    {item.name}
+                  </Text>
                   <Text>{item.value}</Text>
                 </Box>
               ))}
@@ -120,4 +113,4 @@ const ArtistDetailsModal = ({ artist, isOpen, onClose }) => {
   );
 };
 
-export default ArtistDetailsModal
+export default ArtistDetailsModal;

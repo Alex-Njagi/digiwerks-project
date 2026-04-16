@@ -5,7 +5,7 @@ import {
   DrawerContent,
   DrawerHeader,
   VStack,
-  Button
+  Button,
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
@@ -18,12 +18,11 @@ function Sidebar({ isOpen, onClose }) {
   const handleLogout = async () => {
     try {
       await logout();
-      // Optional: clear any frontend state like current artist
-      alert(`Logout successful! We hope to see you again!`)
-      navigate("/artist/login"); // redirect back to login page
+      alert(`Logout successful! We hope to see you again!`);
+      navigate("/artist/login");
     } catch (err) {
       console.error(err);
-      alert(`Oops! Something went wrong!`)
+      alert(`Oops! Something went wrong!`);
     }
   };
 
@@ -43,7 +42,6 @@ function Sidebar({ isOpen, onClose }) {
 
         <DrawerBody>
           <VStack align="stretch" spacing={4} mt={4}>
-
             <Button variant="ghost" onClick={() => go("/browse_projects")}>
               Browse Projects
             </Button>
@@ -65,7 +63,8 @@ function Sidebar({ isOpen, onClose }) {
               color="white"
               _hover={{ bg: "brand.blue" }}
               mt={6}
-              onClick={handleLogout} isLoading={loading}
+              onClick={handleLogout}
+              isLoading={loading}
             >
               Logout
             </Button>
@@ -73,7 +72,6 @@ function Sidebar({ isOpen, onClose }) {
             <Button variant="ghost" onClick={() => go("/admin/dashboard")}>
               Admin Dashboard
             </Button>
-
           </VStack>
         </DrawerBody>
       </DrawerContent>

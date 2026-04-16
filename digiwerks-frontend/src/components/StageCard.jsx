@@ -5,7 +5,7 @@ import {
   Button,
   HStack,
   VStack,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react";
 import AssetCard from "./AssetCard";
 import { useNavigate } from "react-router-dom";
@@ -13,31 +13,33 @@ import { useState } from "react";
 import useDeleteProjectStage from "../hooks/useDeleteStage";
 import { formatDateTime } from "../utils/formatDate";
 
-function StageCard({stage, project, protectedMode}) {
-  // console.log(projectId);  
-  const { deleteStage, loading: deleteLoading, error: deleteError } = useDeleteProjectStage();
+function StageCard({ stage, project, protectedMode }) {
+  // console.log(projectId);
+  const {
+    deleteStage,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteProjectStage();
   // const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
-        "Are you sure you want to delete this stage? This cannot be undone."
+      "Are you sure you want to delete this stage? This cannot be undone.",
     );
     if (!confirmed) return;
     try {
-        await deleteStage(stage._id);
-        alert("Your project stage has been deleted successfully!");
-        window.location.reload()
+      await deleteStage(stage._id);
+      alert("Your project stage has been deleted successfully!");
+      window.location.reload();
     } catch (error) {
-        console.error(error);
-        alert("Failed to delete stage.");
+      console.error(error);
+      alert("Failed to delete stage.");
     }
   };
 
   return (
     <Flex align="flex-start" gap={4} position="relative">
-
-      {/* Diamond marker */}
       <Box
         w="14px"
         h="14px"
@@ -46,9 +48,8 @@ function StageCard({stage, project, protectedMode}) {
         mt="8px"
         position="relative"
         zIndex="2"
-        />
+      />
 
-      {/* Stage content */}
       <Box
         flex="1"
         bg="white"
@@ -59,50 +60,53 @@ function StageCard({stage, project, protectedMode}) {
         boxShadow="md"
       >
         <VStack align="stretch" spacing={3}>
-
-          {/* Date */}
           <Text fontSize="sm" color="gray.500">
             Date: {formatDateTime(stage.created_at)}
           </Text>
 
-          {/* Name + Description */}
-           <Flex align="center" justify="space-between" mb={3}>
-                <Text fontWeight="bold" textAlign="left">
-                <b>Stage {stage.stage_order}:</b> {stage.stage_name} — {stage.description}
-                </Text>        
-                {protectedMode === true ? null : 
-                  <Button
-                    size="sm"
-                    bg="brand.pink"
-                    color="white"
-                    _hover={{ bg: "brand.blue" }}
-                    onClick={() => navigate("/project_asset/create", { state: {stage, project} })}
-                  >
-                      + New Asset
-                  </Button>
-                }                
-            </Flex>
+          <Flex align="center" justify="space-between" mb={3}>
+            <Text fontWeight="bold" textAlign="left">
+              <b>Stage {stage.stage_order}:</b> {stage.stage_name} —{" "}
+              {stage.description}
+            </Text>
+            {protectedMode === true ? null : (
+              <Button
+                size="sm"
+                bg="brand.pink"
+                color="white"
+                _hover={{ bg: "brand.blue" }}
+                onClick={() =>
+                  navigate("/project_asset/create", {
+                    state: { stage, project },
+                  })
+                }
+              >
+                + New Asset
+              </Button>
+            )}
+          </Flex>
 
-          {/* Asset previews */}
           <SimpleGrid minChildWidth="120px" spacing={3}>
-            {stage.assets.map(asset => (
-            <AssetCard
+            {stage.assets.map((asset) => (
+              <AssetCard
                 key={asset._id}
                 asset={asset}
                 projectId={project._id}
                 protectedMode={protectedMode}
-            />
+              />
             ))}
-            </SimpleGrid>
+          </SimpleGrid>
 
-          {protectedMode === true ? null : 
+          {protectedMode === true ? null : (
             <Flex justify="space-between" mt={2}>
               <Button
                 size="sm"
                 bg="brand.pink"
                 color="white"
                 _hover={{ bg: "brand.blue" }}
-                onClick={() => navigate("/project_stage/edit", { state: { stage, project} })}
+                onClick={() =>
+                  navigate("/project_stage/edit", { state: { stage, project } })
+                }
               >
                 Edit Stage
               </Button>
@@ -118,15 +122,13 @@ function StageCard({stage, project, protectedMode}) {
               >
                 Delete Stage
               </Button>
-              {(deleteError) && (
-                  <Text color="red.500" fontSize="sm">
+              {deleteError && (
+                <Text color="red.500" fontSize="sm">
                   {deleteError?.message}
-                  </Text>
-              )} 
-          </Flex>
-          }
-          
-
+                </Text>
+              )}
+            </Flex>
+          )}
         </VStack>
       </Box>
     </Flex>

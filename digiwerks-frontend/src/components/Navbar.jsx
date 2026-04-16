@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Box,
-  IconButton,
-  useDisclosure,
-  Image
-} from "@chakra-ui/react";
-
+import { Flex, Box, IconButton, useDisclosure, Image } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +19,6 @@ function Navbar() {
         top="0"
         zIndex="1000"
       >
-        {/* Hamburger */}
         <IconButton
           icon={<HamburgerIcon />}
           variant="ghost"
@@ -35,7 +27,6 @@ function Navbar() {
           onClick={onOpen}
         />
 
-        {/* Centered Logo */}
         <Box
           display="flex"
           justifyContent="center"
@@ -53,7 +44,6 @@ function Navbar() {
           />
         </Box>
 
-        {/* Spacer to balance layout */}
         <Box w="40px" />
       </Flex>
 

@@ -1,8 +1,4 @@
-import {
-  Box,
-  Heading,
-  useTheme
-} from "@chakra-ui/react";
+import { Box, Heading, useTheme } from "@chakra-ui/react";
 
 import {
   PieChart,
@@ -10,7 +6,7 @@ import {
   Cell,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 
 const AssetTagPieChart = ({ assets }) => {
@@ -30,13 +26,12 @@ const AssetTagPieChart = ({ assets }) => {
     value: assetCounts[key],
   }));
 
-  // 🎨 Use your theme colors
   const COLORS = [
     theme.colors.brand.pink,
     theme.colors.brand.blue,
     theme.colors.brand.pastelPink,
     "#5935fd",
-    "#ff7998"
+    "#ff7998",
   ];
 
   return (

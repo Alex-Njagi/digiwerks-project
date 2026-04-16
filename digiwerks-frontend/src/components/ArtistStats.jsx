@@ -11,16 +11,9 @@ function StatItem({ number, label }) {
   );
 }
 
-function ArtistStats({stats}) {
+function ArtistStats({ stats }) {
   return (
-    <Flex
-      maxW="900px"
-      mx="auto"
-      mt={6}
-      align="center"
-      justify="center"
-      gap={4}
-    >
+    <Flex maxW="900px" mx="auto" mt={6} align="center" justify="center" gap={4}>
       <StatItem number={stats.projects_count} label="Projects" />
 
       <Divider orientation="vertical" height="40px" borderColor="brand.blue" />

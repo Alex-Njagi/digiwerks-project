@@ -1,8 +1,4 @@
-import {
-  Box,
-  Heading,
-  useTheme
-} from "@chakra-ui/react";
+import { Box, Heading, useTheme } from "@chakra-ui/react";
 
 import {
   BarChart,
@@ -11,11 +7,11 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid
+  CartesianGrid,
 } from "recharts";
 
 const AssetCountBarChart = ({ stages }) => {
-  const theme = useTheme();  
+  const theme = useTheme();
 
   const data = stages.map((stage) => ({
     name: stage.stage_name,
@@ -36,12 +32,11 @@ const AssetCountBarChart = ({ stages }) => {
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
-          <CartesianGrid 
-            strokeDasharray="3 3" 
+          <CartesianGrid
+            strokeDasharray="3 3"
             stroke={theme.colors.brand.pastelPink}
           />
 
-          {/* 🔹 X Axis (horizontal now) */}
           <XAxis
             dataKey="name"
             tick={{ fill: theme.colors.brand.blue, fontSize: 12 }}
@@ -50,7 +45,6 @@ const AssetCountBarChart = ({ stages }) => {
             textAnchor="middle"
           />
 
-          {/* 🔹 Y Axis */}
           <YAxis
             tick={{ fill: theme.colors.brand.blue }}
             axisLine={{ stroke: theme.colors.brand.blue }}

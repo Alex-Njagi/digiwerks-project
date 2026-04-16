@@ -1,8 +1,4 @@
-import {
-  Box,
-  Heading,
-  useTheme
-} from "@chakra-ui/react";
+import { Box, Heading, useTheme } from "@chakra-ui/react";
 
 import {
   PieChart,
@@ -10,7 +6,7 @@ import {
   Cell,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 
 const StatusPieChart = ({ projects }) => {
@@ -30,11 +26,10 @@ const StatusPieChart = ({ projects }) => {
     value: statusCounts[key],
   }));
 
-  // 🎨 Use your theme colors
   const COLORS = [
     theme.colors.brand.pink,
     theme.colors.brand.blue,
-    theme.colors.brand.pastelPink
+    theme.colors.brand.pastelPink,
   ];
 
   return (
@@ -45,7 +40,6 @@ const StatusPieChart = ({ projects }) => {
       p={5}
       boxShadow="md"
     >
-      {/* 🔹 Header */}
       <Heading size="md" mb={4} color="brand.blue" justifySelf="center">
         Project Status Distribution
       </Heading>

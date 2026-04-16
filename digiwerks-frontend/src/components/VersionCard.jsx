@@ -1,9 +1,9 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function VersionCard ({version, onClick}) {
+export default function VersionCard({ version, onClick }) {
   // console.log(version);
-  
+
   return (
     <Box
       borderRadius="lg"
@@ -17,17 +17,17 @@ export default function VersionCard ({version, onClick}) {
       _hover={{
         transform: "scale(1.03)",
         borderColor: "brand.blue",
-        boxShadow: "lg"
+        boxShadow: "lg",
       }}
       onClick={onClick}
     >
-
       <Image
         src={version.file_url}
         alt={version.version_number}
         w="100%"
         aspectRatio="1 / 1"
-        objectFit="cover" />
+        objectFit="cover"
+      />
 
       <Box p={3}>
         <Text fontWeight="bold">Version: {version.version_number}</Text>

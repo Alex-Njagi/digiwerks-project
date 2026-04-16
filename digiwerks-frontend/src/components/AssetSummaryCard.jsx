@@ -7,33 +7,37 @@ import {
   VStack,
   HStack,
   Tag,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDeleteAsset } from "../hooks/useAssetHooks";
 
-export default function AssetSummaryCard({asset, protectedMode}) {
+export default function AssetSummaryCard({ asset, protectedMode }) {
   const navigate = useNavigate();
-  const projectTitle = asset.project_stage?.project?.title
-  const artistName = asset.project_stage?.project?.artist?.username 
-  const projectId = asset.project_stage?.project?._id  
-  const artistId = asset.project_stage?.project?.artist?._id   
+  const projectTitle = asset.project_stage?.project?.title;
+  const artistName = asset.project_stage?.project?.artist?.username;
+  const projectId = asset.project_stage?.project?._id;
+  const artistId = asset.project_stage?.project?.artist?._id;
 
-  const assetId = asset._id
-  const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
+  const assetId = asset._id;
+  const {
+    deleteAsset,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteAsset();
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
-        "Are you sure you want to delete this asset? This cannot be undone."
+      "Are you sure you want to delete this asset? This cannot be undone.",
     );
     if (!confirmed) return;
     try {
-        await deleteAsset(assetId);
-        alert("Your asset has been deleted successfully!");
-        navigate(`/projects/${projectId}`)
+      await deleteAsset(assetId);
+      alert("Your asset has been deleted successfully!");
+      navigate(`/projects/${projectId}`);
     } catch (error) {
-        console.error(error);
-        alert("Failed to delete asset.");
+      console.error(error);
+      alert("Failed to delete asset.");
     }
   };
 
@@ -50,13 +54,8 @@ export default function AssetSummaryCard({asset, protectedMode}) {
       mt={6}
     >
       <VStack spacing={4} align="stretch">
+        <Heading textAlign="center">{asset.asset_name}</Heading>
 
-        {/* Project Title */}
-        <Heading textAlign="center">
-          {asset.asset_name}
-        </Heading>
-
-        {/* Description + Status */}
         <VStack spacing={2}>
           <Text textAlign="center" color="gray.600">
             {asset.asset_description}
@@ -67,32 +66,55 @@ export default function AssetSummaryCard({asset, protectedMode}) {
             bg="brand.blue"
             color="white"
             margin="2px"
-            >
-              {asset.asset_tag}
+          >
+            {asset.asset_tag}
           </Tag>
         </VStack>
 
-        {/* Ownership */}
         <HStack justify="center" spacing={20} mt={4}>
           <HStack>
-            <Text fontWeight="bold" color="brand.pink">Owner: </Text>
-            <Link onClick={()=>navigate(`/artists/${artistId}`, { state: {protectedMode: protectedMode} })} color="brand.blue">{artistName}</Link>
+            <Text fontWeight="bold" color="brand.pink">
+              Owner:{" "}
+            </Text>
+            <Link
+              onClick={() =>
+                navigate(`/artists/${artistId}`, {
+                  state: { protectedMode: protectedMode },
+                })
+              }
+              color="brand.blue"
+            >
+              {artistName}
+            </Link>
           </HStack>
 
           <HStack>
-            <Text fontWeight="bold" color="brand.pink">Project: </Text>
-            <Link onClick={()=>navigate(`/projects/${projectId}`, { state: {protectedMode: protectedMode} })} color="brand.blue">{projectTitle}</Link>
+            <Text fontWeight="bold" color="brand.pink">
+              Project:{" "}
+            </Text>
+            <Link
+              onClick={() =>
+                navigate(`/projects/${projectId}`, {
+                  state: { protectedMode: protectedMode },
+                })
+              }
+              color="brand.blue"
+            >
+              {projectTitle}
+            </Link>
           </HStack>
         </HStack>
 
-        {protectedMode === true ? null : 
+        {protectedMode === true ? null : (
           <Flex justify="space-between" mt={2}>
             <Button
               size="sm"
               bg="brand.pink"
               color="white"
               _hover={{ bg: "brand.blue" }}
-              onClick={() => navigate("/project_asset/edit", { state: { asset } })}
+              onClick={() =>
+                navigate("/project_asset/edit", { state: { asset } })
+              }
             >
               Edit Asset
             </Button>
@@ -108,13 +130,13 @@ export default function AssetSummaryCard({asset, protectedMode}) {
             >
               Delete Asset
             </Button>
-            {(deleteError) && (
-                <Text color="red.500" fontSize="sm">
+            {deleteError && (
+              <Text color="red.500" fontSize="sm">
                 {deleteError?.message}
-                </Text>
-            )} 
-        </Flex>
-        }     
+              </Text>
+            )}
+          </Flex>
+        )}
       </VStack>
     </Box>
   );

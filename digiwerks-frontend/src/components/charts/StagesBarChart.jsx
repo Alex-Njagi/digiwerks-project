@@ -1,8 +1,4 @@
-import {
-  Box,
-  Heading,
-  useTheme
-} from "@chakra-ui/react";
+import { Box, Heading, useTheme } from "@chakra-ui/react";
 
 import {
   BarChart,
@@ -11,7 +7,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid
+  CartesianGrid,
 } from "recharts";
 
 const StagesBarChart = ({ projects }) => {
@@ -30,19 +26,17 @@ const StagesBarChart = ({ projects }) => {
       p={5}
       boxShadow="md"
     >
-      {/* 🔹 Header */}
       <Heading size="md" mb={4} color="brand.blue" justifySelf="center">
         Project Stage Analysis
       </Heading>
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
-          <CartesianGrid 
-            strokeDasharray="3 3" 
+          <CartesianGrid
+            strokeDasharray="3 3"
             stroke={theme.colors.brand.pastelPink}
           />
 
-          {/* 🔹 X Axis (horizontal now) */}
           <XAxis
             dataKey="name"
             tick={{ fill: theme.colors.brand.blue, fontSize: 12 }}
@@ -51,7 +45,6 @@ const StagesBarChart = ({ projects }) => {
             textAnchor="middle"
           />
 
-          {/* 🔹 Y Axis */}
           <YAxis
             tick={{ fill: theme.colors.brand.blue }}
             axisLine={{ stroke: theme.colors.brand.blue }}

@@ -1,38 +1,37 @@
-import {
-  Box,
-  Text,
-  Tag,
-  VStack,
-  Flex,
-  Button
-} from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom"
+import { Box, Text, Tag, VStack, Flex, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { useDeleteAsset } from "../hooks/useAssetHooks";
 
-export default function AssetCard({projectId, asset, protectedMode}){
+export default function AssetCard({ projectId, asset, protectedMode }) {
   // console.log(projectId);
-  
-  const assetId = asset._id
-  const { deleteAsset, loading: deleteLoading, error: deleteError } = useDeleteAsset();
+
+  const assetId = asset._id;
+  const {
+    deleteAsset,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteAsset();
 
   const openAsset = () => {
-    navigate(`/project_assets/${assetId}`, { state: {protectedMode: protectedMode} });
+    navigate(`/project_assets/${assetId}`, {
+      state: { protectedMode: protectedMode },
+    });
   };
-  
+
   const navigate = useNavigate();
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
-        "Are you sure you want to delete this asset? This cannot be undone."
+      "Are you sure you want to delete this asset? This cannot be undone.",
     );
     if (!confirmed) return;
     try {
-        await deleteAsset(assetId);
-        alert("Your asset has been deleted successfully!");
-        navigate(`/projects/${projectId}`)
+      await deleteAsset(assetId);
+      alert("Your asset has been deleted successfully!");
+      navigate(`/projects/${projectId}`);
     } catch (error) {
-        console.error(error);
-        alert("Failed to delete asset.");
+      console.error(error);
+      alert("Failed to delete asset.");
     }
   };
 
@@ -47,14 +46,13 @@ export default function AssetCard({projectId, asset, protectedMode}){
       _hover={{
         transform: "scale(1.01)",
         borderColor: "brand.blue",
-        boxShadow: "md"
+        boxShadow: "md",
       }}
       transition="0.2s"
       cursor="pointer"
       onClick={openAsset}
     >
       <VStack align="stretch" spacing={2}>
-
         <Text fontWeight="bold" color="brand.pink">
           {asset.asset_name}
         </Text>
@@ -67,36 +65,30 @@ export default function AssetCard({projectId, asset, protectedMode}){
           Versions: <b>{asset.asset_versions.length}</b>
         </Text>
 
-        <Tag
-          alignSelf="flex-start"
-          bg="brand.pink"
-          color="white"
-        >
+        <Tag alignSelf="flex-start" bg="brand.pink" color="white">
           {asset.asset_tag}
         </Tag>
 
-        {protectedMode === true ? null : 
+        {protectedMode === true ? null : (
           <Flex justify="flex-end" mt={2}>
             <Button
-                size="sm"
-                bg="red.400"
-                color="white"
-                _hover={{ bg: "red.500" }}
-                onClick={handleDelete}
-                isLoading={deleteLoading}
-                loadingText="Deleting..."
-              >
-                Delete Asset
-              </Button>
-              {(deleteError) && (
-                  <Text color="red.500" fontSize="sm">
-                  {deleteError?.message}
-                  </Text>
-              )} 
-        </Flex>
-        }
-        
-
+              size="sm"
+              bg="red.400"
+              color="white"
+              _hover={{ bg: "red.500" }}
+              onClick={handleDelete}
+              isLoading={deleteLoading}
+              loadingText="Deleting..."
+            >
+              Delete Asset
+            </Button>
+            {deleteError && (
+              <Text color="red.500" fontSize="sm">
+                {deleteError?.message}
+              </Text>
+            )}
+          </Flex>
+        )}
       </VStack>
     </Box>
   );

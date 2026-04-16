@@ -55,7 +55,7 @@ export default function VersionWindow({
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
       <ModalOverlay />
       <ModalContent bg="white" maxH="90vh">
-      <ModalCloseButton />
+        <ModalCloseButton />
         <ModalBody p={0}>
           <Flex h="90vh">
             <Flex flex="1" bg="black" align="center" justify="center">
@@ -74,7 +74,8 @@ export default function VersionWindow({
                     {assetName}
                   </Heading>
                   <Text fontSize="sm" color="gray.500">
-                    Version Number {version.version_number} - <strong>{formatDateTime(version.created_at)}</strong>
+                    Version Number {version.version_number} — {" "}
+                    <strong>{formatDateTime(version.created_at)}</strong>
                   </Text>
                   <Text fontSize="sm" color="brand.blue">
                     {artistName} — {projectTitle}
